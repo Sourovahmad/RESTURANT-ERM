@@ -1,0 +1,6 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/learkvxh/
+    - /bin/cp -r * $DEPLOYPATH #copy all from root
+   - /bin/cp -r ./public/* $DEPLOYPATH/public_html/

@@ -1,0 +1,126 @@
+
+/* login page css */
+
+
+#fullSection{
+    background: #ecf0f3;
+    height: 100vh;
+    margin: auto;
+    background-position: fixed;
+}
+
+
+.login-register-otp {
+    font-family: 'Lobster',cursive;
+}
+
+
+
+
+#loginForm {
+    border-radius: 50px;
+    width: 450px;
+    margin:auto;
+    background: #ffffff;
+    box-shadow: -8px -8px 16px #ffffff, 8px 8px 16px #cbced1;
+    padding: 50px;
+    background: #ecf0f3;
+    margin-bottom: 30px;
+}
+
+
+#loginForm h1 {
+    color: #009ECE;
+    font-size: 35px;
+    padding-bottom: 15px;
+}
+
+#loginForm div {
+    width: 100%;
+}
+#loginForm .by-two {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+
+#loginForm .item-by-two {
+    width: 45%
+}
+#loginForm .by-three {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+
+#loginForm .item-by-three {
+    width: 30%
+}
+
+#loginForm .by-one-half {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+
+#loginForm .item-by-one-half {
+    width: 70%
+}
+#loginForm .item-by-half {
+    width: 20%
+}
+
+#loginForm input,
+.the-form-section div textarea {
+    background: #ecf0f3;
+    width: 100%;
+    border: none;
+    margin-bottom: 20px;
+    font-size: 15px;
+    padding: 13px 20px;
+    color: #009ECE;
+    border-radius: 25px;
+    box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
+}
+#loginForm select,
+.the-form-section div textarea {
+    background: #ecf0f3;
+    width: 100%;
+    border: none;
+    margin-bottom: 20px;
+    font-size: 15px;
+    padding: 13px 20px;
+    color: black;
+    border-radius: 25px;
+    box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
+}
+input[type='submit'] {
+    background: #009ECE;
+    box-shadow: none;
+    color: green !important;
+    font-weight: bold;
+}
+
+#loginForm input:focus,
+.the-form-section div textarea:focus {
+    outline: none;
+}
+
+@media screen and (max-width: 667px){
+    #loginForm{
+        width: 70%;
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #loginForm {
+        width: 90%;
+        margin: auto;
+        padding: 20px 30px;
+    }
+}
+
