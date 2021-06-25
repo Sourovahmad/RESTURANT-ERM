@@ -1,10 +1,6 @@
 <?php
 
-use App\Http\Controllers\IndexController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\QuestionController;
-use GuzzleHttp\Psr7\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\testController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +19,7 @@ Route::get('/', function () {
 })->name('dashboard');
 
 
-
+Route::get('print',[testController::class,"index"]);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
