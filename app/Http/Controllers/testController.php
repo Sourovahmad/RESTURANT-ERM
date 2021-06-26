@@ -2,22 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Exception;
 use Illuminate\Routing\Controller;
-use Milon\Barcode\DNS1D;
-use Rawilk\Printing\Facades\Printing;
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
 class testController extends Controller
 {
- public function index(){
+ public function index()
+    {
 
 
 
+            $connector = new WindowsPrintConnector("EPSON L380 Series");
 
-        $printers = Printing::printers();
-        return $printers;
+            /* Print a "Hello world" receipt" */
+            $printer = new Printer($connector);
+            $printer -> text("hello my name is khan");
+            $printer->cut();
 
 
+            /* Close printer */
+            $printer -> close();
 
 
 

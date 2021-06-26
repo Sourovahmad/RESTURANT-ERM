@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\testController;
 use Illuminate\Support\Facades\Route;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Mike42\Escpos\Printer;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,14 +19,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 })->name('dashboard');
-
-
-
-
-Route::get('/auth-checker', function(){
-    return "hello this is auth checker";
-
-});
 
 
 
