@@ -19,6 +19,16 @@ Route::get('/', function () {
 })->name('dashboard');
 
 
+
+
+Route::get('/auth-checker', function(){
+    return "hello this is auth checker";
+
+});
+
+
+
+
 Route::get('print',[testController::class,"index"]);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

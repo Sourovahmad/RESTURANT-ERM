@@ -14,8 +14,10 @@
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.0",
+        "milon/barcode": "^8.0",
         "printnode/printnode-php": "^2.0@RC",
         "rawilk/laravel-printing": "^2.0",
+        "simplesoftwareio/simple-qrcode": "~4",
         "smalot/cups-ipp": "^0.5.0"
     },
     "require-dev": {
