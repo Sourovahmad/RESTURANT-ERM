@@ -15,7 +15,8 @@ class PrintersController extends Controller
      */
     public function index()
     {
-        //
+            $printers = printers::orderBy('id', 'DESC')->get();
+            return view('admin.printer.index',compact('printers'));
     }
 
     /**
