@@ -15,8 +15,8 @@ class PrintersController extends Controller
      */
     public function index()
     {
-            $printers = printers::orderBy('id', 'DESC')->get();
-            return view('admin.printer.index',compact('printers'));
+        $printers = printers::orderBy('id', 'DESC')->get();
+        return view('admin.printer.index',compact('printers'));
     }
 
     /**
@@ -37,7 +37,17 @@ class PrintersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => "required",
+            'description' => "required",
+        ]);
+
+        printers::create($request->only([
+            'name',
+            'description'
+        ]));
+
+        return back()->withSuccess("Printer Added Successfully");
     }
 
     /**

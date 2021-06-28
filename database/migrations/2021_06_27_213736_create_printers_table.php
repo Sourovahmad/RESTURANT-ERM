@@ -15,8 +15,9 @@ class CreatePrintersTable extends Migration
     {
         Schema::create('printers', function (Blueprint $table) {
             $table->id();
-            $table->string('printer_for');
-            $table->string('printer_name');
+            $table->string('name');
+            $table->string('description');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
