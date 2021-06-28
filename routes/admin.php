@@ -5,6 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DailyQuoteController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PrintersController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubAdminController;
@@ -33,6 +34,9 @@ Route::get('/', function () {
     return view('admin.index');
 })->name('dashboard');
 
+
+
+Route::resource('printers', PrintersController::class);
 
 });
 

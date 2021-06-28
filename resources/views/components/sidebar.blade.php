@@ -16,7 +16,17 @@
 
 
     <hr class="sidebar-divider m-1 p-0 ">
-  
+
+@if(Auth::user()->role_id == 1)
+
+
+    <li class="nav-item active ">
+        <a class="nav-link p-3 " href="{{ route('admin.printers.index') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>{{__('Printers')}}</span></a>
+    </li>
+
+@endif
 
 
 

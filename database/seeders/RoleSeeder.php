@@ -21,15 +21,11 @@ class RoleSeeder extends Seeder
 
             ],
             [
-                'role' => "Group Admin",
+                'role' => "Admin",
 
             ],
             [
-                'role' => "Group Sub Admin",
-
-            ],
-            [
-                'role' => "Student",
+                'role' => "Sub Admin",
 
             ],
 
@@ -44,16 +40,16 @@ class RoleSeeder extends Seeder
             ],
             [
                 'name' => "Group Admin",
-                'email' => "groupadmin@gmail.com",
+                'email' => "admin@gmail.com",
                 'role_id' => 2,
-                'password' => Hash::make(12345678),
+                'password' => Hash::make(1234),
 
             ],
             [
                 'name' => "Group Sub Admin",
-                'email' => "groupsubadmin@gmail.com",
+                'email' => "subadmin@gmail.com",
                 'role_id' => 3,
-                'password' => Hash::make(12345678),
+                'password' => Hash::make(1234),
             ],
 
         ]);
