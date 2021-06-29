@@ -71,8 +71,6 @@
                                             @endforeach
 
 
-                                            
-
                             </select>
 
                         </div>
@@ -157,7 +155,7 @@
 
 
 
-                                    <button title="Delete" class="dataDeleteItemClass btn btn-danger btn-sm" onclick="if(confirm('are you sure to delete this')){
+                                    <button title="Delete" class="dataDeleteItemClass btn btn-danger btn-sm" onclick="if(confirm('are you sure To remove his Role?')){
             document.getElementById('delete-form-{{ $user->id }}').submit();
            }
            else{

@@ -28,6 +28,10 @@ class RoleSeeder extends Seeder
                 'role' => "Sub Admin",
 
             ],
+            [
+                'role' => "Guest",
+
+            ],
 
         ]);
         DB::table('users')->insert([
@@ -49,6 +53,13 @@ class RoleSeeder extends Seeder
                 'name' => "Group Sub Admin",
                 'email' => "subadmin@gmail.com",
                 'role_id' => 3,
+                'password' => Hash::make(1234),
+            ],
+
+            [
+                'name' => "Guest",
+                'email' => "Guest@gmail.com",
+                'role_id' => 4,
                 'password' => Hash::make(1234),
             ],
 

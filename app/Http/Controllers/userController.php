@@ -40,7 +40,16 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::find($request->user);
+        $role = role::find($request->role);
+            if($user->role_id != $role->id){
+                $user->role_id = $role->id;
+                $user->save();
+                return back()->withSuccess('Role Has been Given To User');
+            }else{
+                return back()->withErrors('User Already Have this Role');
+            }
+
     }
 
     /**
@@ -85,7 +94,25 @@ class userController extends Controller
      */
     public function destroy($id)
     {
-        return $id;
+        $user = User::find($id);
+        if($user->id != 1){
+
+            if($user->role_id != 4){
+
+                $user->role_id = 4;
+                $user->save();
+                return back()->withSuccess('User Role Has been Removed');
+
+            }else{
+                return back()->withErrors('The User already in Pending Mode');
+            }
+        }else{
+            return back()->withErrors('Super Admin Undeletable');
+        }
+
+
+
+
     }
 
 
