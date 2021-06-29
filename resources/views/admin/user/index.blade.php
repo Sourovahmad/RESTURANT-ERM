@@ -64,9 +64,11 @@
                             <select class="form-control" name="role" id="role" required>
                                 <option selected hidden disabled>Select Role</option>
 
-                                @foreach ($roles as $role)
-                                <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                @endforeach
+                                            @foreach ($roles as $role )
+
+                                            <option value="{{ $role->id }}"> {{ $role->role }}</option>
+
+                                            @endforeach
 
                             </select>
 
@@ -237,13 +239,6 @@
                             </select>
 
                         </div>
-
-
-
-
-
-
-
                         <div class="form-group">
 
                             <input type="submit" id="submit-button" value="Submit" class="form-control btn btn-success">
