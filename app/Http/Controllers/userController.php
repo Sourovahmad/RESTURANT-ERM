@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 class userController extends Controller
 {
@@ -14,7 +17,10 @@ class userController extends Controller
      */
     public function index()
     {
-        //
+         $users = User::all();
+         $roles = role::all();
+         return view('admin.user.index',compact('users','roles'));
+
     }
 
     /**
@@ -81,5 +87,10 @@ class userController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function removerole($id)
+    {
+        return $id;
     }
 }

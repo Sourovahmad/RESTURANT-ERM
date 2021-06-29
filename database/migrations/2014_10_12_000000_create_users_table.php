@@ -25,11 +25,9 @@ class CreateUsersTable extends Migration
             $table->text('profile_photo_path')->nullable();
             $table->softDeletes();
             $table->timestamps();
-
-
-            $table->foreign('role_id')->references('id')->on('roles');
         });
     }
+
 
     /**
      * Reverse the migrations.

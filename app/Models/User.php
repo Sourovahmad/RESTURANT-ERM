@@ -65,12 +65,6 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\role','role_id','id');
     }
 
-    public function student_info(){
-        return $this->hasOne('App\Models\studentInfo','user_id','id')->withTrashed();
-    }
 
-    public function payment(){
-        return $this->hasOne('App\Models\payment','user_id','id');
-    }
-    
+
 }

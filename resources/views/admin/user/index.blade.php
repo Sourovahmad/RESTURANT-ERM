@@ -27,43 +27,50 @@
     @endif
 
 
-
-
     <!-- Begin Page Content -->
     <div class="collapse" id="createNewForm">
         <div class="card mb-4 shadow">
 
             <div class="card-header py-3  bg-techbot-dark">
                 <nav class="navbar navbar-dark">
-                    <a class="navbar-brand text-light"> Add Printer </a>
+                    <a class="navbar-brand text-light"> Add User </a>
                 </nav>
             </div>
 
 
 
             <div class="card-body">
-                <form method="POST" action="{{ route('admin.printers.store') }}">
+                <form method="POST" action="{{ route('admin.users.store') }}">
                     @csrf
                     <div class="row">
 
 
-                        <div class="col-12 col-md-6 form-group">
-                            <label for="name">Printer Name <span class="text-danger">*</span> (must be exact same as your
-                                connected printer) </label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                        <div class="col-12 col-md-4 form-group">
+                            <label for="user">Select User <span class="text-danger">*</span> </label>
+                            <select class="form-controll" name="user" id="user" required>
+                                <option selected hidden disabled>Select User</option>
+
+                                @foreach ($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endforeach
+
+                            </select>
+
                         </div>
 
 
+                        <div class="col-12 col-md-4 form-group">
+                            <label for="role">Select Role <span class="text-danger">*</span> </label>
+                            <select class="form-controll" name="role" id="role" required>
+                                <option selected hidden disabled>Select Role</option>
 
+                                @foreach ($roles as $role)
+                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                @endforeach
 
-                        <div class="col-12 col-md-6 form-group">
-                            <label for="description">Printer Descripton<span class="text-danger">*</span> </label>
-                            <input type="text" class="form-control" id="description" name="description" required>
+                            </select>
+
                         </div>
-
-
-
-
 
                         <div class="col-12">
                             <button type="submit" class="btn bg-techbot-dark mt-3">Submit</button>
@@ -74,17 +81,12 @@
         </div>
     </div>
 
-
-
-
-
-
     <div class="card shadow mb-4">
 
         <div class="card-header py-3 bg-techbot-dark">
             <nav class="navbar">
 
-                <div class="navbar-brand"> Printers </div>
+                <div class="navbar-brand"> Users </div>
                 <div id="AddNewFormButtonDiv"><button type="button" class="btn btn-success btn-lg" id="AddNewFormButton"
                         data-toggle="collapse" data-target="#createNewForm" aria-expanded="false"
                         aria-controls="collapseExample"><i class="fas fa-plus" id="PlusButton"></i></button></div>
@@ -102,8 +104,7 @@
 
                             <th> #</th>
                             <th>Name</th>
-                            <th>description</th>
-                            <th>Connections</th>
+                            <th>Role</th>
                             <th>Action</th>
 
                         </tr>
@@ -113,8 +114,7 @@
 
                             <th> #</th>
                             <th>Name</th>
-                            <th>description</th>
-                            <th>Connections</th>
+                            <th>Role</th>
                             <th>Action</th>
 
                         </tr>
@@ -124,27 +124,26 @@
                     <tbody>
 
 
-                        @foreach ($printers as $printer)
+                        @foreach ($users as $user)
 
 
                             <tr class="data-row">
 
                                 <td>{{ $loop->iteration }}</td>
-                                <td class="word-break name">{{ $printer->name }}</td>
-                                <td class="word-break description">{{ $printer->description }}</td>
-                                <td class="word-break connection">work on conncetions</td>
+                                <td class="word-break name">{{ $user->name }}</td>
+                                <td class="word-break description">{{ $user->role }}</td>
 
 
 
                                 <td class="align-middle">
                                     <button title="Edit" type="button" class="dataEditItemClass btn btn-success btn-sm"
-                                        id="data-edit-button" data-item-id={{ $printer->id }}> <i class="fa fa-edit"
+                                        id="data-edit-button" data-item-id={{ $user->id }}> <i class="fa fa-edit"
                                             aria-hidden="false">
                                         </i></button>
 
 
-                                    <form method="POST" action="{{ route('admin.printers.destroy', $printer->id) }}"
-                                        id="delete-form-{{ $printer->id }}" style="display:none; ">
+                                    <form method="POST" action="{{ route('admin.users.removerole', $user->id) }}"
+                                        id="delete-form-{{ $user->id }}" style="display:none; ">
                                         {{ csrf_field() }}
                                         {{ method_field('delete') }}
                                     </form>
@@ -207,17 +206,33 @@
 
 
                         <div class="form-group">
-                            <label class="col-form-label" for="modal-update-name">Name <span
-                                    style="color: red">*</span></label>
-                            <input type="text" name="name" class="form-control" id="modal-update-name" required>
+                            <label class="col-form-label" for="modal-update-name">User <span style="color: red">*</span></label>
+                            <select class="form-controll" name="role" id="role" required>
+                                <option id="selecUserOption" selected hidden disabled>Select user</option>
+
+
+
+
+                            </select>
+
                         </div>
 
+
+
                         <div class="form-group">
-                            <label class="col-form-label" for="modal-update-description">Description <span
-                                    style="color: red">*</span> </label>
-                            <input type="text" name="description" class="form-control" id="modal-update-description"
-                                required>
+                            <label class="col-form-label" for="modal-update-name">role <span style="color: red">*</span></label>
+                            <select class="form-controll" name="role" id="role" required>
+                                <option id="selectRoleOption" selected hidden disabled>Select user</option>
+
+
+
+
+                            </select>
+
                         </div>
+
+
+
 
 
 
@@ -245,7 +260,8 @@
         $(document).ready(function() {
 
 
-            var printers = @json($printers)
+            var users = @json($users)
+            var roles = @json($roles)
 
             $('#dataTable').DataTable({
                 dom: 'lBfrtip',
