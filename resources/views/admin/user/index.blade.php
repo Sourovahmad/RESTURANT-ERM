@@ -47,7 +47,7 @@
 
                         <div class="col-12 col-md-4 form-group">
                             <label for="user">Select User <span class="text-danger">*</span> </label>
-                            <select class="form-controll" name="user" id="user" required>
+                            <select class="form-control" name="user" id="user" required>
                                 <option selected hidden disabled>Select User</option>
 
                                 @foreach ($users as $user)
@@ -61,7 +61,7 @@
 
                         <div class="col-12 col-md-4 form-group">
                             <label for="role">Select Role <span class="text-danger">*</span> </label>
-                            <select class="form-controll" name="role" id="role" required>
+                            <select class="form-control" name="role" id="role" required>
                                 <option selected hidden disabled>Select Role</option>
 
                                 @foreach ($roles as $role)
@@ -126,12 +126,14 @@
 
                         @foreach ($users as $user)
 
+                            @if ($user->id != 1)
+
 
                             <tr class="data-row">
 
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="word-break name">{{ $user->name }}</td>
-                                <td class="word-break description">{{ $user->role }}</td>
+                                <td class="word-break description">{{ $user->role->role }}</td>
 
 
 
@@ -142,7 +144,7 @@
                                         </i></button>
 
 
-                                    <form method="POST" action="{{ route('admin.users.removerole', $user->id) }}"
+                                    <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}"
                                         id="delete-form-{{ $user->id }}" style="display:none; ">
                                         {{ csrf_field() }}
                                         {{ method_field('delete') }}
@@ -151,7 +153,7 @@
 
 
                                     <button title="Delete" class="dataDeleteItemClass btn btn-danger btn-sm" onclick="if(confirm('are you sure to delete this')){
-            document.getElementById('delete-form-{{ $printer->id }}').submit();
+            document.getElementById('delete-form-{{ $user->id }}').submit();
            }
            else{
             event.preventDefault();
@@ -167,8 +169,9 @@
 
                                 </td>
 
-                            </tr>
 
+                            </tr>
+                            @endif
 
                         @endforeach
 
@@ -207,10 +210,12 @@
 
                         <div class="form-group">
                             <label class="col-form-label" for="modal-update-name">User <span style="color: red">*</span></label>
-                            <select class="form-controll" name="role" id="role" required>
+                            <select class="form-control" name="role" id="role" required>
                                 <option id="selecUserOption" selected hidden disabled>Select user</option>
 
-
+                                @foreach ($users as $user)
+                                <option id="userSelector" value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endforeach
 
 
                             </select>
@@ -221,10 +226,12 @@
 
                         <div class="form-group">
                             <label class="col-form-label" for="modal-update-name">role <span style="color: red">*</span></label>
-                            <select class="form-controll" name="role" id="role" required>
-                                <option id="selectRoleOption" selected hidden disabled>Select user</option>
+                            <select class="form-control" name="role" id="role" required>
+                                <option id="selectRoleOption" class="form-controll" selected hidden disabled>Select user</option>
 
-
+                                @foreach ($roles as $role)
+                                <option id="roleSelector" value="{{ $user->id }}">{{ $user->name }}</option>
+                                @endforeach
 
 
                             </select>
@@ -257,11 +264,15 @@
 
 
     <script>
-        $(document).ready(function() {
 
 
-            var users = @json($users)
-            var roles = @json($roles)
+        $(document).ready(function () {
+
+            var users = @json($users);
+            var roles = @json($roles);
+
+
+            console.log(users[0].role_id)
 
             $('#dataTable').DataTable({
                 dom: 'lBfrtip',
@@ -271,10 +282,13 @@
             });
 
 
-            $(document).on('click', "#data-edit-button", function() {
+
+
+
+            $(document).on('click', "#data-edit-button", function () {
 
                 $(this).addClass(
-                    'edit-item-trigger-clicked');
+                'edit-item-trigger-clicked');
                 var options = {
                     'backdrop': 'static'
                 };
@@ -283,7 +297,7 @@
 
 
             // on modal show
-            $('#data-edit-modal').on('show.bs.modal', function() {
+            $('#data-edit-modal').on('show.bs.modal', function () {
 
                 var el = $(".edit-item-trigger-clicked");
 
@@ -291,36 +305,39 @@
                 var itemId = el.data('item-id');
 
 
-                $.each(printers, function(key) {
-                    if (printers[key].id == itemId) {
-                        $("#modal-update-name").val(printers[key].name);
-                        $("#modal-update-description").val(printers[key].description);
-                        return false;
+
+
+                $.each(users, function (key) {
+
+                    if(users[key].id == users[key].role_id){
+                        $("#userSelector").attr('selected');
                     }
 
-
-                });
+                 });
 
                 $("#modal-update-hidden-id").val(itemId);
 
 
-                var link = "{{ route('admin.printers.index') }}";
-                var action = link.trim() + '/' + itemId;
-                $("#data-edit-form").attr('action', action);
+                var link = "{{route('admin.users.index')}}";
+                 var action =  link.trim() + '/' + itemId;
+                 $("#data-edit-form").attr('action', action);
             });
 
 
 
             // on modal hide
-            $('#data-edit-modal').on('hide.bs.modal', function() {
+            $('#data-edit-modal').on('hide.bs.modal', function () {
                 $('.edit-item-trigger-clicked').removeClass('edit-item-trigger-clicked')
                 $("#edit-form").trigger("reset");
             });
 
 
 
+
         });
+
     </script>
+
 
 
 

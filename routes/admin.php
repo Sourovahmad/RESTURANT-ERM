@@ -24,7 +24,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
         })->name('dashboard');
 
         Route::resource('printers', PrintersController::class);
-        Route::resource('', userController::class);
+        Route::resource('users', userController::class);
 
 
 });
