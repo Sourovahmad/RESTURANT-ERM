@@ -81,7 +81,17 @@ class PrintersController extends Controller
      */
     public function update(Request $request, printers $printers)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        $printers = printers::find($request->id);
+        $printers->update($request->only([
+            'name',
+            'description'
+        ]));
+        return back()->withSuccess('Printer Has been Updated');
     }
 
     /**
@@ -90,8 +100,11 @@ class PrintersController extends Controller
      * @param  \App\Models\printers  $printers
      * @return \Illuminate\Http\Response
      */
-    public function destroy(printers $printers)
+    public function destroy($id)
     {
-        //
+    //    find the connections and connect them with a default printers
+           $printers = printers::find($id);
+           $printers->delete();
+         return back()->withErrors("Printer Deleted Successfully");
     }
 }

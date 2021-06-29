@@ -2,7 +2,9 @@
 <ul class="navbar-nav    sidebar sidebar-dark accordion bg-techbot-dark " id="accordionSidebar">
 
     <!-- Divider -->
-
+@php
+    $auth = Auth::user();
+@endphp
 
 
 
@@ -17,7 +19,7 @@
 
     <hr class="sidebar-divider m-1 p-0 ">
 
-@if(Auth::user()->role_id == 1)
+@if($auth->role_id == 1 || $auth->role_id == 2)
 
 
     <li class="nav-item active ">

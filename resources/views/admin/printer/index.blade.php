@@ -48,7 +48,8 @@
 
 
                         <div class="col-12 col-md-6 form-group">
-                            <label for="name">Printer Name <span class="text-danger">*</span> (must be exact same as your connected printer) </label>
+                            <label for="name">Printer Name <span class="text-danger">*</span> (must be exact same as your
+                                connected printer) </label>
                             <input type="text" class="form-control" id="name" name="name" required>
                         </div>
 
@@ -135,7 +136,7 @@
 
 
 
-                           <td class="align-middle">
+                                <td class="align-middle">
                                     <button title="Edit" type="button" class="dataEditItemClass btn btn-success btn-sm"
                                         id="data-edit-button" data-item-id={{ $printer->id }}> <i class="fa fa-edit"
                                             aria-hidden="false">
@@ -151,12 +152,12 @@
 
 
                                     <button title="Delete" class="dataDeleteItemClass btn btn-danger btn-sm" onclick="if(confirm('are you sure to delete this')){
-        document.getElementById('delete-form-{{ $printer->id }}').submit();
-       }
-       else{
-        event.preventDefault();
-       }
-       " class="btn btn-danger btn-sm btn-raised">
+            document.getElementById('delete-form-{{ $printer->id }}').submit();
+           }
+           else{
+            event.preventDefault();
+           }
+           " class="btn btn-danger btn-sm btn-raised">
                                         <i class="fa fa-trash" aria-hidden="false">
 
                                         </i>
@@ -170,7 +171,7 @@
                             </tr>
 
 
-                     @endforeach
+                        @endforeach
 
                     </tbody>
 
@@ -206,13 +207,16 @@
 
 
                         <div class="form-group">
-                            <label class="col-form-label" for="modal-update-name">Name <span style="color: red">*</span></label>
+                            <label class="col-form-label" for="modal-update-name">Name <span
+                                    style="color: red">*</span></label>
                             <input type="text" name="name" class="form-control" id="modal-update-name" required>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-form-label" for="modal-update-description">Printer Name <span style="color: red">*</span> </label>
-                            <input type="text" name="description" class="form-control" id="modal-update-description" required>
+                            <label class="col-form-label" for="modal-update-description">Description <span
+                                    style="color: red">*</span> </label>
+                            <input type="text" name="description" class="form-control" id="modal-update-description"
+                                required>
                         </div>
 
 
@@ -241,7 +245,7 @@
         $(document).ready(function() {
 
 
-
+            var printers = @json($printers)
 
             $('#dataTable').DataTable({
                 dom: 'lBfrtip',
@@ -251,12 +255,51 @@
             });
 
 
+            $(document).on('click', "#data-edit-button", function() {
+
+                $(this).addClass(
+                    'edit-item-trigger-clicked');
+                var options = {
+                    'backdrop': 'static'
+                };
+                $('#data-edit-modal').modal(options)
+            });
+
+
+            // on modal show
+            $('#data-edit-modal').on('show.bs.modal', function() {
+
+                var el = $(".edit-item-trigger-clicked");
+
+                // get the data
+                var itemId = el.data('item-id');
+
+
+                $.each(printers, function(key) {
+                    if (printers[key].id == itemId) {
+                        $("#modal-update-name").val(printers[key].name);
+                        $("#modal-update-description").val(printers[key].description);
+                        return false;
+                    }
+
+
+                });
+
+                $("#modal-update-hidden-id").val(itemId);
+
+
+                var link = "{{ route('admin.printers.index') }}";
+                var action = link.trim() + '/' + itemId;
+                $("#data-edit-form").attr('action', action);
+            });
 
 
 
-
-
-
+            // on modal hide
+            $('#data-edit-modal').on('hide.bs.modal', function() {
+                $('.edit-item-trigger-clicked').removeClass('edit-item-trigger-clicked')
+                $("#edit-form").trigger("reset");
+            });
 
 
 
