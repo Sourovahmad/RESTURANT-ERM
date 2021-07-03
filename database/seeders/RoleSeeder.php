@@ -28,6 +28,10 @@ class RoleSeeder extends Seeder
                 'role' => "waiter ",
 
             ],
+            [
+                'role' => "customer ",
+
+            ],
 
         ]);
         DB::table('users')->insert([
@@ -40,7 +44,7 @@ class RoleSeeder extends Seeder
             ],
             [
                 'name' => "Manager",
-                'email' => ",manager@gmail.com",
+                'email' => "manager@gmail.com",
                 'role_id' => 2,
                 'password' => Hash::make(1234),
 
