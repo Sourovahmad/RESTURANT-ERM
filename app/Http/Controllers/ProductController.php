@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\product;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -14,7 +15,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = DB::table('products')
+        ->where('active_status','1')
+        ->orderBy('id', 'desc')->get();
+        return view('admin.products.index');
     }
 
     /**
@@ -35,7 +39,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
