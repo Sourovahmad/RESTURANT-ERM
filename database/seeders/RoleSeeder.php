@@ -21,15 +21,11 @@ class RoleSeeder extends Seeder
 
             ],
             [
-                'role' => "Admin",
+                'role' => "manager",
 
             ],
             [
-                'role' => "Sub Admin",
-
-            ],
-            [
-                'role' => "Guest",
+                'role' => "waiter ",
 
             ],
 
@@ -43,22 +39,21 @@ class RoleSeeder extends Seeder
 
             ],
             [
-                'name' => "Group Admin",
-                'email' => "admin@gmail.com",
+                'name' => "Manager",
+                'email' => ",manager@gmail.com",
                 'role_id' => 2,
                 'password' => Hash::make(1234),
 
             ],
             [
-                'name' => "Group Sub Admin",
-                'email' => "subadmin@gmail.com",
+                'name' => "Waiter",
+                'email' => "waiter@gmail.com",
                 'role_id' => 3,
                 'password' => Hash::make(1234),
             ],
-
             [
-                'name' => "Guest",
-                'email' => "Guest@gmail.com",
+                'name' => "customer",
+                'email' => "customer@gmail.com",
                 'role_id' => 4,
                 'password' => Hash::make(1234),
             ],
