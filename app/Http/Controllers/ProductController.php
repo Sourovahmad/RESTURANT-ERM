@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\category;
 use App\Models\product;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -18,7 +20,10 @@ class ProductController extends Controller
         $products = DB::table('products')
         ->where('active_status','1')
         ->orderBy('id', 'desc')->get();
-        return view('admin.products.index');
+        $categories = category::all();
+
+        return view('admin.products.index',compact('products','categories'));
+
     }
 
     /**
@@ -39,7 +44,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-
+        return $request;
     }
 
     /**
