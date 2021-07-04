@@ -31,62 +31,32 @@
 
 
 
-
     <!-- Begin Page Content -->
     <div class="collapse" id="createNewForm">
         <div class="card mb-4 shadow">
 
             <div class="card-header py-3  bg-techbot-dark">
                 <nav class="navbar navbar-dark">
-                    <a class="navbar-brand text-light"> Add Product </a>
+                    <a class="navbar-brand text-light"> Add Category </a>
                 </nav>
             </div>
 
             <div class="card-body">
-                <form method="POST" action="{{ route('admin.products.store') }}">
+                <form method="POST" action="{{ route('admin.categories.store') }}">
                     @csrf
                     <div class="row">
 
-                        <div class="col-12 col-md- form-group">
-                            <label for="name">Enter Name <span class="text-danger">*</span> </label>
-                            <input type="text" name="name" id="name" required>
+                        <div class="col-12 col-md-4 form-group">
+                            <label for="name">Category Name <span class="text-danger">*</span> </label>
+                            <input type="text" class="form-control" name="name" id="name" required>
 
                         </div>
-
 
                         <div class="col-12 col-md-4 form-group">
-                            <label for="category">Select Category <span class="text-danger">*</span> </label>
-                            <select class="form-control" name="category" id="category" required>
-                                <option selected hidden disabled>Select Category</option>
-
-                                            @foreach ($categories as $category )
-
-                                            <option value="{{ $category->id }}"> {{ $category->name }}</option>
-
-                                            @endforeach
-
-                            </select>
+                            <label for="description">Description  </label>
+                            <input type="text" class="form-control" name="description" id="description" required>
 
                         </div>
-
-
-
-                        <div class="col-12 col-md-4 form-group">
-                            <label for="category">Status </label>
-                            <select class="form-control" name="category" id="category">
-                                <option value="1" selected >Active</option>
-                                <option value="2" selected >Deactive</option>
-                            </select>
-
-                        </div>
-
-
-                        <div class="col-12 col-md-4 form-group">
-                            <label for="category">Upload Image <span class="text-danger">*</span></label>
-                            <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg" />
-                        </div>
-
-
 
                         <div class="col-12">
                             <button type="submit" class="btn bg-techbot-dark mt-3">Submit</button>
@@ -119,9 +89,9 @@
                         <tr>
 
                             <th> #</th>
-                            <th>Product Name</th>
-                            <th>Category</th>
-                            <th>Status</th>
+                            <th>Category Name</th>
+                            <th>Description</th>
+                            <th>Total Products</th>
                             <th>Action</th>
 
                         </tr>
@@ -130,9 +100,9 @@
                         <tr>
 
                             <th> #</th>
-                            <th>Product Name</th>
-                            <th>Category</th>
-                            <th>Status</th>
+                            <th>Category Name</th>
+                            <th>Description</th>
+                            <th>Total Products</th>
                             <th>Action</th>
 
                         </tr>
@@ -142,30 +112,27 @@
                     <tbody>
 
 
-                        @foreach ($products as $product)
+                        @foreach ($categories as $category)
                             <tr class="data-row">
 
                                 <td>{{ $loop->iteration }}</td>
-                                <td class="word-break name">{{ $product->name }}</td>
-                                <td class="word-break category">{{ $product->category->name }}</td>
-                                <td class="word-break status">
+                                <td class="word-break name">{{ $category->name }}</td>
+                                <td class="word-break description">
 
-                                        @if ($product->status == 1)
-                                        <span class="text-success text-center font-weight-bold">Active</span>
-                                        @else
-                                        <span class="text-danger text-center font-weight-bold">Deactivated</span>
-                                        @endif
-                                </td>
+                                    <textarea rows="3" class="form-control">  {{ $category->description }}</textarea>
+
+                                  </td>
+                                <td class="word-break count"> {{ $category->products()->count()}}</td>
 
                                 <td class="align-middle">
                                     <button title="Edit" type="button" class="dataEditItemClass btn btn-success btn-sm"
-                                        id="data-edit-button" data-item-id={{ $product->id }}> <i class="fa fa-edit"
+                                        id="data-edit-button" data-item-id={{ $category->id }}> <i class="fa fa-edit"
                                             aria-hidden="false">
                                         </i></button>
 
 
-                                    <form method="POST" action="{{ route('admin.products.destroy', $product->id) }}"
-                                        id="delete-form-{{ $product->id }}" style="display:none; ">
+                                    <form method="POST" action="{{ route('admin.categories.destroy', $category->id) }}"
+                                        id="delete-form-{{ $category->id }}" style="display:none; ">
                                         {{ csrf_field() }}
                                         {{ method_field('delete') }}
                                     </form>
@@ -173,7 +140,7 @@
 
 
                                     <button title="Delete" class="dataDeleteItemClass btn btn-danger btn-sm" onclick="if(confirm('Are you sure Want To Delete ?')){
-            document.getElementById('delete-form-{{ $product->id }}').submit();
+            document.getElementById('delete-form-{{ $category->id }}').submit();
            }
            else{
             event.preventDefault();
@@ -212,7 +179,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-techbot-dark">
                     <h5 class="modal-title " id="edit-modal-label ">
-                        Edit Product</h5>
+                        Edit Category</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span>
                     </button>
@@ -229,7 +196,16 @@
 
                         <div class="form-group">
                             <label class="col-form-label" for="modal-update-name">Name <span style="color: red">*</span></label>
-                            <input type="text" name="name" id="modal-update-name" required>
+                            <input type="text" name="name" id="modal-update-name" class="form-control" required>
+
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <label class="col-form-label" for="modal-update-description">Description <span style="color: red">*</span></label>
+                            <textarea name="description" id="modal-update-description" rows="3" class="form-control"></textarea>
 
                         </div>
 
@@ -258,11 +234,7 @@
 
         $(document).ready(function () {
 
-            var users = @json($users);
-            var roles = @json($roles);
-
-
-            console.log(users[0].role_id)
+            var categories = @json($categories);
 
             $('#dataTable').DataTable({
                 dom: 'lBfrtip',
@@ -270,8 +242,6 @@
                     'copy', 'csv', 'excel', 'pdf', 'print'
                 ]
             });
-
-
 
 
 
@@ -294,21 +264,16 @@
                 // get the data
                 var itemId = el.data('item-id');
 
+                $.each(categories, function (key) {
 
-
-
-                $.each(users, function (key) {
-
-                    if(users[key].id == users[key].role_id){
-                        $("#userSelector").attr('selected');
+                    if(categories[key].id == itemId){
+                        $("#modal-update-name").val(categories[key].name);
+                        $("#modal-update-description").val(categories[key].description.trim());
                     }
 
                  });
 
-                $("#modal-update-hidden-id").val(itemId);
-
-
-                var link = "{{route('admin.users.index')}}";
+                var link = "{{route('admin.categories.index')}}";
                  var action =  link.trim() + '/' + itemId;
                  $("#data-edit-form").attr('action', action);
             });

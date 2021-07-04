@@ -2,9 +2,9 @@
 <ul class="navbar-nav    sidebar sidebar-dark accordion bg-techbot-dark " id="accordionSidebar">
 
     <!-- Divider -->
-@php
-    $auth = Auth::user();
-@endphp
+    @php
+        $auth = Auth::user();
+    @endphp
 
 
 
@@ -12,69 +12,67 @@
     <li class="nav-item active ">
         <a class="nav-link p-3 " href="{{ route('admin.dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>{{__('Home')}}</span></a>
+            <span>{{ __('Home') }}</span></a>
     </li>
-    {{-- *********************************Super Admin**********************************  --}}
-
-
-
-@if($auth->role_id == 1)
-
-<hr class="sidebar-divider m-1 p-0 ">
-
-    <li class="nav-item active ">
-        <a class="nav-link p-3 " href="{{ route('admin.users.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>{{__('Dashboard')}}</span></a>
-    </li>
-
-@endif
+    {{-- *********************************Super Admin********************************** --}}
 
 
 
 
 
+    @if ($auth->role_id == 1 || $auth->role_id == 2)
 
-@if($auth->role_id == 1 || $auth->role_id == 2)
+        <hr class="sidebar-divider m-1 p-0 ">
 
-<hr class="sidebar-divider m-1 p-0 ">
+        <li class="nav-item active ">
+            <a class="nav-link p-3 " href="{{ route('admin.printers.index') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>{{ __('Printers') }}</span></a>
+        </li>
 
-    <li class="nav-item active ">
-        <a class="nav-link p-3 " href="{{ route('admin.printers.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>{{__('Printers')}}</span></a>
-    </li>
-
-@endif
-
+    @endif
 
 
 
-@if($auth->role_id == 1 || $auth->role_id == 2)
 
-<hr class="sidebar-divider m-1 p-0 ">
+    @if ($auth->role_id == 1 || $auth->role_id == 2)
 
-    <li class="nav-item active ">
-        <a class="nav-link p-3 " href="{{ route('admin.products.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>{{__('Product')}}</span></a>
-    </li>
+        <hr class="sidebar-divider m-1 p-0 ">
 
-@endif
+        <li class="nav-item active ">
+            <a class="nav-link p-3 " href="{{ route('admin.products.index') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>{{ __('Product') }}</span></a>
+        </li>
+
+    @endif
 
 
 
-@if($auth->role_id == 1 || $auth->role_id == 2)
+    @if ($auth->role_id == 1 || $auth->role_id == 2)
 
-<hr class="sidebar-divider m-1 p-0 ">
+        <hr class="sidebar-divider m-1 p-0 ">
 
-    <li class="nav-item active ">
-        <a class="nav-link p-3 " href="{{ route('admin.categories.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>{{__('Category')}}</span></a>
-    </li>
+        <li class="nav-item active ">
+            <a class="nav-link p-3 " href="{{ route('admin.categories.index') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>{{ __('Category') }}</span></a>
+        </li>
 
-@endif
+    @endif
+
+
+    @if ($auth->role_id == 1)
+
+        <hr class="sidebar-divider m-1 p-0 ">
+
+        <li class="nav-item active ">
+            <a class="nav-link p-3 " href="{{ route('admin.users.index') }}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>{{ __('Users') }}</span></a>
+        </li>
+
+    @endif
 
 
 

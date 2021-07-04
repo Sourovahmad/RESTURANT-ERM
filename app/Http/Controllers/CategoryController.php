@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\category;
+use App\Models\product;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -16,8 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = DB::table('categories')
-        ->orderBy('id', 'desc')->get();
+        $categories = category::orderBy('id','desc')->get();
         return view('admin.category.index',compact('categories'));
     }
 
@@ -39,7 +39,17 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=> 'required',
+            'description' => 'required'
+        ]);
+
+        category::create($request->only([
+            'name',
+            'description'
+        ]));
+
+        return back()->withSuccess('Category Has been Created');
     }
 
     /**
@@ -71,9 +81,17 @@ class CategoryController extends Controller
      * @param  \App\Models\category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, category $category)
+    public function update(Request $request, $id)
     {
-        //
+
+        $request->validate([
+            'name'=> 'required',
+            'description' => 'required'
+        ]);
+
+        $category = category::find($id);
+        $category->update($request->all());
+        return back()->withSuccess('Category Has been Created');
     }
 
     /**
@@ -82,8 +100,33 @@ class CategoryController extends Controller
      * @param  \App\Models\category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(category $category)
+    public function destroy($id)
     {
-        //
+        if($id != 1){
+
+            $products = product::where('category_id',$id)->get();
+            $categories = category::all();
+            $defaultCategory = $categories->find(1);
+            $requestedCategory = $categories->find($id);
+
+            if($products->count() == 0 ){
+
+                    $requestedCategory->delete();
+                    return back()->withSuccess('Category Deleted');
+
+            }else{
+                foreach($products as $product){
+                    $product->category_id = 1;
+                    $product->save();
+                    $requestedCategory->delete();
+                    return back()->withSuccess('Category Deleted and Products Category Set as'. $defaultCategory);
+            }
+
+            }
+
+
+        }else{
+            return back()->withErrors('Only Edit Allow for Defalut Category');
+        }
     }
 }
