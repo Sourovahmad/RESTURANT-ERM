@@ -41,7 +41,6 @@ class CategoryController extends Controller
     {
         $request->validate([
             'name'=> 'required',
-            'description' => 'required'
         ]);
 
         category::create($request->only([
@@ -86,7 +85,6 @@ class CategoryController extends Controller
 
         $request->validate([
             'name'=> 'required',
-            'description' => 'required'
         ]);
 
         $category = category::find($id);
@@ -119,7 +117,7 @@ class CategoryController extends Controller
                     $product->category_id = 1;
                     $product->save();
                     $requestedCategory->delete();
-                    return back()->withSuccess('Category Deleted and Products Category Set as'. $defaultCategory);
+                    return back()->withSuccess('Category Deleted and Products Category Set as '. $defaultCategory->name);
             }
 
             }

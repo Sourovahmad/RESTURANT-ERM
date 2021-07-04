@@ -54,7 +54,7 @@
 
                         <div class="col-12 col-md-4 form-group">
                             <label for="description">Description  </label>
-                            <input type="text" class="form-control" name="description" id="description" required>
+                            <input type="text" class="form-control" name="description" id="description">
 
                         </div>
 
