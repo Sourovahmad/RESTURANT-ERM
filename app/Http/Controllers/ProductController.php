@@ -17,8 +17,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = DB::table('products')
-        ->where('active_status','1')
+
+        $products = product::where('active_status','1')
         ->orderBy('id', 'desc')->get();
         $categories = category::all();
 
