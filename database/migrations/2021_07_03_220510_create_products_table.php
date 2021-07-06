@@ -18,7 +18,6 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->unsignedBigInteger('active_status')->default(1);
             $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('image_id');
             $table->string('image_small');
             $table->string('image_big');
             $table->softDeletes();

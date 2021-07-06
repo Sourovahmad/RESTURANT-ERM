@@ -47,9 +47,9 @@
                     @csrf
                     <div class="row">
 
-                        <div class="col-12 col-md- form-group">
+                        <div class="col-12 col-md-4 form-group">
                             <label for="name">Enter Name <span class="text-danger">*</span> </label>
-                            <input type="text" name="name" id="name" required>
+                            <input type="text" class="form-control" name="name" id="name" required>
 
                         </div>
 
@@ -75,7 +75,7 @@
                             <label for="category">Status </label>
                             <select class="form-control" name="category" id="category">
                                 <option value="1" selected >Active</option>
-                                <option value="2" selected >Deactive</option>
+                                <option value="2" >Deactive</option>
                             </select>
 
                         </div>
@@ -150,7 +150,7 @@
                                 <td class="word-break category">{{ $product->category->name }}</td>
                                 <td class="word-break status">
 
-                                        @if ($product->status == 1)
+                                        @if ($product->active_status == 1)
                                         <span class="text-success text-center font-weight-bold">Active</span>
                                         @else
                                         <span class="text-danger text-center font-weight-bold">Deactivated</span>
@@ -229,7 +229,7 @@
 
                         <div class="form-group">
                             <label class="col-form-label" for="modal-update-name">Name <span style="color: red">*</span></label>
-                            <input type="text" name="name" id="modal-update-name" required>
+                            <input type="text" class="form-control" name="name" id="modal-update-name" required>
 
                         </div>
 
@@ -258,11 +258,8 @@
 
         $(document).ready(function () {
 
-            var users = @json($users);
-            var roles = @json($roles);
+            var products = @json($products);
 
-
-            console.log(users[0].role_id)
 
             $('#dataTable').DataTable({
                 dom: 'lBfrtip',
@@ -297,18 +294,19 @@
 
 
 
-                $.each(users, function (key) {
+                $.each(products, function (key) {
 
-                    if(users[key].id == users[key].role_id){
-                        $("#userSelector").attr('selected');
+                    if(products[key].id == itemId){
+                        $("#modal-update-hidden-id").val(products[key].id);
+                        $("#modal-update-name").val(products[key].name);
+                        return false;
                     }
 
                  });
 
-                $("#modal-update-hidden-id").val(itemId);
 
 
-                var link = "{{route('admin.users.index')}}";
+                var link = "{{route('admin.products.index')}}";
                  var action =  link.trim() + '/' + itemId;
                  $("#data-edit-form").attr('action', action);
             });
