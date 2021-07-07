@@ -43,7 +43,7 @@
             </div>
 
             <div class="card-body">
-                <form method="POST" action="{{ route('admin.products.store') }}">
+                <form method="POST" action="{{ route('admin.products.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
 
@@ -73,7 +73,7 @@
 
                         <div class="col-12 col-md-4 form-group">
                             <label for="category">Status </label>
-                            <select class="form-control" name="category" id="category">
+                            <select class="form-control" name="status" id="category">
                                 <option value="1" selected >Active</option>
                                 <option value="2" >Deactive</option>
                             </select>
@@ -82,7 +82,7 @@
 
 
                         <div class="col-12 col-md-4 form-group">
-                            <label for="category">Upload Image <span class="text-danger">*</span></label>
+                            <label for="category">Upload Image </label>
                             <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg" />
                         </div>
 

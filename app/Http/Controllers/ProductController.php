@@ -44,7 +44,12 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+       product::create([
+           'name' => $request->name,
+           'category_id' => $request->category,
+           'active_status' => $request->status,
+       ]);
+
     }
 
     /**
