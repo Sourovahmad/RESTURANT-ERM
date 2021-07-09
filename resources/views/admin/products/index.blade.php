@@ -122,6 +122,7 @@
                             <th>Product Name</th>
                             <th>Category</th>
                             <th>Status</th>
+                            <th>Image</th>
                             <th>Action</th>
 
                         </tr>
@@ -133,6 +134,7 @@
                             <th>Product Name</th>
                             <th>Category</th>
                             <th>Status</th>
+                            <th>Image</th>
                             <th>Action</th>
 
                         </tr>
@@ -155,6 +157,21 @@
                                         @else
                                         <span class="text-danger text-center font-weight-bold">Deactivated</span>
                                         @endif
+                                </td>
+
+                                <td class="word-break image">
+
+
+                                    @empty($product->image_small)
+                                    <p> No Image</p>
+                                    @endempty
+
+                                     <img src="{{ asset($product->image_small) }}" alt="">
+
+
+
+
+
                                 </td>
 
                                 <td class="align-middle">

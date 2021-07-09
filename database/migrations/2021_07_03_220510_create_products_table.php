@@ -18,8 +18,8 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->unsignedBigInteger('active_status')->default(1);
             $table->unsignedBigInteger('category_id');
-            $table->string('image_small');
-            $table->string('image_big');
+            $table->string('image_small')->nullable();
+            $table->string('image_big')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

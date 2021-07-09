@@ -44,20 +44,38 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+
         $product = new product;
         $product->name = $request->name;
         $product->category_id = $request->category;
-        $product->status_id = $request->status;
+        $product->active_status = $request->status;
 
         if(!is_null($request->image)){
+
+            $request->validate([
+
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
+            ]);
 
             $fileNameFull = time() . '.full.' . $request->image->getClientOriginalName();
             $fileNameSmall = time() . '.small.' . $request->image->getClientOriginalName();
 
-            $picture = Photo::make($request->image)->fit(800, 600)->save('images/'.$fileNameFull);
-            $picture = Photo::make($request->image)->fit(300, 225)->save('images/'.$fileNameSmall);
+            $imageSize = getimagesize($request->image);
+
+            $pictureSmall = Photo::make($request->image)->fit($imageSize[0], $imageSize[1])->save('images/'.$fileNameFull);
+            $pictureBig = Photo::make($request->image)->fit(135, 100)->save('images/'.$fileNameSmall);
+
+
+            $product->image_small = 'images/'.$fileNameSmall;
+            $product->image_big = 'images/'.$fileNameFull;
         }
-        
+
+
+        $product->save();
+        return back()->withSuccess('Product Has Been Save');
+
+
     }
 
     /**
