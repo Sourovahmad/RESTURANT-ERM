@@ -72,8 +72,8 @@
 
 
                         <div class="col-12 col-md-4 form-group">
-                            <label for="category">Status </label>
-                            <select class="form-control" name="status" id="category">
+                            <label for="status">Status </label>
+                            <select class="form-control" name="status" id="status">
                                 <option value="1" selected >Active</option>
                                 <option value="2" >Deactive</option>
                             </select>
@@ -250,6 +250,23 @@
 
                         </div>
 
+                        <div class="form-group">
+                            <label class="col-form-label" for="modal-update-category">Category <span style="color: red">*</span></label>
+                            <input type="text" class="form-control" name="category" id="modal-update-category" required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="status">Stutus</label>
+
+                            <select name="status" class="form-control" id="status">
+                                <option id="statusValueOne" value="1">Active</option>
+                                <option id="statusValueTwo" value="2">Deactiated</option>
+                            </select>
+                        </div>
+
 
                         <div class="form-group">
 
@@ -316,6 +333,14 @@
                     if(products[key].id == itemId){
                         $("#modal-update-hidden-id").val(products[key].id);
                         $("#modal-update-name").val(products[key].name);
+                        $("#modal-update-category").val(products[key].category);
+
+                        if (products[key].active_status == 1){
+                            $("#statusValueOne").attr("selected","selected");
+                        } else {
+                            $("#statusValueTwo").attr("selected","selected");
+                        }
+
                         return false;
                     }
 

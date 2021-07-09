@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\productValidation;
 use App\Models\category;
 use App\Models\product;
 use Illuminate\Http\Request;
@@ -18,8 +19,7 @@ class ProductController extends Controller
     public function index()
     {
 
-        $products = product::where('active_status','1')
-        ->orderBy('id', 'desc')->get();
+        $products = product::orderBy('id', 'desc')->get();
         $categories = category::all();
 
         return view('admin.products.index',compact('products','categories'));
@@ -42,7 +42,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(productValidation $request)
     {
 
         $product = new product;
@@ -50,30 +50,30 @@ class ProductController extends Controller
         $product->category_id = $request->category;
         $product->active_status = $request->status;
 
-        if(!is_null($request->image)){
+        // if(!is_null($request->image)){
 
-            $request->validate([
+        //     $request->validate([
 
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //         'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
-            ]);
+        //     ]);
 
-            $fileNameFull = time() . '.full.' . $request->image->getClientOriginalName();
-            $fileNameSmall = time() . '.small.' . $request->image->getClientOriginalName();
+        //     $fileNameFull = time() . '.full.' . $request->image->getClientOriginalName();
+        //     $fileNameSmall = time() . '.small.' . $request->image->getClientOriginalName();
 
-            $imageSize = getimagesize($request->image);
+        //     $imageSize = getimagesize($request->image);
 
-            $pictureSmall = Photo::make($request->image)->fit($imageSize[0], $imageSize[1])->save('images/'.$fileNameFull);
-            $pictureBig = Photo::make($request->image)->fit(135, 100)->save('images/'.$fileNameSmall);
+        //     $pictureSmall = Photo::make($request->image)->fit($imageSize[0], $imageSize[1])->save('images/'.$fileNameFull);
+        //     $pictureBig = Photo::make($request->image)->fit(135, 100)->save('images/'.$fileNameSmall);
 
 
-            $product->image_small = 'images/'.$fileNameSmall;
-            $product->image_big = 'images/'.$fileNameFull;
-        }
+        //     $product->image_small = 'images/'.$fileNameSmall;
+        //     $product->image_big = 'images/'.$fileNameFull;
+        // }
 
 
         $product->save();
-        return back()->withSuccess('Product Has Been Save');
+        return back()->withSuccess('Product Has Been Saved');
 
 
     }
