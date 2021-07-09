@@ -6,7 +6,7 @@ use App\Models\category;
 use App\Models\product;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
+use Intervention\Image\ImageManagerStatic as Photo;
 
 class ProductController extends Controller
 {
@@ -44,12 +44,20 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-       product::create([
-           'name' => $request->name,
-           'category_id' => $request->category,
-           'active_status' => $request->status,
-       ]);
+        $product = new product;
+        $product->name = $request->name;
+        $product->category_id = $request->category;
+        $product->status_id = $request->status;
 
+        if(!is_null($request->image)){
+
+            $fileNameFull = time() . '.full.' . $request->image->getClientOriginalName();
+            $fileNameSmall = time() . '.small.' . $request->image->getClientOriginalName();
+
+            $picture = Photo::make($request->image)->fit(800, 600)->save('images/'.$fileNameFull);
+            $picture = Photo::make($request->image)->fit(300, 225)->save('images/'.$fileNameSmall);
+        }
+        
     }
 
     /**
