@@ -145,6 +145,10 @@
 
 
                         @foreach ($products as $product)
+
+                        @php
+                            $curentCategoryId = $product->category_id;
+                        @endphp
                             <tr class="data-row">
 
                                 <td>{{ $loop->iteration }}</td>
@@ -167,9 +171,6 @@
                                     @endempty
 
                                      <img src="{{ asset($product->image_small) }}" alt="">
-
-
-
 
 
                                 </td>
@@ -221,7 +222,6 @@
 
 
 
-
     <!-- Attachment Modal -->
     <div class="modal fade" id="data-edit-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-label"
         aria-hidden="true">
@@ -252,7 +252,19 @@
 
                         <div class="form-group">
                             <label class="col-form-label" for="modal-update-category">Category <span style="color: red">*</span></label>
-                            <input type="text" class="form-control" name="category" id="modal-update-category" required>
+                          <select name="category" class="form-control" id="modal-update-category">
+                            @php
+                                $defaultCategoryId = 1;
+                            @endphp
+                            <div id="placeForCategory">
+
+                                @foreach ($categories as $category )
+                                <option value="{{ $category->id }}"></option>
+                                @endforeach
+
+                            </div>
+
+                          </select>
 
                         </div>
 
@@ -273,9 +285,6 @@
                             <input type="submit" id="submit-button" value="Submit" class="form-control btn btn-success">
                         </div>
 
-
-
-
                     </form>
                 </div>
 
@@ -293,6 +302,7 @@
         $(document).ready(function () {
 
             var products = @json($products);
+            var categories = @json($categories);
 
 
             $('#dataTable').DataTable({
@@ -340,6 +350,15 @@
                         } else {
                             $("#statusValueTwo").attr("selected","selected");
                         }
+
+
+                        var html = "";
+                            html += "@foreach($categories as $category)";
+                            html += "<option value='{{ $category->id }}'> </option>";
+                            html += "@endforeach";
+
+                        $("#placeForCategory").html(html);
+
 
                         return false;
                     }
