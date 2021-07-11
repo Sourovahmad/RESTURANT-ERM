@@ -49,7 +49,7 @@
 
                         <div class="col-12 col-md-6 form-group">
                             <label for="name">Printer Name <span class="text-danger">*</span> (must be exact same as your
-                                connected printer) </label>
+                                connected printer name) </label>
                             <input type="text" class="form-control" id="name" name="name" required>
                         </div>
 
@@ -57,8 +57,8 @@
 
 
                         <div class="col-12 col-md-6 form-group">
-                            <label for="description">Printer Descripton<span class="text-danger">*</span> </label>
-                            <input type="text" class="form-control" id="description" name="description" required>
+                            <label for="description">Printer Descripton</label>
+                            <input type="text" class="form-control" id="description" name="description" >
                         </div>
 
 

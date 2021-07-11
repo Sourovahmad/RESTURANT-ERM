@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePrintersTable extends Migration
+class CreateTablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreatePrintersTable extends Migration
      */
     public function up()
     {
-        Schema::create('printers', function (Blueprint $table) {
+        Schema::create('tables', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ class CreatePrintersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('printers');
+        Schema::dropIfExists('tables');
     }
 }
