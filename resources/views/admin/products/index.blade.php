@@ -72,8 +72,8 @@
 
 
                         <div class="col-12 col-md-4 form-group">
-                            <label for="status">Status </label>
-                            <select class="form-control" name="status" id="status">
+                            <label for="add_status">Status </label>
+                            <select class="form-control" name="status" id="add_status">
                                 <option value="1" selected >Active</option>
                                 <option value="2" >Deactive</option>
                             </select>
@@ -253,16 +253,8 @@
                         <div class="form-group">
                             <label class="col-form-label" for="modal-update-category">Category <span style="color: red">*</span></label>
                           <select name="category" class="form-control" id="modal-update-category">
-                            @php
-                                $defaultCategoryId = 1;
-                            @endphp
-                            <div id="placeForCategory">
 
-                                @foreach ($categories as $category )
-                                <option value="{{ $category->id }}"></option>
-                                @endforeach
 
-                            </div>
 
                           </select>
 
@@ -292,7 +284,6 @@
         </div>
     </div>
     <!-- /Attachment Modal -->
-
 
 
 
@@ -351,13 +342,20 @@
                             $("#statusValueTwo").attr("selected","selected");
                         }
 
-
                         var html = "";
-                            html += "@foreach($categories as $category)";
-                            html += "<option value='{{ $category->id }}'> </option>";
-                            html += "@endforeach";
 
-                        $("#placeForCategory").html(html);
+                        $.each(categories, function(k){
+
+                            if (categories[k].id ==  products[key].category_id){
+
+                                    html += '<option value="' +categories[k].id + '"selected>' + categories[k].name + '</option>'
+                                } else {
+                                   html += '<option value="' +categories[k].id + '"> '+ categories[k].name + '</option>'
+                                }
+                        })
+
+
+                        $("#modal-update-category").html(html);
 
 
                         return false;
