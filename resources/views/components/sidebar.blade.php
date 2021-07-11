@@ -76,6 +76,20 @@
 
 
 
+    @if ($auth->role_id == 1 || $auth->role_id == 2)
+
+    <hr class="sidebar-divider m-1 p-0 ">
+
+    <li class="nav-item active ">
+        <a class="nav-link p-3 " href="{{ route('admin.tables.index') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>{{ __('Table') }}</span></a>
+    </li>
+
+@endif
+
+
+
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center  d-none d-md-inline">
