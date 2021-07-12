@@ -124,7 +124,7 @@
                                 <td class="align-middle">
 
 
-                                    <button title="print" type="button" class="printerbuttonClass btn btn-warning btn-sm"
+                                    <button title="print" type="button" class="printerbuttonClass btn btn-warning btn-sm printer-option-button"
                                     id="printer-option-button" data-item-id={{ $table->id }}> <i class="fa fa-print"
                                         aria-hidden="false">
                                     </i></button>
@@ -327,7 +327,7 @@
 
             // printer modal option start from here
 
-            $('#printer-option-button').click(function(){
+            $('.printer-option-button').click(function(){
 
                 $(this).addClass(
                 'edit-item-trigger-clicked-for-printer');
