@@ -14,11 +14,9 @@
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>{{ __('Home') }}</span></a>
     </li>
+
+
     {{-- *********************************Super Admin********************************** --}}
-
-
-
-
 
     @if ($auth->role_id == 1 || $auth->role_id == 2)
 

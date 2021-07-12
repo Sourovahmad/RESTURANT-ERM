@@ -32,7 +32,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
         Route::resource('categories', CategoryController::class);
         Route::resource('tables', TableController::class);
 
-
+    Route::post('tables/{id}',[TableController::class,'show'])->name('tableShow');
 
 });
 

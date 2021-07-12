@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\table;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class TableController extends Controller
 {
@@ -14,7 +15,8 @@ class TableController extends Controller
      */
     public function index()
     {
-        //
+        $tables = table::orderby('id','desc')->get();
+        return view('admin.table.index',compact('tables'));
     }
 
     /**
@@ -44,9 +46,9 @@ class TableController extends Controller
      * @param  \App\Models\table  $table
      * @return \Illuminate\Http\Response
      */
-    public function show(table $table)
+    public function show($id)
     {
-        //
+        return $id;
     }
 
     /**
