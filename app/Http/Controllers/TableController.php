@@ -46,9 +46,9 @@ class TableController extends Controller
      * @param  \App\Models\table  $table
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
-        return $id;
+       
     }
 
     /**

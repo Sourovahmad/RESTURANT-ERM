@@ -187,6 +187,7 @@
                 <div class="modal-body">
 
                     <form id="formforPrinterInput" method="POST" action="" >
+                        @csrf
                         <label for="input-for-printer-input-quantity" >Enter how many you want to Print</label>
                         <input type="number" class="form-control" name="printqantity" id="input-for-printer-input-quantity" placeholder="Enter a number" required>
 
@@ -275,9 +276,6 @@
             });
 
 
-
-
-
             $(document).on('click', "#data-edit-button", function () {
 
                 $(this).addClass(
@@ -342,7 +340,11 @@
 
                 var el = $(".edit-item-trigger-clicked-for-printer");
                 var itemId = el.data('item-id');
-                     alert(itemId);
+
+
+                var link = "{{route('admin.dashboard')}}";
+                var action =  link.trim() + '/tables/' + itemId;
+                 $("#formforPrinterInput  ").attr('action', action);
 
 
                 })
