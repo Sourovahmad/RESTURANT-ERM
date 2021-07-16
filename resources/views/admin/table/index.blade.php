@@ -38,7 +38,7 @@
             </div>
 
             <div class="card-body">
-                <form method="POST" action="#">
+                <form method="POST" action="{{ route('admin.tables.store') }}">
                     @csrf
                     <div class="row">
 

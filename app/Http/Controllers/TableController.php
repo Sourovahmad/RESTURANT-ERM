@@ -51,14 +51,22 @@ class TableController extends Controller
         $a = date('Y');
         $b = date('m');
         $c = date('d');
-        $d = date('H');
 
-        $final = $a . $b . $c. $d;
+        $latestInSertedData = table::latest('id')->first();
+
+        if(!is_null($latestInSertedData)){
+         $latestId = $latestInSertedData->id + 1;
+        }else{
+            $latestId = 1;
+        }
+
+        $final = $latestId. $a . $b . $c;
 
         $table-> table_url = route('dashboard'). '/' . 'table-'.$final;
 
         $table->save();
-        return back()->withSuccess('Table Has been Save with Url And QrCode');
+         return back()->withSuccess('Table Has been Save with Url And QrCode');
+
 
     }
 
