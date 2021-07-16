@@ -126,7 +126,8 @@
                                     <textarea  id="" rows="3" class="form-control"> {{ $table->description }}</textarea>
                                 </td>
 
-                                <td> </td>
+                                <td>{{ $table->table_url }} </td>
+                                <td> {!! QrCode::size(80)->generate($table->table_url)    !!} </td>
 
 
                                 <td class="align-middle">

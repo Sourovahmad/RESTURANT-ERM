@@ -49,8 +49,7 @@ class TableController extends Controller
 
 
         $a = date('Y');
-        $b = date('m');
-        $c = date('d');
+        $b = date('i');
 
         $latestInSertedData = table::latest('id')->first();
 
@@ -60,7 +59,7 @@ class TableController extends Controller
             $latestId = 1;
         }
 
-        $final = $latestId. $a . $b . $c;
+        $final = $latestId. $a . $b;
 
         $table-> table_url = route('dashboard'). '/' . 'gotable/'.$final;
 
@@ -118,6 +117,8 @@ class TableController extends Controller
     public function findTheTable($table_id)
     {
 
-        return $table_id;
+        $myid = route('dashboard'). '/'.'gotable'.'/' . $table_id;
+        $requestedTable = table::where('table_url',$myid)->get();
+        return $requestedTable;
     }
 }
