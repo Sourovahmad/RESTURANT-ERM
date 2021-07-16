@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\table;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -16,7 +17,7 @@ class TableController extends Controller
     public function index()
     {
         $tables = table::orderby('id','desc')->get();
-        return view('admin.table.index',compact('tables'));
+        return view('admin.table.index',compact('tables',));
     }
 
     /**
@@ -37,7 +38,28 @@ class TableController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=> 'required'
+        ]);
+
+
+        $table = new table;
+        $table->name = $request->name;
+        $table->description = $request->description;
+
+
+        $a =  date('Y');
+        $b = date('m');
+        $c = date('d');
+        $d = $table->id;
+        
+        $final = $d . $a . $b . $c;
+
+        $table-> table_url = route('dashboard'). '/' . 'table-'.$final;
+
+        $table->save();
+        return back()->withSuccess('Table Has been Save with Url And QrCode');
+
     }
 
     /**
@@ -48,7 +70,7 @@ class TableController extends Controller
      */
     public function show(Request $request,$id)
     {
-       
+
     }
 
     /**

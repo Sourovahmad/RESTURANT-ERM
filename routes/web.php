@@ -16,15 +16,11 @@ use Mike42\Escpos\Printer;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('dashboard');
+
+Route::middleware(['auth:sanctum'])->get('/', function () {
+
+    return view('admin.index');
+    Route::get('print',[testController::class,"index"]);
 
 
-
-
-Route::get('print',[testController::class,"index"]);
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
 })->name('dashboard');

@@ -52,7 +52,7 @@
                         <div class="col-12 col-md-4 form-group">
 
                             <label for="description">Description  </label>
-                            <textarea name="" class="form-control" id="" cols="3"></textarea>
+                            <textarea name="description" class="form-control" id="descriptionForAddnew" cols="3"></textarea>
 
 
                         </div>
@@ -67,6 +67,8 @@
     </div>
 
     <div class="card shadow mb-4">
+
+
 
         <div class="card-header py-3 bg-techbot-dark">
             <nav class="navbar">
@@ -90,6 +92,8 @@
                             <th> #</th>
                             <th>Name</th>
                             <th>Description</th>
+                            <th>Url</th>
+                            <th>QrCode</th>
                             <th>Action</th>
 
                         </tr>
@@ -100,6 +104,8 @@
                             <th> #</th>
                             <th>Name</th>
                             <th>Description</th>
+                            <th>Url</th>
+                            <th>QrCode</th>
                             <th>Action</th>
 
                         </tr>
@@ -115,10 +121,12 @@
                             <tr class="data-row">
 
                                 <td>{{ $loop->iteration }}</td>
-                                <td class="word-break name">{{ $table->name }}</td>
-                                <td class="word-break description">
+                                <td>{{ $table->name }}</td>
+                                <td>
                                     <textarea  id="" rows="3" class="form-control"> {{ $table->description }}</textarea>
                                 </td>
+
+                                <td> </td>
 
 
                                 <td class="align-middle">

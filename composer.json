@@ -19,7 +19,7 @@
         "milon/barcode": "^8.0",
         "printnode/printnode-php": "^2.0@RC",
         "rawilk/laravel-printing": "^2.0",
-        "simplesoftwareio/simple-qrcode": "~4",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "smalot/cups-ipp": "^0.5.0"
     },
     "require-dev": {

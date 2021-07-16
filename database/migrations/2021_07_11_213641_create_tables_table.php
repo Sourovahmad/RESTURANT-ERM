@@ -17,6 +17,7 @@ class CreateTablesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
+            $table->string('table_url');
             $table->timestamps();
         });
     }
