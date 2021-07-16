@@ -37,7 +37,7 @@ class RoleSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'name' => "Super Admin",
-                'email' => "superadmin@gmail.com",
+                'email' => "hello@gmail.com",
                 'role_id' => 1,
                 'password' => Hash::make(1234),
 

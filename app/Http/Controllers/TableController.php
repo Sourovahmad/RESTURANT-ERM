@@ -62,7 +62,7 @@ class TableController extends Controller
 
         $final = $latestId. $a . $b . $c;
 
-        $table-> table_url = route('dashboard'). '/' . 'table-'.$final;
+        $table-> table_url = route('dashboard'). '/' . 'gotable/'.$final;
 
         $table->save();
          return back()->withSuccess('Table Has been Save with Url And QrCode');
@@ -113,5 +113,11 @@ class TableController extends Controller
     public function destroy(table $table)
     {
         //
+    }
+
+    public function findTheTable($table_id)
+    {
+
+        return $table_id;
     }
 }

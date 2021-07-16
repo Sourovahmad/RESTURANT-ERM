@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TableController;
 use App\Http\Controllers\testController;
 use Illuminate\Support\Facades\Route;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
@@ -17,10 +18,13 @@ use Mike42\Escpos\Printer;
 */
 
 
-Route::middleware(['auth:sanctum'])->get('/', function () {
+Route::middleware(['auth:sanctum'])->group(function(){
 
-    return view('admin.index');
-    Route::get('print',[testController::class,"index"]);
+    Route::get('/', function () {
+        return view('admin.index');
+    })->name('dashboard');
 
 
-})->name('dashboard');
+    Route::get('gotable/{table_id}',[TableController::class, 'findTheTable']);
+
+});
