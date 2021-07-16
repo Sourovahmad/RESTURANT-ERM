@@ -48,12 +48,12 @@ class TableController extends Controller
         $table->description = $request->description;
 
 
-        $a =  date('Y');
+        $a = date('Y');
         $b = date('m');
         $c = date('d');
-        $d = $table->id;
-        
-        $final = $d . $a . $b . $c;
+        $d = date('H');
+
+        $final = $a . $b . $c. $d;
 
         $table-> table_url = route('dashboard'). '/' . 'table-'.$final;
 
