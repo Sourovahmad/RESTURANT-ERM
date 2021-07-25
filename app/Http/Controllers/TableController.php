@@ -66,7 +66,6 @@ class TableController extends Controller
         $table->save();
          return back()->withSuccess('Table Has been Save with Url And QrCode');
 
-
     }
 
     /**
