@@ -197,8 +197,24 @@
 
                     <form id="formforPrinterInput" method="POST" action="" >
                         @csrf
-                        <label for="input-for-printer-input-quantity" >Enter how many you want to Print</label>
-                        <input type="number" class="form-control" name="printqantity" id="input-for-printer-input-quantity" placeholder="Enter a number" required>
+
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-6">
+
+                                <label for="input-for-printer-input-quantity" >Quantity to Print</label>
+                                <input type="number" class="form-control" name="quantity" id="input-for-printer-input-quantity" placeholder="Enter a number" required>
+
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <label for="input-for-printer-input-size">Size</label>
+                                <select class="form-control" name="size" id="input-for-printer-input-size" required>
+                                    <option value="150">Small</option>
+                                    <option selected value="200">Normal</option>
+                                    <option value="230">Large</option>
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <input type="submit" id="submit-button-printer" value="Submit" class="form-control btn btn-success mt-4">

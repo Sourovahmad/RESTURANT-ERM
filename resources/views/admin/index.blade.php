@@ -4,7 +4,7 @@
 
 <p> hello this is admin</p>
 
-{!! QrCode::size(120)->generate('codingdriver.com'); !!}
+{!! QrCode::size(200)->generate('sourovahamd.netlify.app'); !!}
 
 
 @endsection

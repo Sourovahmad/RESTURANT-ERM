@@ -77,7 +77,10 @@ class TableController extends Controller
      */
     public function show(Request $request,$id)
     {
-
+        $tableForPrint = table::find($id);
+        $quantity = $request->quantity;
+        $size = $request->size;
+        return view('admin.table.qrcode',compact('tableForPrint','quantity','size'));
     }
 
     /**
@@ -116,9 +119,8 @@ class TableController extends Controller
 
     public function findTheTable($table_id)
     {
-
         $myid = route('dashboard'). '/'.'gotable'.'/' . $table_id;
-        $requestedTable = table::where('table_url',$myid)->get();
+        $requestedTable = table::where('table_url',$myid)->firstOrFail();
         return $requestedTable;
     }
 }
