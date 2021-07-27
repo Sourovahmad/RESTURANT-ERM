@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\table;
 use Carbon\Carbon;
+use finfo;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -124,11 +125,12 @@ class TableController extends Controller
         return $requestedTable;
     }
 
-
-
     public function updateStatus(Request $request)
     {
-      return $request;
+     $table = table::find($request->id);
+     $table->active_status = $request->value;
+     $table->save();
+      return "successfully updated";
     }
 
 

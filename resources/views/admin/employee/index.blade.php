@@ -311,6 +311,7 @@
 
 
             $('.edit-item-trigger-clicked-for-select').removeClass('edit-item-trigger-clicked-for-select')
+            location.reload();
 
             });
 
