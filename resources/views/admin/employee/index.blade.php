@@ -27,57 +27,14 @@
     @endif
 
 
-    <!-- Begin Page Content -->
-    <div class="collapse" id="createNewForm">
-        <div class="card mb-4 shadow">
 
-            <div class="card-header py-3  bg-techbot-dark">
-                <nav class="navbar navbar-dark">
-                    <a class="navbar-brand text-light"> Add Table </a>
-                </nav>
-            </div>
-
-            <div class="card-body">
-                <form method="POST" action="{{ route('admin.tables.store') }}">
-                    @csrf
-                    <div class="row">
-
-
-                        <div class="col-12 col-md-4 form-group">
-                            <label for="InputName">Name <span class="text-danger">*</span> </label>
-                           <input type="text" class="form-control" name="name" id="InputName">
-
-                        </div>
-
-                        <div class="col-12 col-md-4 form-group">
-
-                            <label for="description">Description  </label>
-                            <textarea name="description" class="form-control" id="descriptionForAddnew" cols="3"></textarea>
-
-
-                        </div>
-
-                        <div class="col-12">
-                            <button type="submit" class="btn bg-techbot-dark mt-3">Submit</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
     <div class="card shadow mb-4">
-
-
 
         <div class="card-header py-3 bg-techbot-dark">
             <nav class="navbar">
 
                 <div class="navbar-brand"> Tables </div>
-                <div id="AddNewFormButtonDiv"><button type="button" class="btn btn-success btn-lg" id="AddNewFormButton"
-                        data-toggle="collapse" data-target="#createNewForm" aria-expanded="false"
-                        aria-controls="collapseExample"><i class="fas fa-plus" id="PlusButton"></i></button></div>
-
 
             </nav>
         </div>
@@ -125,7 +82,7 @@
                                 <td>{{ $table->table_url }} </td>
 
                                 <td>
-                                  <select  id="selectForTD" class="form-control ">
+                                  <select data-item-id={{ $table->id }}  id="selectForTD" class="form-control" >
 
                                     @if ($table->active_status == 1)
                                         <option selected value="1">  Active </option>
@@ -245,7 +202,15 @@
     <!-- /Attachment Modal -->
 
 
+        <form id="form_for_csrf">
 
+        @csrf
+
+        <input type="text" id="form_input_csrf_id" name="id" hidden>
+        <input type="text" id="form_input_csrf_value" name="value" hidden>
+
+
+        </form>
 
     <script>
 
@@ -261,6 +226,10 @@
                     'copy', 'csv', 'excel', 'pdf', 'print'
                 ]
             });
+
+
+
+
 
 
             $(document).on('click', "#data-edit-button", function () {
@@ -306,6 +275,43 @@
             $('#data-edit-modal').on('hide.bs.modal', function () {
                 $('.edit-item-trigger-clicked').removeClass('edit-item-trigger-clicked')
                 $("#edit-form").trigger("reset");
+            });
+
+
+
+
+            $(document).on('change','#selectForTD',function(){
+
+                $(this).addClass(
+                'edit-item-trigger-clicked-for-select');
+                 var options = {
+                    'backdrop': 'static'
+                };
+
+              var el = $(".edit-item-trigger-clicked-for-select");
+              var itemId = el.data('item-id');
+              var value = $( "#selectForTD option:selected" ).val();
+
+              $('#form_input_csrf_id').val(itemId);
+              $('#form_input_csrf_value').val(value);
+
+                var route = '{{ route('admin.tableupdate') }}'.trim();
+                var data = $('#form_for_csrf').serialize();
+                $.ajax({
+                url: route,
+                type: "post",
+                data: data,
+                success: function(data){
+                    console.log(data);
+                },
+                error: function (jqXHR, exception) {
+                    console.log(jqXHR);
+                }
+            });
+
+
+            $('.edit-item-trigger-clicked-for-select').removeClass('edit-item-trigger-clicked-for-select')
+
             });
 
 

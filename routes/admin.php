@@ -40,6 +40,10 @@ Route::middleware(['auth:sanctum'])->group(function(){
         Route::resource('employees', TableForWaiterController::class);
         Route::resource('orders', OrderController::class);
 
+
+
+        Route::post('tableupdate',[TableController::class,'updateStatus'])->name('tableupdate');
+
 });
 
 

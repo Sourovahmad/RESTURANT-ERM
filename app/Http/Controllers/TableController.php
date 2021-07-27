@@ -101,9 +101,9 @@ class TableController extends Controller
      * @param  \App\Models\table  $table
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, table $table)
+    public function update(Request $request,Table $table)
     {
-        //
+         //
     }
 
     /**
@@ -123,4 +123,13 @@ class TableController extends Controller
         $requestedTable = table::where('table_url',$myid)->firstOrFail();
         return $requestedTable;
     }
+
+
+
+    public function updateStatus(Request $request)
+    {
+      return $request;
+    }
+
+
 }
