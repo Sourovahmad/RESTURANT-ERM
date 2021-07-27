@@ -51,18 +51,6 @@
 
                         <div class="col-12 col-md-4 form-group">
 
-                            <label for="selectForTD" >Status</label>
-                             <select  id="selectForTD" name="active_status" class="form-control">
-
-                                <option selected value="1"> Active </option>
-                                <option value="2">Inactive</option>
-
-                            </select>
-
-                        </div>
-
-                        <div class="col-12 col-md-4 form-group">
-
                             <label for="description">Description  </label>
                             <textarea name="description" class="form-control" id="descriptionForAddnew" cols="3"></textarea>
 
@@ -103,9 +91,7 @@
 
                             <th> #</th>
                             <th>Name</th>
-                            <th>Description</th>
                             <th>Url</th>
-                            <th>QrCode</th>
                             <th>Status</th>
                             <th>Action</th>
 
@@ -116,9 +102,7 @@
 
                             <th> #</th>
                             <th>Name</th>
-                            <th>Description</th>
                             <th>Url</th>
-                            <th>QrCode</th>
                             <th>Status</th>
                             <th>Action</th>
 
@@ -136,21 +120,18 @@
 
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $table->name }}</td>
-                                <td>
-                                    <textarea  id="" rows="3" class="form-control"> {{ $table->description }}</textarea>
-                                </td>
+
 
                                 <td>{{ $table->table_url }} </td>
-                                <td> {!! QrCode::size(80)->generate($table->table_url)    !!} </td>
 
                                 <td>
-                                  <select  id="selectForTD" class="form-control">
+                                  <select  id="selectForTD" class="form-control ">
 
                                     @if ($table->active_status == 1)
                                         <option selected value="1">  Active </option>
-                                        <option value="2">Inactive</option>
+                                        <option value="2"> Inactive</option>
                                     @else
-                                        <option  value="1">  Active</option>
+                                        <option  value="1"> Active </option>
                                         <option selected value="2"> Inactive</option>
 
                                     @endif
@@ -210,53 +191,6 @@
         </div>
     </div>
 
-
-        <!-- Modal for taking the printer input -->
-        <div class="modal fade" id="modalForPrinterCalculate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title text-center" id="exampleModalCenterTitle"> Print Table QR</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-
-                    <form id="formforPrinterInput" method="POST" action="" >
-                        @csrf
-
-                        <div class="row">
-
-                            <div class="col-sm-12 col-md-6">
-
-                                <label for="input-for-printer-input-quantity" >Quantity to Print</label>
-                                <input type="number" class="form-control" name="quantity" id="input-for-printer-input-quantity" placeholder="Enter a number" required>
-
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <label for="input-for-printer-input-size">Size</label>
-                                <select class="form-control" name="size" id="input-for-printer-input-size" required>
-                                    <option value="150">Small</option>
-                                    <option selected value="200">Normal</option>
-                                    <option value="230">Large</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="submit" id="submit-button-printer" value="Submit" class="form-control btn btn-success mt-4">
-                        </div>
-
-                    </form>
-
-
-
-                </div>
-
-            </div>
-            </div>
-        </div>
 
 
     <!-- Attachment Modal -->
@@ -373,40 +307,6 @@
                 $('.edit-item-trigger-clicked').removeClass('edit-item-trigger-clicked')
                 $("#edit-form").trigger("reset");
             });
-
-
-
-            // printer modal option start from here
-
-            $('.printer-option-button').click(function(){
-
-                $(this).addClass(
-                'edit-item-trigger-clicked-for-printer');
-                var options = {
-                    'backdrop': 'static'
-                };
-                $('#modalForPrinterCalculate').modal(options)
-            })
-
-
-            $('#modalForPrinterCalculate').on('shown.bs.modal', function () {
-
-                var el = $(".edit-item-trigger-clicked-for-printer");
-                var itemId = el.data('item-id');
-
-
-                var link = "{{route('admin.dashboard')}}";
-                var action =  link.trim() + '/tables/' + itemId;
-                 $("#formforPrinterInput  ").attr('action', action);
-
-
-                })
-
-                $('#modalForPrinterCalculate').on('hide.bs.modal', function () {
-                $('.edit-item-trigger-clicked-for-printer').removeClass('edit-item-trigger-clicked-for-printer')
-                $("#edit-form").trigger("reset");
-            });
-
 
 
         });

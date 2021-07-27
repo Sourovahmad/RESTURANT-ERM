@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\table;
 use App\Models\tableForWaiter;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -15,7 +16,11 @@ class TableForWaiterController extends Controller
      */
     public function index()
     {
-        //
+        // need to retrive the order data
+
+        $tables = table::all();
+        return view('admin.employee.index',compact('tables'));
+
     }
 
     /**

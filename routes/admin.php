@@ -37,7 +37,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('tables/{id}',[TableController::class,'show'])->name('tableShow');
 
 
-        Route::resource('waiters', TableForWaiterController::class);
+        Route::resource('employees', TableForWaiterController::class);
         Route::resource('orders', OrderController::class);
 
 });

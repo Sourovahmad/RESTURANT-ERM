@@ -18,6 +18,8 @@ class CreateTablesTable extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('table_url');
+            $table->integer('active_status');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

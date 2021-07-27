@@ -46,6 +46,7 @@ class TableController extends Controller
         $table = new table;
         $table->name = $request->name;
         $table->description = $request->description;
+        $table->active_status = $request->active_status;
 
 
         $a = date('Y');
