@@ -144,17 +144,17 @@
                                 <td> {!! QrCode::size(80)->generate($table->table_url)    !!} </td>
 
                                 <td>
-                                  <select  id="selectForTD" class="form-control">
+
 
                                     @if ($table->active_status == 1)
-                                        <option selected value="1">  Active </option>
-                                        <option value="2">Inactive</option>
+
+                                     <span class="font-weight-bold text-success"> Active</span>
+
                                     @else
-                                        <option  value="1">  Active</option>
-                                        <option selected value="2"> Inactive</option>
+
+                                     <span class="font-weight-bold text-danger"> inactive</span>
 
                                     @endif
-                                  </select>
 
                                 </td>
 
