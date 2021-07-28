@@ -96,7 +96,7 @@
     <li class="nav-item active ">
         <a class="nav-link p-3 " href="{{ route('admin.employees.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>{{ __('Table (employee)') }}</span></a>
+            <span>{{ __('Orders (employee)') }}</span></a>
     </li>
 
     @endif

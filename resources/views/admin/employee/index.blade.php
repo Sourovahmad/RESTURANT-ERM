@@ -47,8 +47,9 @@
                         <tr>
 
                             <th> #</th>
-                            <th>Name</th>
-                            <th>Url</th>
+                            <th>Table Name</th>
+                            <th>Orders</th>
+                            <th>Extra </th>
                             <th>Status</th>
                             <th>Action</th>
 
@@ -58,8 +59,9 @@
                         <tr>
 
                             <th> #</th>
-                            <th>Name</th>
-                            <th>Url</th>
+                            <th>Table Name</th>
+                            <th>Orders</th>
+                            <th>Extra </th>
                             <th>Status</th>
                             <th>Action</th>
 
