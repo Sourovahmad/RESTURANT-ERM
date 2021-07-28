@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\table;
-use App\Models\tableForWaiter;
+use App\Models\tableHasOrder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class TableForWaiterController extends Controller
+class TableHasOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +16,8 @@ class TableForWaiterController extends Controller
      */
     public function index()
     {
-        // need to retrive the order data
-
         $tables = table::all();
         return view('admin.employee.index',compact('tables'));
-
     }
 
     /**
@@ -47,10 +44,10 @@ class TableForWaiterController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\tableForWaiter  $tableForWaiter
+     * @param  \App\Models\tableHasOrder  $tableHasOrder
      * @return \Illuminate\Http\Response
      */
-    public function show(tableForWaiter $tableForWaiter)
+    public function show(tableHasOrder $tableHasOrder)
     {
         //
     }
@@ -58,10 +55,10 @@ class TableForWaiterController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\tableForWaiter  $tableForWaiter
+     * @param  \App\Models\tableHasOrder  $tableHasOrder
      * @return \Illuminate\Http\Response
      */
-    public function edit(tableForWaiter $tableForWaiter)
+    public function edit(tableHasOrder $tableHasOrder)
     {
         //
     }
@@ -70,10 +67,10 @@ class TableForWaiterController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\tableForWaiter  $tableForWaiter
+     * @param  \App\Models\tableHasOrder  $tableHasOrder
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, tableForWaiter $tableForWaiter)
+    public function update(Request $request, tableHasOrder $tableHasOrder)
     {
         //
     }
@@ -81,10 +78,10 @@ class TableForWaiterController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\tableForWaiter  $tableForWaiter
+     * @param  \App\Models\tableHasOrder  $tableHasOrder
      * @return \Illuminate\Http\Response
      */
-    public function destroy(tableForWaiter $tableForWaiter)
+    public function destroy(tableHasOrder $tableHasOrder)
     {
         //
     }

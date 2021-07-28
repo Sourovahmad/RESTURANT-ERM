@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class TableForWaiterSeeder extends Seeder
+class TableHasOrderSeeder extends Seeder
 {
     /**
      * Run the database seeds.

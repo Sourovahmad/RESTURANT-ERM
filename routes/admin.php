@@ -5,7 +5,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PrintersController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TableController;
-use App\Http\Controllers\TableForWaiterController;
+use App\Http\Controllers\TableHasOrderController;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,7 +37,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('tables/{id}',[TableController::class,'show'])->name('tableShow');
 
 
-        Route::resource('employees', TableForWaiterController::class);
+        Route::resource('employees', TableHasOrderController::class);
         Route::resource('orders', OrderController::class);
 
 

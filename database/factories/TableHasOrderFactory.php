@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\tableForWaiter;
+use App\Models\tableHasOrder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class TableForWaiterFactory extends Factory
+class TableHasOrderFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = tableForWaiter::class;
+    protected $model = tableHasOrder::class;
 
     /**
      * Define the model's default state.
