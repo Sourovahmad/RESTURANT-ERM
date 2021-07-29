@@ -46,7 +46,6 @@
     @endif
 
 
-
     @if ($auth->role_id == 1 || $auth->role_id == 2)
 
         <hr class="sidebar-divider m-1 p-0 ">
@@ -96,29 +95,10 @@
     <li class="nav-item active ">
         <a class="nav-link p-3 " href="{{ route('admin.employees.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>{{ __('Orders (employee)') }}</span></a>
+            <span>{{ __('tables (employee)') }}</span></a>
     </li>
 
     @endif
-
-
-
-
-    @if ($auth->role_id == 3 )
-
-    <hr class="sidebar-divider m-1 p-0 ">
-
-    <li class="nav-item active ">
-        <a class="nav-link p-3 " href="{{ route('admin.orders.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>{{ __('Orders') }}</span></a>
-    </li>
-
-    @endif
-
-
-
-
 
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center  d-none d-md-inline">

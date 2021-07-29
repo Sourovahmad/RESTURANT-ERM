@@ -10,6 +10,4 @@ class tableHasOrder extends Model
 {
     use HasFactory,SoftDeletes;
 
-    
-
 }

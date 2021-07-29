@@ -21,10 +21,19 @@ use Mike42\Escpos\Printer;
 Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::get('/', function () {
-        return view('admin.index');
+
+        if(!is_null(auth()->user()->role_id)){
+            if(auth()->user()->role_id == 3){
+                return redirect(route('admin.employees.index'));
+            }else{
+                
+                return redirect(route('admin'));
+            }
+        }
+        return redirect(route('login'));
     })->name('dashboard');
 
-
     Route::get('gotable/{table_id}',[TableController::class, 'findTheTable']);
+
 
 });
