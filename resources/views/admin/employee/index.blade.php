@@ -34,7 +34,7 @@
                 @if ($tables->count() == 0)
                     <div class="alert alert-warning" role="alert">
                         <h4 class="alert-heading">Opps No table Found !</h4>
-                        <p>There is No table Found.Plase Contact The Manager Or Admin for Adding  Tables</p>
+                        <p>There is No table Found.Plase Contact The Manager Or Admin for Adding Tables</p>
                         <hr>
 
                     </div>
@@ -113,6 +113,15 @@
         </div>
     </section>
 
+    <form id="form_for_table_input">
+
+        @csrf
+
+        <input type="text" id="form_table_input_id" name="id" hidden>
+        <input type="text" id="form_table_input_value" value="1" name="value" hidden>
+
+
+    </form>
 
 
     <script>
@@ -122,7 +131,25 @@
                 var el = $(".active-button-clicked");
                 var itemId = el.data('item-id');
 
-                console.log(itemId);
+                $('#form_table_input_id').val(itemId);
+                $('#form_table_input_value').val();
+
+                var route = '{{ route('admin.tableupdate') }}'.trim();
+                var data = $('#form_for_table_input').serialize();
+
+                $.ajax({
+                    url: route,
+                    type: "post",
+                    data: data,
+                    success: function(data) {
+                        location.reload();
+
+                    },
+                    error: function(jqXHR, exception) {
+                        console.log(jqXHR);
+                    }
+                });
+
 
                 $('.active-button-clicked').removeClass('active-button-clicked')
             })
