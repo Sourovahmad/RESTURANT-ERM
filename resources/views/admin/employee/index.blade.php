@@ -27,160 +27,84 @@
     @endif
 
 
-
-
-
     <section id="tables" class="container-fluid">
         <div class="tables-area">
             <div class="row">
-                <div class="table-card">
-                    <div class="wrapper">
-                        <div class="title text-center"><h4>Tabel <span>1</span></h4></div>
-                        <div class="services-icon">
-                            <div class="icon">
-                                <span class="iconify" data-icon="fluent:service-bell-24-filled" data-inline="false"></span>
-                            </div>
-                            <div class="icon">
-                                <span class="iconify" data-icon="fa-solid:money-bill-wave" data-inline="false"></span>
-                            </div>
-                            <div class="icon active">
-                                <span class="iconify" data-icon="ion:fast-food" data-inline="false"></span>
-                            </div>
 
-                        </div>
-                        <div class="timer">
-                            <div class="hours">20</div>
-                            <div class="colon"> : </div>
-                            <div class="minutes">20</div>
-                            <div class="colon"> : </div>
-                            <div class="second">20</div>
-                        </div>
+                @if ($tables->count() == 0)
+                    <div class="alert alert-warning" role="alert">
+                        <h4 class="alert-heading">Opps No table Found !</h4>
+                        <p>There is No table Found.Plase Contact The Manager Or Admin for Adding  Tables</p>
+                        <hr>
+
                     </div>
-                    <div class="edit-icon"><span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span></div>
-                    <div class="running-icon">running</div>
-                </div>
 
-                <div class="table-card">
-                    <div class="wrapper">
-                        <div class="title text-center"><h4>Tabel <span>1</span></h4></div>
-                        <div class="services-icon">
-                            <div class="active-btn">
-                                <h3 class="text-center">Active</h3>
-                            </div>
+                @else
+                    @foreach ($tables as $table)
 
-                        </div>
-                    </div>
-                    <div class="edit-icon"><span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span></div>
+                        @if ($table->active_status == 1)
+                            <div class="table-card">
+                                <div class="wrapper">
+                                    <div class="title text-center">
+                                        <h4>{{ $table->name }}</span></h4>
+                                    </div>
+                                    <div class="services-icon">
+                                        <div class="icon">
+                                            <span class="iconify" data-icon="fluent:service-bell-24-filled"
+                                                data-inline="false"></span>
+                                        </div>
+                                        <div class="icon">
+                                            <span class="iconify" data-icon="fa-solid:money-bill-wave"
+                                                data-inline="false"></span>
+                                        </div>
+                                        <div class="icon active">
+                                            <span class="iconify" data-icon="ion:fast-food" data-inline="false"></span>
+                                        </div>
 
-                </div>
-
-                <div class="table-card">
-                    <div class="wrapper">
-                        <div class="title text-center"><h4>Tabel <span>1</span></h4></div>
-                        <div class="services-icon">
-                            <div class="icon">
-                                <span class="iconify" data-icon="fluent:service-bell-24-filled" data-inline="false"></span>
-                            </div>
-                            <div class="icon">
-                                <span class="iconify" data-icon="fa-solid:money-bill-wave" data-inline="false"></span>
-                            </div>
-                            <div class="icon active">
-                                <span class="iconify" data-icon="ion:fast-food" data-inline="false"></span>
-                            </div>
-
-                        </div>
-                        <div class="timer">
-                            <div class="hours">20</div>
-                            <div class="colon"> : </div>
-                            <div class="minutes">20</div>
-                            <div class="colon"> : </div>
-                            <div class="second">20</div>
-                        </div>
-                    </div>
-                    <div class="edit-icon"><span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span></div>
-                    <div class="running-icon">running</div>
-                </div>
-
-                <div class="table-card">
-                    <div class="wrapper">
-                        <div class="title text-center"><h4>Tabel <span>1</span></h4></div>
-                        <div class="services-icon">
-                            <div class="icon">
-                                <span class="iconify" data-icon="fluent:service-bell-24-filled" data-inline="false"></span>
-                            </div>
-                            <div class="icon">
-                                <span class="iconify" data-icon="fa-solid:money-bill-wave" data-inline="false"></span>
-                            </div>
-                            <div class="icon active">
-                                <span class="iconify" data-icon="ion:fast-food" data-inline="false"></span>
+                                    </div>
+                                    <div class="timer">
+                                        <div class="hours">20</div>
+                                        <div class="colon"> : </div>
+                                        <div class="minutes">20</div>
+                                        <div class="colon"> : </div>
+                                        <div class="second">20</div>
+                                    </div>
+                                </div>
+                                <div class="edit-icon"><span class="iconify" data-icon="clarity:edit-solid"
+                                        data-inline="false"></span></div>
+                                <div class="running-icon">running</div>
                             </div>
 
-                        </div>
-                        <div class="timer">
-                            <div class="hours">20</div>
-                            <div class="colon"> : </div>
-                            <div class="minutes">20</div>
-                            <div class="colon"> : </div>
-                            <div class="second">20</div>
-                        </div>
-                    </div>
-                    <div class="edit-icon"><span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span></div>
-                    <div class="running-icon">running</div>
-                </div>
 
-                <div class="table-card">
-                    <div class="wrapper">
-                        <div class="title text-center"><h4>Tabel <span>1</span></h4></div>
-                        <div class="services-icon">
-                            <div class="icon">
-                                <span class="iconify" data-icon="fluent:service-bell-24-filled" data-inline="false"></span>
-                            </div>
-                            <div class="icon">
-                                <span class="iconify" data-icon="fa-solid:money-bill-wave" data-inline="false"></span>
-                            </div>
-                            <div class="icon active">
-                                <span class="iconify" data-icon="ion:fast-food" data-inline="false"></span>
+                        @else
+                            <div class="table-card">
+                                <div class="wrapper">
+                                    <div class="title text-center">
+                                        <h4>{{ $table->name }}</h4>
+                                    </div>
+                                    <div class="services-icon">
+                                        <div class="active-btn text-center">
+                                            <button class="btn btn-lg btn-success btn-sm-sm" id="table_active_button"
+                                                data-item-id={{ $table->id }}>Active</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="edit-icon"><span class="iconify" data-icon="clarity:edit-solid"
+                                        data-inline="false"></span></div>
+
                             </div>
 
-                        </div>
-                        <div class="timer">
-                            <div class="hours">20</div>
-                            <div class="colon"> : </div>
-                            <div class="minutes">20</div>
-                            <div class="colon"> : </div>
-                            <div class="second">20</div>
-                        </div>
-                    </div>
-                    <div class="edit-icon"><span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span></div>
-                    <div class="running-icon">running</div>
-                </div>
+                        @endif
 
-                <div class="table-card">
-                    <div class="wrapper">
-                        <div class="title text-center"><h4>Tabel <span>1</span></h4></div>
-                        <div class="services-icon">
-                            <div class="icon">
-                                <span class="iconify" data-icon="fluent:service-bell-24-filled" data-inline="false"></span>
-                            </div>
-                            <div class="icon">
-                                <span class="iconify" data-icon="fa-solid:money-bill-wave" data-inline="false"></span>
-                            </div>
-                            <div class="icon active">
-                                <span class="iconify" data-icon="ion:fast-food" data-inline="false"></span>
-                            </div>
 
-                        </div>
-                        <div class="timer">
-                            <div class="hours">20</div>
-                            <div class="colon"> : </div>
-                            <div class="minutes">20</div>
-                            <div class="colon"> : </div>
-                            <div class="second">20</div>
-                        </div>
-                    </div>
-                    <div class="edit-icon"><span class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span></div>
-                    <div class="running-icon">running</div>
-                </div>
+                    @endforeach
+
+                @endif
+
+
+
+
 
             </div>
 
@@ -190,6 +114,20 @@
     </section>
 
 
+
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '#table_active_button', function() {
+                $(this).addClass('active-button-clicked');
+                var el = $(".active-button-clicked");
+                var itemId = el.data('item-id');
+
+                console.log(itemId);
+
+                $('.active-button-clicked').removeClass('active-button-clicked')
+            })
+        });
+    </script>
 
 
 

@@ -90,12 +90,17 @@
     border: none;
   }
   #tables .tables-area > .row .table-card .wrapper .services-icon .active-btn {
-    width: 100%;
+    /* width: 100%;
     padding: 6px;
     font-size: 18px;
     width: 45%;
     background: #27BD75;
     color: white;
+    border-radius: 1em; */
+  }
+
+  #tables .tables-area > .row .table-card .wrapper .services-icon .active-btn h2{
+    color: #ffffff;
   }
   #tables .tables-area > .row .table-card .wrapper .timer {
     display: -webkit-box;

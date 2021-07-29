@@ -26,8 +26,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
             if(auth()->user()->role_id == 3){
                 return redirect(route('admin.employees.index'));
             }else{
-                
-                return redirect(route('admin'));
+
+                return redirect(route('admin.dashboard'));
             }
         }
         return redirect(route('login'));

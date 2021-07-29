@@ -46,3 +46,44 @@ quizeSiteBarToogleIcon.addEventListener("click", () => {
 quizesitebarCanceler_SDDHT.addEventListener("click", () => {
     quizeSitebarToogleContent.classList.toggle("view");
 });
+
+
+
+
+
+
+$(document).on('change', '#selectForTD', function () {
+
+    $(this).addClass(
+        'edit-item-trigger-clicked-for-select');
+    var options = {
+        'backdrop': 'static'
+    };
+
+    var el = $(".edit-item-trigger-clicked-for-select");
+    var itemId = el.data('item-id');
+    var value = $("#selectForTD option:selected").val();
+
+    $('#form_input_csrf_id').val(itemId);
+    $('#form_input_csrf_value').val(value);
+
+    var route = '{{ route('admin.tableupdate') }}'.trim();
+    var data = $('#form_for_csrf').serialize();
+    $.ajax({
+        url: route,
+        type: "post",
+        data: data,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (jqXHR, exception) {
+            console.log(jqXHR);
+        }
+    });
+
+
+    $('.edit-item-trigger-clicked-for-select').removeClass('edit-item-trigger-clicked-for-select')
+    location.reload();
+});
+
+
