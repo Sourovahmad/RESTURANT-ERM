@@ -42,7 +42,14 @@
                 @else
                     @foreach ($tables as $table)
 
+
+
                         @if ($table->active_status == 1)
+
+
+
+
+
                             <div class="table-card">
                                 <div class="wrapper">
                                     <div class="title text-center">
