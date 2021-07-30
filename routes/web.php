@@ -38,6 +38,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
 });
 
-
+    Route::get('products', function(){
+        return view('products.index');
+    });
 
 Route::get('gotable/{table_id}',[TableController::class, 'findTheTable']);
