@@ -37,3 +37,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
 
 });
+
+
+
+Route::get('gotable/{table_id}',[TableController::class, 'findTheTable']);

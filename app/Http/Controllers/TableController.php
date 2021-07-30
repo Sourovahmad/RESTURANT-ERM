@@ -50,7 +50,6 @@ class TableController extends Controller
         $table->active_status = $request->active_status;
 
 
-        $a = date('Y');
         $b = date('i');
 
         $latestInSertedData = table::latest('id')->first();
@@ -61,7 +60,7 @@ class TableController extends Controller
             $latestId = 1;
         }
 
-        $final = $latestId. $a . $b;
+        $final = $latestId . $b;
 
         $table-> table_url = route('dashboard'). '/' . 'gotable/'.$final;
 
@@ -121,8 +120,16 @@ class TableController extends Controller
     public function findTheTable($table_id)
     {
         $myid = route('dashboard'). '/'.'gotable'.'/' . $table_id;
-        $requestedTable = table::where('table_url',$myid)->firstOrFail();
-        return $requestedTable;
+
+        try{
+            $requestedTable = table::where('table_url',$myid)->firstOrFail();
+        } catch(\Exception $exception){
+            return view('errors.tableNotFound',compact('myid'));
+        }
+
+        $tbaleID = $requestedTable->id;
+        return view('products.index',compact('tbaleID'));
+
     }
 
     public function updateStatus(Request $request)

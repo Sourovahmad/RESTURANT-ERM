@@ -180,7 +180,8 @@
 
 
 
-                                    <button title="Delete" class="dataDeleteItemClass btn btn-danger btn-sm" onclick="if(confirm('are you sure To remove his Role?')){
+                                    <button title="Delete" class="dataDeleteItemClass btn btn-danger btn-sm" onclick="if(confirm('are you sure To remove This table
+                                    ?')){
             document.getElementById('delete-form-{{ $table->id }}').submit();
            }
            else{
