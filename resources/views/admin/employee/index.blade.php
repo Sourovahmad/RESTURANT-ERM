@@ -91,8 +91,7 @@
                                     </div>
                                     <div class="services-icon">
                                         <div class="active-btn text-center">
-                                            <button class="btn btn-lg btn-success btn-sm-sm" id="table_active_button"
-                                                data-item-id={{ $table->id }}>Active</button>
+                                            <button class="btn btn-lg btn-success btn-sm-sm" id="table_active_button" data-item-id={{ $table->id }}> Active</button>
                                         </div>
 
                                     </div>

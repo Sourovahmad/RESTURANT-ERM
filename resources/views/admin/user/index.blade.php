@@ -231,7 +231,7 @@
                                 <option id="selectRoleOption" class="form-controll" selected hidden disabled>Select user</option>
 
                                 @foreach ($roles as $role)
-                                <option id="roleSelector" value="{{ $user->id }}">{{ $user->name }}</option>
+                                <option id="roleSelector" value="{{ $role->id }}">{{ $role->role }}</option>
                                 @endforeach
 
 
