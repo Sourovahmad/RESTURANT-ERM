@@ -28,7 +28,11 @@
         @yield('customjs')
 
     </head>
-    <body >
+    <body>
+
+        @include('includes.navbar')
+
+
 
         @yield('content')
 

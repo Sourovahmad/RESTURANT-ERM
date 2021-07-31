@@ -3,14 +3,12 @@
 @section('content')
 
 
-<form id="form_for_add_cart">
+<form id="form_for_add_cart" hidden>
 @csrf
-    <input type="text" name="table_id" id="cart_input_for_table_id">
+    <input type="text" name="table_id" id="cart_input_for_table_id" value="{{ $ }}">
     <input type="text" name="product_id" id="cart_input_for_table_id">
 
 </form>
-
-
 
   <header class="userMenuePageHeader">
         <nav>
@@ -26,23 +24,8 @@
         </div>
     </header>
 
-    <section class="theAppentSection">
-        <div class="containerc">
-            <div class="topIconSection">
-                <i onclick="theAppendRemove()" class="fas fa-times"></i>
-            </div>
-            <div class="theAppendBody">
-                <ul>
-                    <li><a href="">IK WILL GRAAG EEN OBER</a></li>
-                    <li><a href="">WASBI</a></li>
-                    <li><a href="">GEMBER</a></li>
-                    <li><a href="">SOYASAUS</a></li>
-                    <li><a href="">LEAVE LOCATION</a></li>
-                    <li><a href="">PRIVACY POLICY</a></li>
-                </ul>
-            </div>
-        </div>
-    </section>
+
+
 
 
     <section class="theConditionSearch">
@@ -288,53 +271,7 @@
         </div>
     </section>
 
-    <!-- The Footer start here -->
-    <footer class="userFooter">
 
-        <div class="iconBox">
-            <a href="">
-                <div class="icon">
-                    <i class="fas fa-book"></i>
-                </div>
-                <div class="iconName">
-                    <h6>Menu</h6>
-                </div>
-            </a>
-        </div>
-
-        <div class="iconBox">
-            <a href="/pages/service.html">
-                <div class="icon">
-                    <i class="fas fa-user-alt"></i>
-                </div>
-                <div class="iconName">
-                    <h6>Service</h6>
-                </div>
-            </a>
-        </div>
-
-        <div class="iconBox">
-            <a href="/pages/order.html">
-                <div class="icon">
-                    <i class="fas fa-bell"></i>
-                </div>
-                <div class="iconName">
-                    <h6>Order</h6>
-                </div>
-            </a>
-        </div>
-
-        <div class="iconBox">
-            <a href="pages/bill.html">
-                <div class="icon">
-                    <i class="fas fa-euro-sign"></i>
-                </div>
-                <div class="iconName">
-                    <h6>Bill</h6>
-                </div>
-            </a>
-        </div>
-    </footer>
 
 
      <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
