@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
         <link rel="stylesheet" href="{{ asset('css/product.css') }}" />
-
+        
 
         @yield('customCSS')
 
