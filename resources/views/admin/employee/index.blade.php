@@ -46,10 +46,6 @@
 
                         @if ($table->active_status == 1)
 
-
-
-
-
                             <div class="table-card">
                                 <div class="wrapper">
                                     <div class="title text-center">
@@ -57,15 +53,14 @@
                                     </div>
                                     <div class="services-icon">
                                         <div class="icon">
-                                            <span class="iconify" data-icon="fluent:service-bell-24-filled"
-                                                data-inline="false"></span>
+                                           <button class="btn w-100" id="table_icon_order"> <span class="iconify font-weight-bold" data-icon="fluent:service-bell-24-filled" data-inline="false"></span>  </button>
                                         </div>
                                         <div class="icon">
-                                            <span class="iconify" data-icon="fa-solid:money-bill-wave"
-                                                data-inline="false"></span>
+                                           <button class="btn w-100" id="table_icon_bill"> <span class="iconify font-weight-bold" data-icon="fa-solid:money-bill-wave" data-inline="false"></span> </button>
                                         </div>
                                         <div class="icon active">
-                                            <span class="iconify" data-icon="ion:fast-food" data-inline="false"></span>
+                                            <button  class="btn text-white w-100" id="table_icon_service"> <span class="iconify font-weight-bold" data-icon="ion:fast-food" data-inline="false"> </span> </button>
+
                                         </div>
 
                                     </div>
@@ -158,7 +153,15 @@
 
 
                 $('.active-button-clicked').removeClass('active-button-clicked')
+            });
+
+
+            $('#table_icon_orders').click(function () {
+                alert();
             })
+
+
+
         });
     </script>
 
