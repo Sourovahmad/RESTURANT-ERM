@@ -218,6 +218,20 @@ section.productSection .CategoryWisedProducts .product {
   box-shadow: inset 2px 2px 4px #000;
   border: 1px solid var(--themeCl);
 }
+
+
+.alertforNoProduct{
+  background: linear-gradient(to right bottom, #212529, 50%, var(--themeCl) 50%);
+  align-items: center;
+  width: 95%;
+  height: 120px;
+  margin: 30px auto;
+  padding: 20px 40px 20px 20px;
+  color: #fff;
+  border-radius: 8px;
+  justify-content: space-between;
+  border: 1px solid var(--themeCl);
+}
 @media screen and (min-width: 767px){
   section.productSection .CategoryWisedProducts .product{
     width: 45%;

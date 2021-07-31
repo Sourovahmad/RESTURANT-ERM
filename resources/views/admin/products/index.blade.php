@@ -70,6 +70,11 @@
                         </div>
 
 
+                        <div class="col-12 col-md-4 form-group">
+                            <label for="price">Enter Price <span class="text-danger">*</span> </label>
+                            <input type="number" class="form-control" name="price" id="price" step=".01" required>
+
+                        </div>
 
                         <div class="col-12 col-md-4 form-group">
                             <label for="add_status">Status </label>
@@ -121,6 +126,7 @@
                             <th> #</th>
                             <th>Product Name</th>
                             <th>Category</th>
+                            <th>Price</th>
                             <th>Status</th>
                             <th>Image</th>
                             <th>Action</th>
@@ -133,6 +139,7 @@
                             <th> #</th>
                             <th>Product Name</th>
                             <th>Category</th>
+                            <th>Price</th>
                             <th>Status</th>
                             <th>Image</th>
                             <th>Action</th>
@@ -154,6 +161,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="word-break name">{{ $product->name }}</td>
                                 <td class="word-break category">{{ $product->category->name }}</td>
+                                <td class="word-break price">{{ $product->price }}</td>
                                 <td class="word-break status">
 
                                         @if ($product->active_status == 1)

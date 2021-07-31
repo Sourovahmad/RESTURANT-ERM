@@ -27,6 +27,7 @@ class productValidation extends FormRequest
             'name' => 'required',
             'category' => 'required',
             'status' => 'required',
+            'price' => 'required',
         ];
     }
 }

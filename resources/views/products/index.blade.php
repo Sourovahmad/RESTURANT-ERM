@@ -3,14 +3,14 @@
 @section('content')
 
 
-<form id="form_for_add_cart" hidden>
-@csrf
-    <input type="text" name="table_id" id="cart_input_for_table_id" value="{{ $requestedTable->id }}">
-    <input type="text" name="product_id" id="cart_input_for_table_id">
+    <form id="form_for_add_cart" hidden>
+        @csrf
+        <input type="text" name="table_id" id="cart_input_for_table_id" value="{{ $requestedTable->id }}">
+        <input type="text" name="product_id" id="cart_input_for_table_id">
 
-</form>
+    </form>
 
-  <header class="userMenuePageHeader">
+    <header class="userMenuePageHeader">
         <nav>
             <div class="hamBurgerIcon">
                 <i onclick="theAppend()" class="fas fa-bars"></i>
@@ -94,7 +94,8 @@
             <div class="swiper-wrapper">
 
                 @foreach ($categories as $category)
-                    <div data-tab-caller="category_tab_{{ $category->id }}" class="swiper-slide activetab">{{ $category->name }}</div>
+                    <div data-tab-caller="category_tab_{{ $category->id }}" class="swiper-slide activetab">
+                        {{ $category->name }}</div>
                 @endforeach
 
 
@@ -106,49 +107,59 @@
 
                 <!-- tab items here -->
                 <!-- tab item -->
-                <div data-tab-content="category_tab_1" class="tab-content fade">
 
-                    <div class="product" data="1">
-                        <div class="productImg">
-                            <img src="{{ asset($products[2]->image_small) }}" alt="">
-                        </div>
+                @foreach ($categories as $category)
 
 
-                        <div class="infoPart">
-                            <div class="productName">
-                                <h5>
-                             Name: <span>{{ $products[0]->name }}</span></h5>
-                            </div>
 
-                            <div class="productPriceAndNumber">
-                                <div class="thePrice">
-                                    <span><b>$3.5</b></span>
+                    <div data-tab-content="category_tab_{{ $category->id }}" class="tab-content fade">
+
+
+                        @php
+                            $categoryWisedProducts = $category->products;
+                        @endphp
+
+
+                        @if ($categoryWisedProducts->count() != 0)
+                            @foreach ($categoryWisedProducts as $categoryWisedProduct)
+
+
+                                <div class="product" data="1">
+                                    <div class="productImg">
+                                        <img src="{{ asset($categoryWisedProduct->image_small) }}" alt="">
+                                    </div>
+
+
+                                    <div class="infoPart">
+                                        <div class="productName">
+                                            <h5>
+                                                Name: <span>{{ $categoryWisedProduct->name }}</span></h5>
+                                        </div>
+
+                                        <div class="productPriceAndNumber">
+                                            <div class="thePrice">
+                                                <span><b>{{ $categoryWisedProduct->price }}</b></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+
+                        @else
+                            <div class="alertforNoProduct text-center">
+                                <div class="alert alert-warning" role="alert">
+                                    Sorry ! There is no Product on this category
                                 </div>
                             </div>
-                        </div>
+
+
+                        @endif
+
+
+
                     </div>
 
-                    <div class="product">
-                        <div class="productImg">
-                            <img src="images/images-removebg-preview.png" alt="">
-                        </div>
-
-                        <div class="infoPart">
-                            <div class="productName">
-                                <h5>Name: <span>Pepsi Cola</span></h5>
-                            </div>
-
-                            <div class="productPriceAndNumber">
-                                <div class="thePrice">
-                                    <span><b>$3.50</b></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-
+                @endforeach
             </div>
 
         </div>
@@ -194,136 +205,135 @@
 
 
 
-     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     {{-- <script src="../js/"></script> --}}
 
 
- <script>
+    <script>
+        // the home page funtions
 
-// the home page funtions
+        const allProducts = document.querySelectorAll(".product");
+        const theProductView = document.querySelector(".theProductView");
+        let addToOrder = document.querySelector("button.addToOrder");
 
-const allProducts = document.querySelectorAll(".product");
-const theProductView = document.querySelector(".theProductView");
-let addToOrder = document.querySelector("button.addToOrder");
-
-for (var i = 0; i <= allProducts.length; i++) {
-    allProducts[i]?.addEventListener("click", function (event) {
-        theProductView.classList.add("theProductVisible");
-    });
-}
-
-function theProductViewHider() {
-    theProductView.classList.remove("theProductVisible");
-}
-function theProductViewAdder() {
-    theProductView.classList.remove("theProductVisible");
-    alert("1 Product Added To Order");
-}
-
-// the order page functions
-var theNumber = 15;
-
-function theOrderPopUpShow(theNumberChanger) {
-    theNumber = 15;
-    var theOrderPopUp = document.querySelector(".theOrderPopUp");
-    var p = document.querySelector(".theOrderPopUp .theDesc p");
-    var h5 = document.querySelector(".theOrderPopUp .theOrderAlert h5");
-    var button = document.querySelector(
-        ".theOrderPopUp .orderChangerBtn button"
-    );
-    function theNumberChanger() {
-        theNumber--;
-        if (theNumber > 0) {
-            p.innerHTML =
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. A, inventore.";
-            h5.innerHTML = `The Order will be started in ${theNumber} seconds`;
-            button.innerHTML = "Change Order";
-        } else {
-            p.innerHTML = "Success!";
-            h5.innerHTML = "Your Order Has Been Placed";
-            button.innerHTML = "Thank You";
+        for (var i = 0; i <= allProducts.length; i++) {
+            allProducts[i]?.addEventListener("click", function(event) {
+                theProductView.classList.add("theProductVisible");
+            });
         }
-    }
-    theOrderPopUp.classList.add("theProductShow");
 
-    var setIt = setInterval(theNumberChanger, 1000);
+        function theProductViewHider() {
+            theProductView.classList.remove("theProductVisible");
+        }
 
-    var changeOrderBtn = document.querySelector(".orderChangerBtn");
-    changeOrderBtn.addEventListener("click", function () {
-        clearInterval(setIt);
-    });
-}
+        function theProductViewAdder() {
+            theProductView.classList.remove("theProductVisible");
+            alert("1 Product Added To Order");
+        }
 
-function theOrderPopUpHide() {
-    let theOrderPopUp = document.querySelector(".theOrderPopUp");
-    theOrderPopUp.classList.remove("theProductShow");
-}
+        // the order page functions
+        var theNumber = 15;
 
-// all page append section function
+        function theOrderPopUpShow(theNumberChanger) {
+            theNumber = 15;
+            var theOrderPopUp = document.querySelector(".theOrderPopUp");
+            var p = document.querySelector(".theOrderPopUp .theDesc p");
+            var h5 = document.querySelector(".theOrderPopUp .theOrderAlert h5");
+            var button = document.querySelector(
+                ".theOrderPopUp .orderChangerBtn button"
+            );
 
-function theAppend() {
-    var theElement = document.querySelector(".theAppentSection");
-    theElement.classList.add("theAppendCome");
-}
+            function theNumberChanger() {
+                theNumber--;
+                if (theNumber > 0) {
+                    p.innerHTML =
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. A, inventore.";
+                    h5.innerHTML = `The Order will be started in ${theNumber} seconds`;
+                    button.innerHTML = "Change Order";
+                } else {
+                    p.innerHTML = "Success!";
+                    h5.innerHTML = "Your Order Has Been Placed";
+                    button.innerHTML = "Thank You";
+                }
+            }
+            theOrderPopUp.classList.add("theProductShow");
 
-function theAppendRemove() {
-    var theElement = document.querySelector(".theAppentSection");
-    theElement.classList.remove("theAppendCome");
-}
+            var setIt = setInterval(theNumberChanger, 1000);
 
-/* catagory slider here */
+            var changeOrderBtn = document.querySelector(".orderChangerBtn");
+            changeOrderBtn.addEventListener("click", function() {
+                clearInterval(setIt);
+            });
+        }
 
-try {
-    var swiper = new Swiper(".catagory-slider-swiper-slider", {
-        slidesPerView: "auto",
-        spaceBetween: 10,
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-    });
-} catch (err) {
-    console.log(err);
-}
+        function theOrderPopUpHide() {
+            let theOrderPopUp = document.querySelector(".theOrderPopUp");
+            theOrderPopUp.classList.remove("theProductShow");
+        }
 
-/* tab for catagory */
-try {
-    const allTabs = document.querySelectorAll("[data-tab-caller]");
-    const allTabsContent = document.querySelectorAll("[data-tab-content]");
-    let activetab = "";
+        // all page append section function
 
-    allTabs.forEach((element, index) => {
-        element.onclick = () => {
-            allTabs.forEach((x) => x.classList.remove("activetab"));
-            element.classList.add("activetab");
+        function theAppend() {
+            var theElement = document.querySelector(".theAppentSection");
+            theElement.classList.add("theAppendCome");
+        }
+
+        function theAppendRemove() {
+            var theElement = document.querySelector(".theAppentSection");
+            theElement.classList.remove("theAppendCome");
+        }
+
+        /* catagory slider here */
+
+        try {
+            var swiper = new Swiper(".catagory-slider-swiper-slider", {
+                slidesPerView: "auto",
+                spaceBetween: 10,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+            });
+        } catch (err) {
+            console.log(err);
+        }
+
+        /* tab for catagory */
+        try {
+            const allTabs = document.querySelectorAll("[data-tab-caller]");
+            const allTabsContent = document.querySelectorAll("[data-tab-content]");
+            let activetab = "";
+
+            allTabs.forEach((element, index) => {
+                element.onclick = () => {
+                    allTabs.forEach((x) => x.classList.remove("activetab"));
+                    element.classList.add("activetab");
+                    selectingActiveTab();
+                    showingtab();
+                };
+            });
+
+            const selectingActiveTab = () => {
+                allTabs.forEach((x) => {
+                    if (x.classList.contains("activetab")) {
+                        activetab = x.dataset.tabCaller;
+                    }
+                });
+            };
             selectingActiveTab();
+
+            const showingtab = () => {
+                allTabsContent.forEach((x) => {
+                    if (x.dataset.tabContent === activetab) {
+                        x.classList.add("active", "show");
+                    } else {
+                        x.classList.remove("active", "show");
+                    }
+                });
+            };
             showingtab();
-        };
-    });
-
-    const selectingActiveTab = () => {
-        allTabs.forEach((x) => {
-            if (x.classList.contains("activetab")) {
-                activetab = x.dataset.tabCaller;
-            }
-        });
-    };
-    selectingActiveTab();
-
-    const showingtab = () => {
-        allTabsContent.forEach((x) => {
-            if (x.dataset.tabContent === activetab) {
-                x.classList.add("active", "show");
-            } else {
-                x.classList.remove("active", "show");
-            }
-        });
-    };
-    showingtab();
-} catch (err) {}
-
-
- </script>
+        } catch (err) {}
+    </script>
 
 
 @endsection

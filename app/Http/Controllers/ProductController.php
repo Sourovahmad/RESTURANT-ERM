@@ -48,6 +48,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->category_id = $request->category;
         $product->active_status = $request->status;
+        $product->price = $request->price;
 
         if(!is_null($request->image)){
 
