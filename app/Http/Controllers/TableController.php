@@ -127,8 +127,16 @@ class TableController extends Controller
             return view('errors.tableNotFound',compact('myid'));
         }
 
-        $tbaleID = $requestedTable->id;
-        return view('products.index',compact('tbaleID'));
+        if($requestedTable->active_status == 1){
+
+            return view('products.index',compact('requestedTable'));
+
+        } else{
+
+         return view('errors.tableNotActive',compact('requestedTable'));
+
+        }
+
 
     }
 
