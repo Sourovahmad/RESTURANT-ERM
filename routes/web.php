@@ -41,8 +41,15 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('products', function(){
         return view('products.index');
     });
-Route::get('products', function () {
-    return view('products.index');
-});
 
-Route::get('gotable/{table_id}',[TableController::class, 'findTheTable']);
+    Route::get('bill', function(){
+        return view('pages.bill.index');
+    });
+
+    Route::get('order', function(){
+        return view('pages.order.index');
+    });
+
+    Route::get('service', function(){
+        return view('pages.service.index');
+    });

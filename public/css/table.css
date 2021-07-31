@@ -64,7 +64,7 @@
         -ms-flex-pack: space-evenly;
             justify-content: space-evenly;
   }
-  #tables .tables-area > .row .table-card .wrapper .services-icon {
+  #tables .tables-area > .row .table-card .wrapper .services-icon  {
     width: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -97,6 +97,10 @@
     background: #27BD75;
     color: white;
     border-radius: 1em; */
+  }
+
+  #table_icon_order,#table_icon_bill,#table_icon_service svg{
+    font-size: 22px;
   }
 
   #tables .tables-area > .row .table-card .wrapper .services-icon .active-btn h2{
