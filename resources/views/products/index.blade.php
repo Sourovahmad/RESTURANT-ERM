@@ -5,7 +5,7 @@
 
 <form id="form_for_add_cart" hidden>
 @csrf
-    <input type="text" name="table_id" id="cart_input_for_table_id" value="{{ $ }}">
+    <input type="text" name="table_id" id="cart_input_for_table_id" value="{{ $requestedTable->id }}">
     <input type="text" name="product_id" id="cart_input_for_table_id">
 
 </form>
@@ -92,18 +92,12 @@
         <!-- catagory slider code  -->
         <div class="swiper-container catagory-slider-swiper-slider">
             <div class="swiper-wrapper">
-                <div data-tab-caller="catagory-tab-1" class="swiper-slide activetab">Drinks</div>
-                <div data-tab-caller="catagory-tab-2" class="swiper-slide">Foods</div>
-                <div data-tab-caller="catagory-tab-3" class="swiper-slide">Soops</div>
-                <div data-tab-caller="catagory-tab-2" class="swiper-slide">Foods</div>
-                <div data-tab-caller="catagory-tab-3" class="swiper-slide">Soops</div>
-                <div data-tab-caller="catagory-tab-3" class="swiper-slide">Soops</div>
-                <div data-tab-caller="catagory-tab-2" class="swiper-slide">Foods</div>
-                <div data-tab-caller="catagory-tab-3" class="swiper-slide">Soops</div>
-                <div data-tab-caller="catagory-tab-3" class="swiper-slide">Soops</div>
-                <div data-tab-caller="catagory-tab-3" class="swiper-slide">Soops</div>
-                <div data-tab-caller="catagory-tab-2" class="swiper-slide">Foods</div>
-                <div data-tab-caller="catagory-tab-3" class="swiper-slide">Soops</div>
+
+                @foreach ($categories as $category)
+                    <div data-tab-caller="category_tab_{{ $category->id }}" class="swiper-slide activetab">{{ $category->name }}</div>
+                @endforeach
+
+
             </div>
         </div>
 
@@ -112,17 +106,18 @@
 
                 <!-- tab items here -->
                 <!-- tab item -->
-                <div data-tab-content="catagory-tab-1" class="tab-content fade">
-
+                <div data-tab-content="category_tab_1" class="tab-content fade">
 
                     <div class="product" data="1">
                         <div class="productImg">
-                            <img src="{{ asset('images/images-removebg-preview.png') }}" alt="">
+                            <img src="{{ asset($products[2]->image_small) }}" alt="">
                         </div>
+
 
                         <div class="infoPart">
                             <div class="productName">
-                                <h5>Name: <span>Pepsi Cola</span></h5>
+                                <h5>
+                             Name: <span>{{ $products[0]->name }}</span></h5>
                             </div>
 
                             <div class="productPriceAndNumber">
@@ -150,85 +145,10 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
 
-                <!-- tab items -->
-                <div data-tab-content="catagory-tab-2" class="tab-content fade">
-                    <div class="product">
-                        <div class="productImg">
-                            <img src="images/images-removebg-preview.png" alt="">
-                        </div>
 
-                        <div class="infoPart">
-                            <div class="productName">
-                                <h5>Name: <span>Pepsi Cola</span></h5>
-                            </div>
-
-                            <div class="productPriceAndNumber">
-                                <div class="thePrice">
-                                    <span><b>$3.5</b></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product">
-                        <div class="productImg">
-                            <img src="images/images-removebg-preview.png" alt="">
-                        </div>
-
-                        <div class="infoPart">
-                            <div class="productName">
-                                <h5>Name: <span>Pepsi Cola</span></h5>
-                            </div>
-
-                            <div class="productPriceAndNumber">
-                                <div class="thePrice">
-                                    <span><b>$3.50</b></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- tab items -->
-
-                <div data-tab-content="catagory-tab-3" class="tab-content fade">
-                    <div class="product">
-                        <div class="productImg">
-                            <img src="images/chicken-noodle-soup-nutrition-and-description-chick-fil-15.ashx" alt="">
-                        </div>
-
-                        <div class="infoPart">
-                            <div class="productName">
-                                <h5>Name: <span>Pepsi Cola</span></h5>
-                            </div>
-
-                            <div class="productPriceAndNumber">
-                                <div class="thePrice">
-                                    <span><b>$3.5</b></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product">
-                        <div class="productImg">
-                            <img src="images/images-removebg-preview.png" alt="">
-                        </div>
-
-                        <div class="infoPart">
-                            <div class="productName">
-                                <h5>Name: <span>Pepsi Cola</span></h5>
-                            </div>
-
-                            <div class="productPriceAndNumber">
-                                <div class="thePrice">
-                                    <span><b>$3.50</b></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
         </div>

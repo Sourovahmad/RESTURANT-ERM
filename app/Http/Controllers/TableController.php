@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\category;
+use App\Models\product;
 use App\Models\table;
 use Carbon\Carbon;
 use finfo;
@@ -129,7 +131,9 @@ class TableController extends Controller
 
         if($requestedTable->active_status == 1){
 
-            return view('products.index',compact('requestedTable'));
+            $products = product::all();
+            $categories = category::all();
+            return view('products.index',compact('requestedTable','products','categories'));
 
         } else{
 

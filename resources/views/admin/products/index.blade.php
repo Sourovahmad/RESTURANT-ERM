@@ -56,8 +56,8 @@
 
                         <div class="col-12 col-md-4 form-group">
                             <label for="category">Select Category <span class="text-danger">*</span> </label>
-                            <select class="form-control" name="category" id="category" required>
-                                <option selected hidden disabled>Select Category</option>
+                            <select class="form-control" name="category" id="category" required >
+                                <option value="" selected hidden disabled >Select Category</option>
 
                                             @foreach ($categories as $category )
 
