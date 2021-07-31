@@ -47,8 +47,3 @@ quizesitebarCanceler_SDDHT.addEventListener("click", () => {
     quizeSitebarToogleContent.classList.toggle("view");
 });
 
-
-
-
-
-
