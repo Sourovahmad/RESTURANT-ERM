@@ -3,6 +3,15 @@
 @section('content')
 
 
+<form id="form_for_add_cart">
+@csrf
+    <input type="text" name="table_id" id="cart_input_for_table_id">
+    <input type="text" name="product_id" id="cart_input_for_table_id">
+
+</form>
+
+
+
   <header class="userMenuePageHeader">
         <nav>
             <div class="hamBurgerIcon">
@@ -16,7 +25,7 @@
             <img src="{{ asset('images/pexels-engin-akyurt-2673353.jpg') }}" alt="">
         </div>
     </header>
-    
+
     <section class="theAppentSection">
         <div class="containerc">
             <div class="topIconSection">
@@ -40,7 +49,7 @@
         <div class="theSearch">
             <input type="text" placeholder="Search a food You Like">
         </div>
-        
+
         <div class="condition">
 
             <div class="conditionBox">
@@ -91,7 +100,7 @@
     <!-- product section here -->
     <section class="productSection">
 
-        
+
 
         <div class="theCategoryTitle">
             <b>Categories and Foods</b>
@@ -121,7 +130,7 @@
                 <!-- tab items here -->
                 <!-- tab item -->
                 <div data-tab-content="catagory-tab-1" class="tab-content fade">
-                    
+
 
                     <div class="product" data="1">
                         <div class="productImg">
@@ -333,7 +342,7 @@
 
 
  <script>
-   
+
 // the home page funtions
 
 const allProducts = document.querySelectorAll(".product");

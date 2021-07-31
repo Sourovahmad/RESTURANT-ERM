@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row">
         <div class="text-center">
-            <h1>table not found with:  {{ $myid }}</h1>
+            <h1>table not found with:  {{ $requestedTable-> }}</h1>
             <p>Maybe you Type mistake or scan the Qr please </p>
         </div>
     </div>
