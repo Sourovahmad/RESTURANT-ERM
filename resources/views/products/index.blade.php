@@ -19,8 +19,7 @@
     </header>
 
 
-
-
+    
 
     <section class="theConditionSearch">
         <div class="theSearch">
@@ -167,10 +166,10 @@
         <div class="theProductViewLayOut">
             <div class="tab-content">
                 <div class="theCros" onclick="theProductViewHider()">
-                   <span class="font-weight-bold" style="cursor: pointer"> X</span>
+                    <span class="font-weight-bold" style="cursor: pointer"> X</span>
                 </div>
                 <div class="theProductImage mb-4">
-                    <img class="theProductImageSrc"  alt="">
+                    <img class="theProductImageSrc" alt="">
                 </div>
                 <div class="productNameAndPrice">
                     <div class="productName">
@@ -242,9 +241,9 @@
                     $('#productViewPrice').html(products[key].price);
                     $('#cart_input_for_table_product_id').val(products[key].id);
 
-                   var route = '{{ route('dashboard') }}';
-                   var image = route .trim() + '/' + products[key].image_big .trim();
-                   $('.theProductImageSrc').attr('src', image);
+                    var route = '{{ route('dashboard') }}';
+                    var image = route.trim() + '/' + products[key].image_big.trim();
+                    $('.theProductImageSrc').attr('src', image);
 
                 }
 

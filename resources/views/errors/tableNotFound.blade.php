@@ -1,4 +1,4 @@
-@extends('includes.app')
+@extends('errors.includes.app')
 
 
 @section('content')
