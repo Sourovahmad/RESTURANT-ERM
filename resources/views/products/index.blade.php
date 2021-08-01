@@ -167,10 +167,10 @@
         <div class="theProductViewLayOut">
             <div class="tab-content">
                 <div class="theCros" onclick="theProductViewHider()">
-                    <i class="fas fa-times"></i>
+                   <span class="font-weight-bold" style="cursor: pointer"> X</span>
                 </div>
-                <div class="theProductImage">
-                    <img class="theProductImageSrc" src="{{ asset('images/images-removebg-preview.png') }}" alt="">
+                <div class="theProductImage mb-4">
+                    <img class="theProductImageSrc"  alt="">
                 </div>
                 <div class="productNameAndPrice">
                     <div class="productName">
@@ -242,8 +242,10 @@
                     $('#productViewPrice').html(products[key].price);
                     $('#cart_input_for_table_product_id').val(products[key].id);
 
-                    var imageSrc = products[key].image_big;
-                   
+                   var route = '{{ route('dashboard') }}';
+                   var image = route .trim() + '/' + products[key].image_big .trim();
+                   $('.theProductImageSrc').attr('src', image);
+
                 }
 
             })
