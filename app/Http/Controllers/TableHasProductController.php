@@ -36,7 +36,14 @@ class TableHasProductController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $request->validate([
+            'table_id'=> 'required',
+            'product_id' => 'required'
+        ]);
+
+        tableHasProduct::create($request->all());
+
+
     }
 
     /**

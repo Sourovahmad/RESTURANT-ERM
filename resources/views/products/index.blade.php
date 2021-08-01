@@ -3,12 +3,6 @@
 @section('content')
 
 
-    <form id="form_for_add_cart" hidden>
-        @csrf
-        <input type="text" name="table_id" id="cart_input_for_table_id" value="{{ $requestedTable->id }}">
-        <input type="text" name="product_id" id="cart_input_for_table_id">
-
-    </form>
 
     <header class="userMenuePageHeader">
         <nav>
@@ -124,7 +118,8 @@
                             @foreach ($categoryWisedProducts as $categoryWisedProduct)
 
 
-                                <div class="product" data="1">
+                                <div class="product" id="singleProduct" data="1"
+                                    data-item-id="{{ $categoryWisedProduct->id }}">
                                     <div class="productImg">
                                         <img src="{{ asset($categoryWisedProduct->image_small) }}" alt="">
                                     </div>
@@ -175,23 +170,23 @@
                     <i class="fas fa-times"></i>
                 </div>
                 <div class="theProductImage">
-                    <img class="theProductImageSrc" src="images/images-removebg-preview.png" alt="">
+                    <img class="theProductImageSrc" src="{{ asset('images/images-removebg-preview.png') }}" alt="">
                 </div>
                 <div class="productNameAndPrice">
                     <div class="productName">
-                        <h6>Pepsi Max</h6>
+                        <h6>Name</h6>
                     </div>
                     <div class="productPrice">
-                        <h6><b>$3.50</b></h6>
+                        <h6 id="productViewName"></h6>
                     </div>
                 </div>
 
                 <div class="quantityAndTotalPrice">
                     <div class="quantity">
-                        2
+                        Price
                     </div>
                     <div class="totalPrice">
-                        <b>$6</b>
+                        <b id="productViewPrice"></b>
                     </div>
                 </div>
 
@@ -202,6 +197,13 @@
         </div>
     </section>
 
+
+    <form id="form_for_add_cart" hidden>
+        @csrf
+        <input type="text" name="table_id" id="cart_input_for_table_id" value="{{ $requestedTable->id }}">
+        <input type="text" name="product_id" id="cart_input_for_table_product_id">
+
+    </form>
 
 
 
@@ -216,72 +218,68 @@
         const theProductView = document.querySelector(".theProductView");
         let addToOrder = document.querySelector("button.addToOrder");
 
-        for (var i = 0; i <= allProducts.length; i++) {
-            allProducts[i]?.addEventListener("click", function(event) {
-                theProductView.classList.add("theProductVisible");
-            });
-        }
+        // for (var i = 0; i <= allProducts.length; i++) {
+        //     allProducts[i]?.addEventListener("click", function(event) {
+        //         theProductView.classList.add("theProductVisible");
+        //     });
+        // }
+
+        var products = @json($products);
+
+        $(document).on('click', '#singleProduct', function() {
+
+            $(this).addClass('cliecked_on_product');
+            var el = $('.cliecked_on_product');
+            var itemId = el.data('item-id');
+
+            $('.theProductView').addClass("theProductVisible");
+
+            $.each(products, function(key) {
+
+                if (products[key].id == itemId) {
+
+                    $('#productViewName').html(products[key].name);
+                    $('#productViewPrice').html(products[key].price);
+                    $('#cart_input_for_table_product_id').val(products[key].id);
+
+                    var imageSrc = products[key].image_big;
+                   
+                }
+
+            })
+
+            $('.cliecked_on_product').removeClass('cliecked_on_product');
+
+
+        })
 
         function theProductViewHider() {
             theProductView.classList.remove("theProductVisible");
         }
 
         function theProductViewAdder() {
-            theProductView.classList.remove("theProductVisible");
-            alert("1 Product Added To Order");
-        }
 
-        // the order page functions
-        var theNumber = 15;
+            var data = $('#form_for_add_cart').serialize();
+            var route = '{{ route('addtocart') }}'.trim();
 
-        function theOrderPopUpShow(theNumberChanger) {
-            theNumber = 15;
-            var theOrderPopUp = document.querySelector(".theOrderPopUp");
-            var p = document.querySelector(".theOrderPopUp .theDesc p");
-            var h5 = document.querySelector(".theOrderPopUp .theOrderAlert h5");
-            var button = document.querySelector(
-                ".theOrderPopUp .orderChangerBtn button"
-            );
+            $.ajax({
+                url: route,
+                type: "post",
+                data: data,
+                success: function(data) {
+                    alert('Product added to Your Cart');
 
-            function theNumberChanger() {
-                theNumber--;
-                if (theNumber > 0) {
-                    p.innerHTML =
-                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. A, inventore.";
-                    h5.innerHTML = `The Order will be started in ${theNumber} seconds`;
-                    button.innerHTML = "Change Order";
-                } else {
-                    p.innerHTML = "Success!";
-                    h5.innerHTML = "Your Order Has Been Placed";
-                    button.innerHTML = "Thank You";
+                },
+                error: function(jqXHR, exception) {
+                    console.log(jqXHR);
                 }
-            }
-            theOrderPopUp.classList.add("theProductShow");
-
-            var setIt = setInterval(theNumberChanger, 1000);
-
-            var changeOrderBtn = document.querySelector(".orderChangerBtn");
-            changeOrderBtn.addEventListener("click", function() {
-                clearInterval(setIt);
             });
+
+            theProductView.classList.remove("theProductVisible");
+
         }
 
-        function theOrderPopUpHide() {
-            let theOrderPopUp = document.querySelector(".theOrderPopUp");
-            theOrderPopUp.classList.remove("theProductShow");
-        }
 
-        // all page append section function
-
-        function theAppend() {
-            var theElement = document.querySelector(".theAppentSection");
-            theElement.classList.add("theAppendCome");
-        }
-
-        function theAppendRemove() {
-            var theElement = document.querySelector(".theAppentSection");
-            theElement.classList.remove("theAppendCome");
-        }
 
         /* catagory slider here */
 
