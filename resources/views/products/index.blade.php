@@ -19,7 +19,7 @@
     </header>
 
 
-    
+
 
     <section class="theConditionSearch">
         <div class="theSearch">
@@ -196,8 +196,7 @@
         </div>
     </section>
 
-  
-=======
+
 
     <form id="form_for_add_cart" hidden>
         @csrf
@@ -214,7 +213,7 @@
 
 
  <script>
-   
+
 // the home page funtions
 
 const allProducts = document.querySelectorAll(".product");
@@ -234,43 +233,6 @@ function theProductViewAdder() {
     theProductView.classList.remove("theProductVisible");
     alert("1 Product Added To Order");
 }
-
-// the order page functions
-var theNumber = 15;
-
-function theOrderPopUpShow(theNumberChanger) {
-    theNumber = 15;
-    var theOrderPopUp = document.querySelector(".theOrderPopUp");
-    var p = document.querySelector(".theOrderPopUp .theDesc p");
-    var h5 = document.querySelector(".theOrderPopUp .theOrderAlert h5");
-    var button = document.querySelector(
-      
-    ".theOrderPopUp .orderChangerBtn button"
-    );
-    function theNumberChanger() {
-        theNumber--;
-        if (theNumber > 0) {
-            p.innerHTML =
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. A, inventore.";
-            h5.innerHTML = `The Order will be started in ${theNumber} seconds`;
-            button.innerHTML = "Change Order";
-        } else {
-            p.innerHTML = "Success!";
-            h5.innerHTML = "Your Order Has Been Placed";
-            button.innerHTML = "Thank You";
-=======
-    <script>
-        // the home page funtions
-
-        const allProducts = document.querySelectorAll(".product");
-        const theProductView = document.querySelector(".theProductView");
-        let addToOrder = document.querySelector("button.addToOrder");
-
-        // for (var i = 0; i <= allProducts.length; i++) {
-        //     allProducts[i]?.addEventListener("click", function(event) {
-        //         theProductView.classList.add("theProductVisible");
-        //     });
-        // }
 
         var products = @json($products);
 

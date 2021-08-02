@@ -4,8 +4,7 @@
 
         <div class="iconBox">
 
-            <a href="../index.html">
-=======
+    
             <a href="">
 
                 <div class="icon">
@@ -19,8 +18,7 @@
 
         <div class="iconBox">
 
-            <a href="service.html">
-=======
+
             <a href="/pages/service.html">
 
                 <div class="icon">
@@ -34,9 +32,7 @@
 
         <div class="iconBox">
 
-            <a href="order.html">
-=======
-            <a href="/pages/order.html">
+    <a href="/pages/order.html">
 
                 <div class="icon">
                     <i class="fas fa-bell"></i>
@@ -49,8 +45,7 @@
 
         <div class="iconBox">
 
-            <a href="bill.html">
-=======
+
             <a href="pages/bill.html">
 
                 <div class="icon">
@@ -62,7 +57,5 @@
             </a>
         </div>
 
-    </footer>
-=======
     </footer>
 
