@@ -232,7 +232,7 @@
 
         <div class="iconBox">
 
-    <a id="orderPageLink" href="{{ route('gorders',$requestedTable->id) }}">
+    <a id="orderPageLink" href="{{ route('orders',$requestedTable->id) }}">
 
                 <div class="icon">
                     <i class="fas fa-bell"></i>

@@ -44,8 +44,9 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('addtocart',[TableHasProductController::class,'store'])->name('addtocart');
 
 
-    Route::get('gorders/{table_id}',[TableHasProductController::class, 'OrderedProducts'])->name('gorders');
+    Route::get('orders/{table_id}',[TableHasProductController::class, 'OrderedProducts'])->name('orders');
 
+    Route::get('deleteOrder/{order_id}',[TableHasProductController::class,'destroy'])->name('deleteOrder');
 
 
 

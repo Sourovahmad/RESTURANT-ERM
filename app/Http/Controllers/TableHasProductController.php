@@ -87,9 +87,11 @@ class TableHasProductController extends Controller
      * @param  \App\Models\tableHasProduct  $tableHasProduct
      * @return \Illuminate\Http\Response
      */
-    public function destroy(tableHasProduct $tableHasProduct)
+    public function destroy(tableHasProduct $tableHasProduct,$order_id)
     {
-        //
+       $tableHasProduct = tableHasProduct::find($order_id);
+       $tableHasProduct -> delete();
+       return back()->withErrors('Item Deleted');
     }
 
 
@@ -101,7 +103,7 @@ class TableHasProductController extends Controller
 
         $tableData = tableHasProduct::where('table_id', $table_id)->get();
         return view('pages.order.index',compact('tableData'));
-        
+
         }else{
             return view('errors.tableNotActive');
         }
