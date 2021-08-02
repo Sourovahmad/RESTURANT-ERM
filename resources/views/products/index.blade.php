@@ -198,6 +198,72 @@
 
 
 
+
+    <!-- The Footer start here -->
+    <footer class="userFooter">
+
+        <div class="iconBox">
+
+
+            <a href="">
+
+                <div class="icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="iconName">
+                    <h6>Menu</h6>
+                </div>
+            </a>
+        </div>
+
+        <div class="iconBox">
+
+
+            <a href="/pages/service.html">
+
+                <div class="icon">
+                    <i class="fas fa-user-alt"></i>
+                </div>
+                <div class="iconName">
+                    <h6>Service</h6>
+                </div>
+            </a>
+        </div>
+
+        <div class="iconBox">
+
+    <a id="orderPageLink" href="{{ route('gorders',$requestedTable->id) }}">
+
+                <div class="icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="iconName">
+                    <h6>Order</h6>
+                </div>
+            </a>
+        </div>
+
+        <div class="iconBox">
+
+
+            <a href="pages/bill.html">
+
+                <div class="icon">
+                    <i class="fas fa-euro-sign"></i>
+                </div>
+                <div class="iconName">
+                    <h6>Bill</h6>
+                </div>
+            </a>
+        </div>
+
+    </footer>
+
+
+
+
+
+
     <form id="form_for_add_cart" hidden>
         @csrf
         <input type="text" name="table_id" id="cart_input_for_table_id" value="{{ $requestedTable->id }}">
@@ -206,10 +272,6 @@
     </form>
 
 
-
-
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    {{-- <script src="../js/"></script> --}}
 
 
  <script>
@@ -226,13 +288,6 @@ for (var i = 0; i <= allProducts.length; i++) {
     });
 }
 
-function theProductViewHider() {
-    theProductView.classList.remove("theProductVisible");
-}
-function theProductViewAdder() {
-    theProductView.classList.remove("theProductVisible");
-    alert("1 Product Added To Order");
-}
 
         var products = @json($products);
 
@@ -344,6 +399,9 @@ function theProductViewAdder() {
             };
             showingtab();
         } catch (err) {}
+
+
+
     </script>
 
 

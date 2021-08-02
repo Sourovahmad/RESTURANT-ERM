@@ -43,6 +43,9 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('addtocart',[TableHasProductController::class,'store'])->name('addtocart');
 
 
+    Route::get('gorders/{table_id}',[OrderController::class, 'OrderedProducts'])->name('gorders');
+
+
 
 
     Route::get('products', function(){

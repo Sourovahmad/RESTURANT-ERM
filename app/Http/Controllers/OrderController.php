@@ -83,4 +83,10 @@ class OrderController extends Controller
     {
         //
     }
+
+
+    public function OrderedProducts($table_id)
+    {
+        return $table_id;
+    }
 }
