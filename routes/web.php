@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TableController;
-use App\Http\Controllers\testController;
+use App\Http\Controllers\TableHasProductController;
 use Illuminate\Support\Facades\Route;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
@@ -33,10 +34,16 @@ Route::middleware(['auth:sanctum'])->group(function(){
         return redirect(route('login'));
     })->name('dashboard');
 
-    Route::get('gotable/{table_id}',[TableController::class, 'findTheTable']);
 
 
 });
+
+
+    Route::get('gotable/{table_id}',[TableController::class, 'findTheTable']);
+    Route::post('addtocart',[TableHasProductController::class,'store'])->name('addtocart');
+
+
+
 
     Route::get('products', function(){
         return view('products.index');

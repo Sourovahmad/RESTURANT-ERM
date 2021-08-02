@@ -14,10 +14,11 @@
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
         <script defer src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
         <link rel="stylesheet" href="{{ asset('css/product.css') }}" />
-        
+
 
         @yield('customCSS')
 
@@ -31,7 +32,11 @@
         @yield('customjs')
 
     </head>
-    <body >
+    <body>
+
+        @include('includes.navbar')
+
+
 
         @yield('content')
 

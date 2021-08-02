@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\order;
+use App\Models\tableHasProduct;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class OrderController extends Controller
+class TableHasProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,16 +36,23 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $request->validate([
+            'table_id'=> 'required',
+            'product_id' => 'required'
+        ]);
+
+        tableHasProduct::create($request->all());
+
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\order  $order
+     * @param  \App\Models\tableHasProduct  $tableHasProduct
      * @return \Illuminate\Http\Response
      */
-    public function show(order $order)
+    public function show(tableHasProduct $tableHasProduct)
     {
         //
     }
@@ -53,10 +60,10 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\order  $order
+     * @param  \App\Models\tableHasProduct  $tableHasProduct
      * @return \Illuminate\Http\Response
      */
-    public function edit(order $order)
+    public function edit(tableHasProduct $tableHasProduct)
     {
         //
     }
@@ -65,10 +72,10 @@ class OrderController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\order  $order
+     * @param  \App\Models\tableHasProduct  $tableHasProduct
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, order $order)
+    public function update(Request $request, tableHasProduct $tableHasProduct)
     {
         //
     }
@@ -76,10 +83,10 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\order  $order
+     * @param  \App\Models\tableHasProduct  $tableHasProduct
      * @return \Illuminate\Http\Response
      */
-    public function destroy(order $order)
+    public function destroy(tableHasProduct $tableHasProduct)
     {
         //
     }

@@ -14,7 +14,7 @@
 
 @media screen and (min-width: 1025px) {
   body {
-    display: none;
+    display: block;
   }
 }
 
@@ -205,7 +205,7 @@ section.productSection .theCategoryTitle::after {
 }
 /* the product css here */
 section.productSection .CategoryWisedProducts .product {
-  background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.3) 50%, var(--themeCl) 50%);
+  background: linear-gradient(to right bottom, #212529, 50%, var(--themeCl) 50%);
   display: flex;
   align-items: center;
   width: 95%;
@@ -216,6 +216,20 @@ section.productSection .CategoryWisedProducts .product {
   border-radius: 8px;
   justify-content: space-between;
   box-shadow: inset 2px 2px 4px #000;
+  border: 1px solid var(--themeCl);
+}
+
+
+.alertforNoProduct{
+  background: linear-gradient(to right bottom, #212529, 50%, var(--themeCl) 50%);
+  align-items: center;
+  width: 95%;
+  height: 120px;
+  margin: 30px auto;
+  padding: 20px 40px 20px 20px;
+  color: #fff;
+  border-radius: 8px;
+  justify-content: space-between;
   border: 1px solid var(--themeCl);
 }
 @media screen and (min-width: 767px){
@@ -290,7 +304,7 @@ section.theProductView .theProductImage {
 }
 
 section.theProductView .theProductImage img {
-  width: 100px;
+  width: 85%;
   margin: auto;
   display: block;
 }

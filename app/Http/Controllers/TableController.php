@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\category;
+use App\Models\product;
 use App\Models\table;
 use Carbon\Carbon;
 use finfo;
@@ -127,8 +129,18 @@ class TableController extends Controller
             return view('errors.tableNotFound',compact('myid'));
         }
 
-        $tbaleID = $requestedTable->id;
-        return view('products.index',compact('tbaleID'));
+        if($requestedTable->active_status == 1){
+
+            $products = product::all();
+            $categories = category::all();
+            return view('products.index',compact('requestedTable','products','categories'));
+
+        } else{
+
+         return view('errors.tableNotActive',compact('requestedTable'));
+
+        }
+
 
     }
 
