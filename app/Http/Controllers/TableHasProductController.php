@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\table;
 use App\Models\tableHasProduct;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -89,5 +90,22 @@ class TableHasProductController extends Controller
     public function destroy(tableHasProduct $tableHasProduct)
     {
         //
+    }
+
+
+    public function OrderedProducts($table_id)
+    {
+        $table = table::find($table_id);
+
+        if($table->active_status == 1){
+
+        $tableData = tableHasProduct::where('table_id', $table_id)->get();
+        return view('pages.order.index',compact('tableData'));
+        
+        }else{
+            return view('errors.tableNotActive');
+        }
+
+
     }
 }

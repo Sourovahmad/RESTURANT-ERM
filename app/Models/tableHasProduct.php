@@ -14,4 +14,10 @@ class tableHasProduct extends Model
     ];
 
 
+    public function products()
+    {
+        return $this->hasMany(product::class,'id','product_id');
+    }
+
+
 }

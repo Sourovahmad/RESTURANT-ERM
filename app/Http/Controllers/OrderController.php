@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\order;
+use App\Models\tableHasProduct;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use SebastianBergmann\Environment\Runtime;
 
 class OrderController extends Controller
 {
@@ -85,8 +87,5 @@ class OrderController extends Controller
     }
 
 
-    public function OrderedProducts($table_id)
-    {
-        return $table_id;
-    }
+
 }

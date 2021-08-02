@@ -3,6 +3,7 @@
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\TableHasProductController;
+use App\Models\tableHasProduct;
 use Illuminate\Support\Facades\Route;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
@@ -43,7 +44,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('addtocart',[TableHasProductController::class,'store'])->name('addtocart');
 
 
-    Route::get('gorders/{table_id}',[OrderController::class, 'OrderedProducts'])->name('gorders');
+    Route::get('gorders/{table_id}',[TableHasProductController::class, 'OrderedProducts'])->name('gorders');
 
 
 

@@ -3,6 +3,10 @@
 @section('content')
 
 
+
+
+
+
  <header class="userMenuePageHeader">
         <nav>
             <div class="hamBurgerIcon">
@@ -38,23 +42,8 @@
         </div>
 
         <div class="allTrayItems">
-            <div class="trayItem">
-                <div class="quantity">
-                    <div class="minus">
-                        <button>-</button>
-                    </div>
-                    <div class="number">
-                        <h5>1</h5>
-                    </div>
-                    <div class="plus">
-                        <button>+</button>
-                    </div>
-                </div>
 
-                <div class="productName">
-                    <h5>Pepsi Max</h5>
-                </div>
-            </div>
+        @foreach ($tableData as $table)
 
             <div class="trayItem">
                 <div class="quantity">
@@ -70,63 +59,11 @@
                 </div>
 
                 <div class="productName">
-                    <h5>Pepsi Max</h5>
+                    <h5>{{ $table->products[0]->name }}</h5>
                 </div>
             </div>
 
-            <div class="trayItem">
-                <div class="quantity">
-                    <div class="minus">
-                        <button>-</button>
-                    </div>
-                    <div class="number">
-                        <h5>1</h5>
-                    </div>
-                    <div class="plus">
-                        <button>+</button>
-                    </div>
-                </div>
-
-                <div class="productName">
-                    <h5>Pepsi Max</h5>
-                </div>
-            </div>
-
-            <div class="trayItem">
-                <div class="quantity">
-                    <div class="minus">
-                        <button>-</button>
-                    </div>
-                    <div class="number">
-                        <h5>1</h5>
-                    </div>
-                    <div class="plus">
-                        <button>+</button>
-                    </div>
-                </div>
-
-                <div class="productName">
-                    <h5>Pepsi Max</h5>
-                </div>
-            </div>
-
-            <div class="trayItem">
-                <div class="quantity">
-                    <div class="minus">
-                        <button>-</button>
-                    </div>
-                    <div class="number">
-                        <h5>1</h5>
-                    </div>
-                    <div class="plus">
-                        <button>+</button>
-                    </div>
-                </div>
-
-                <div class="productName">
-                    <h5>Pepsi Max</h5>
-                </div>
-            </div>
+        @endforeach
 
         </div>
     </section>
@@ -157,7 +94,7 @@
         </div>
     </section>
 
-    
+
 
         <!-- The Footer start here -->
     <footer class="userFooter">
@@ -208,9 +145,9 @@
     </footer>
 
 
-    
+
  <script>
-   
+
 // the home page funtions
 
 const allProducts = document.querySelectorAll(".product");
