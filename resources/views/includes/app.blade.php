@@ -10,6 +10,9 @@
 
 
         <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
         <script defer src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
@@ -24,6 +27,7 @@
         <script src="{{ asset('js/popper.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/custom.js') }}"></script>
+     {{-- <script src="{{ asset('js/func.js') }}"></script> --}}
         @yield('customjs')
 
     </head>
