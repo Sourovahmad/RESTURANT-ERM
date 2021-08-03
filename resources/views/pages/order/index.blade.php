@@ -107,7 +107,7 @@
 
     <section class="subTotalAndOrderBtn">
         <div class="theSubTotal">
-            <h5>Subtotal: $5.50</h5>
+            <h5>Subtotal: $ {{ $totalPrice }}</h5>
         </div>
         <div class="theOrderButton">
             <button class="theOrderStarter" onclick="theOrderPopUpShow()">SEND ORDER</button>

@@ -102,7 +102,15 @@ class TableHasProductController extends Controller
         if($table->active_status == 1){
 
         $tableData = tableHasProduct::where('table_id', $table_id)->get();
-        return view('pages.order.index',compact('tableData'));
+
+        $totalPrice = 0;
+
+        for ($i=0; $i < $tableData->count(); $i++) {
+
+            $totalPrice += $tableData[$i]->products[0]->price;
+        }
+
+         return view('pages.order.index',compact('tableData','totalPrice'));
 
         }else{
             return view('errors.tableNotActive');
