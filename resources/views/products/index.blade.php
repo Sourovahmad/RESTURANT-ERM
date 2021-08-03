@@ -308,7 +308,7 @@ for (var i = 0; i <= allProducts.length; i++) {
                     $('#cart_input_for_table_product_id').val(products[key].id);
 
                     var route = '{{ route('dashboard') }}';
-                    var image = route.trim() + '/' + products[key].image_big.trim();
+                    var image = route.trim() + '/' + products[key].image_big;
                     $('.theProductImageSrc').attr('src', image);
 
                 }
