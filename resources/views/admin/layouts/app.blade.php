@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="{{asset('css/admin/datatables.min.css')}}">
         <link rel="stylesheet" src="{{asset('bootstrap-select/css/bootstrap-select.min.css')}}">
        <link rel="stylesheet" href="{{ asset('css/table.css') }}">
+       <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
         <!-- Styles -->
         <style>

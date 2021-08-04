@@ -64,7 +64,7 @@ class ProductController extends Controller
             $imageSize = getimagesize($request->image);
 
             $pictureSmall = Photo::make($request->image)->fit($imageSize[0], $imageSize[1])->save('images/'.$fileNameFull);
-            $pictureBig = Photo::make($request->image)->fit(135, 100)->save('images/'.$fileNameSmall);
+            $pictureBig = Photo::make($request->image)->fit($imageSize[0], $imageSize[1])->save('images/'.$fileNameSmall);
 
 
             $product->image_small = 'images/'.$fileNameSmall;

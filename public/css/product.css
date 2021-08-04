@@ -146,7 +146,7 @@ section.theConditionSearch .condition .conditionBox .theTimeIcon i {
 
 /* product section start here */
 section.productSection {
-  background: url(https://qph.fs.quoracdn.net/main-qimg-8b585fb4a5c9fedbb899cfb0cf0331a7);
+background: #ffff;
   background-repeat: repeat;
   padding: 50px 0;
 }
@@ -188,7 +188,7 @@ section.productSection .CategoryWisedProducts .tab-container-wrapper .tab-conten
 }
 
 section.productSection .theCategoryTitle {
-  color: #fff;
+  color: black;
   margin-left: 10px;
   font-size: 20px;
   font-weight: 600;
@@ -205,7 +205,8 @@ section.productSection .theCategoryTitle::after {
 }
 /* the product css here */
 section.productSection .CategoryWisedProducts .product {
-  background: linear-gradient(to right bottom, #212529, 50%, var(--themeCl) 50%);
+  /* background: linear-gradient(to right bottom, #212529, 50%, var(--themeCl) 50%); */
+box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   display: flex;
   align-items: center;
   width: 95%;
@@ -215,8 +216,9 @@ section.productSection .CategoryWisedProducts .product {
   color: #fff;
   border-radius: 8px;
   justify-content: space-between;
-  box-shadow: inset 2px 2px 4px #000;
-  border: 1px solid var(--themeCl);
+  color: #000;
+
+
 }
 
 
@@ -304,7 +306,7 @@ section.theProductView .theProductImage {
 }
 
 section.theProductView .theProductImage img {
-  width: 85%;
+  width: 100px;
   margin: auto;
   display: block;
 }

@@ -87,7 +87,7 @@
             <div class="swiper-wrapper">
 
                 @foreach ($categories as $category)
-                    <div data-tab-caller="category_tab_{{ $category->id }}" class="swiper-slide activetab">
+                    <div href="category_tab_{{ $category->id }}" class="swiper-slide activetab">
                         {{ $category->name }}</div>
                 @endforeach
 

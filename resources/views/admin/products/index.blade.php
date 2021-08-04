@@ -88,7 +88,7 @@
 
                         <div class="col-12 col-md-4 form-group">
                             <label for="category">Upload Image </label>
-                            <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg" />
+                            <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg"  required/>
                         </div>
 
 
@@ -178,7 +178,7 @@
                                     <p> No Image</p>
                                     @endempty
 
-                                     <img src="{{ asset($product->image_small) }}" alt="">
+                                     <img class="admin_mode_product_image" src="{{ asset($product->image_small) }}" alt="">
 
 
                                 </td>

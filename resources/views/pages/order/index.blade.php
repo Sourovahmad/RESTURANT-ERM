@@ -83,7 +83,6 @@
                         </div>
                     </div>
 
-                    <input type="text" class="inputForAllPrices" name="" id="" value="{{ $table->products[0]->price }}" hidden>
 
                     <div class="productName">
                         <h5>{{ $table->products[0]->name }}</h5>
@@ -107,7 +106,7 @@
 
     <section class="subTotalAndOrderBtn">
         <div class="theSubTotal">
-            <h5>Subtotal: $ {{ $totalPrice }}</h5>
+            <h5 id="">Subtotal: $ <span id="subtotalPriceOfAll">{{ $totalPrice }} </span> </h5>
         </div>
         <div class="theOrderButton">
             <button class="theOrderStarter" onclick="theOrderPopUpShow()">SEND ORDER</button>
@@ -248,15 +247,9 @@
 
         $(document).ready(function () {
 
-        var TotalPrice = 0;
-        var allProductPrice = $('.singleProductPrice').val();
+        var totalPrices = parseInt($('#subtotalPriceOfAll').text());
+        var quantity = 
 
-        var allPriceList =  document.querySelectorAll('.inputForAllPrices');
-
-            $.each(allPriceList, function (key) {
-
-                console.log($(this).val());
-            })
 
         });
 
