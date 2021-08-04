@@ -77,18 +77,18 @@
     <section class="productSection">
 
 
-
-        <div class="theCategoryTitle">
-            <b>Categories and Foods</b>
-        </div>
-
         <!-- catagory slider code  -->
-        <div class="swiper-container catagory-slider-swiper-slider">
+        <div class="swiper-container catagory-slider-swiper-slider mb-4">
             <div class="swiper-wrapper">
 
                 @foreach ($categories as $category)
-                    <div href="category_tab_{{ $category->id }}" class="swiper-slide activetab">
-                        {{ $category->name }}</div>
+
+                <a href="#category_tab_{{ $category->id }}">
+                    <div class="swiper-slide activetab">
+                        {{ $category->name }}
+
+                    </div>
+                    </a>
                 @endforeach
 
 
@@ -103,55 +103,55 @@
 
                 @foreach ($categories as $category)
 
+                    <div class="theCategoryTitle" id="category_tab_{{ $category->id }}">
+                        <b>{{ $category->name }}</b>
+                    </div>
+
+                    @php
+                        $categoryWisedProducts = $category->products;
+                    @endphp
 
 
-                    <div data-tab-content="category_tab_{{ $category->id }}" class="tab-content fade">
+
+                    @if ($categoryWisedProducts->count() != 0)
+
+                        @foreach ($categoryWisedProducts as $categoryWisedProduct)
 
 
-                        @php
-                            $categoryWisedProducts = $category->products;
-                        @endphp
-
-
-                        @if ($categoryWisedProducts->count() != 0)
-                            @foreach ($categoryWisedProducts as $categoryWisedProduct)
-
-
-                                <div class="product" id="singleProduct" data="1"
-                                    data-item-id="{{ $categoryWisedProduct->id }}">
-                                    <div class="productImg">
-                                        <img src="{{ asset($categoryWisedProduct->image_small) }}" alt="">
-                                    </div>
-
-
-                                    <div class="infoPart">
-                                        <div class="productName">
-                                            <h5>
-                                                Name: <span>{{ $categoryWisedProduct->name }}</span></h5>
-                                        </div>
-
-                                        <div class="productPriceAndNumber">
-                                            <div class="thePrice">
-                                                <span><b>{{ $categoryWisedProduct->price }}</b></span>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="product" id="singleProduct" data="1"
+                                data-item-id="{{ $categoryWisedProduct->id }}">
+                                <div class="productImg">
+                                    <img src="{{ asset($categoryWisedProduct->image_small) }}" alt="">
                                 </div>
-                            @endforeach
 
-                        @else
-                            <div class="alertforNoProduct text-center">
-                                <div class="alert alert-warning" role="alert">
-                                    Sorry ! There is no Product on this category
+
+                                <div class="infoPart">
+                                    <div class="productName">
+                                        <h5>
+                                            Name: <span>{{ $categoryWisedProduct->name }}</span></h5>
+                                    </div>
+
+                                    <div class="productPriceAndNumber">
+                                        <div class="thePrice">
+                                            <span><b>{{ $categoryWisedProduct->price }}</b></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        @endforeach
+
+                    @else
+                        <div class="alertforNoProduct text-center">
+                            <div class="alert alert-warning" role="alert">
+                                Sorry ! There is no Product on this category
+                            </div>
+                        </div>
 
 
-                        @endif
+                    @endif
 
 
 
-                    </div>
 
                 @endforeach
             </div>
@@ -232,7 +232,7 @@
 
         <div class="iconBox">
 
-    <a id="orderPageLink" href="{{ route('orders',$requestedTable->id) }}">
+            <a id="orderPageLink" href="{{ route('orders', $requestedTable->id) }}">
 
                 <div class="icon">
                     <i class="fas fa-bell"></i>
@@ -260,10 +260,6 @@
     </footer>
 
 
-
-
-
-
     <form id="form_for_add_cart" hidden>
         @csrf
         <input type="text" name="table_id" id="cart_input_for_table_id" value="{{ $requestedTable->id }}">
@@ -274,19 +270,24 @@
 
 
 
- <script>
+    <script>
+        // the home page funtions
 
-// the home page funtions
+        const allProducts = document.querySelectorAll(".product");
+        const theProductView = document.querySelector(".theProductView");
+        let addToOrder = document.querySelector("button.addToOrder");
 
-const allProducts = document.querySelectorAll(".product");
-const theProductView = document.querySelector(".theProductView");
-let addToOrder = document.querySelector("button.addToOrder");
 
-for (var i = 0; i <= allProducts.length; i++) {
-    allProducts[i]?.addEventListener("click", function (event) {
-        theProductView.classList.add("theProductVisible");
-    });
-}
+        function theAppend() {
+            var theElement = document.querySelector(".theAppentSection");
+            theElement.classList.add("theAppendCome");
+        }
+
+        function theAppendRemove() {
+            var theElement = document.querySelector(".theAppentSection");
+            theElement.classList.remove("theAppendCome");
+        }
+
 
 
         var products = @json($products);
@@ -399,9 +400,6 @@ for (var i = 0; i <= allProducts.length; i++) {
             };
             showingtab();
         } catch (err) {}
-
-
-
     </script>
 
 
