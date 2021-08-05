@@ -67,6 +67,9 @@
 
         <div class="allTrayItems">
 
+
+
+            @if ($tableData->count() != 0 )
             @foreach ($tableData as $table)
 
 
@@ -108,6 +111,14 @@
 
             @endforeach
 
+            @else
+
+            <p class="m-4"> looks like there is no Product in Cart. Add some and Order</p>
+            @endif
+
+
+
+
         </div>
     </section>
 
@@ -116,9 +127,12 @@
         <div class="theSubTotal">
             <h5 id="">Subtotal: $<span id="subtotalPriceOfAll">{{ $totalPrice }} </span> </h5>
         </div>
+        @if ($tableData->count() != 0)
         <div class="theOrderButton">
             <button class="theOrderStarter" onclick="theOrderPopUpShow()">SEND ORDER</button>
         </div>
+        @endif
+
     </section>
 
     <!-- the order page pop up -->
