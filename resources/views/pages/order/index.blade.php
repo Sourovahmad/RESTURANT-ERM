@@ -77,7 +77,7 @@
                                 class="quantityMinusButton">-</button>
                         </div>
                         <div class="number">
-                            <h5 id="currentQuantity">{{ $table->quantity }}</h5>
+                            <h5 id="currentQuantity_{{ $table->id }}">{{ $table->quantity }}</h5>
                         </div>
                         <div class="plus">
                             <button data-item-id="{{ $table->id }}" data-item-price="{{ $table->products[0]->price }}"
@@ -193,8 +193,8 @@
 
             @csrf
 
-            <input type="text" name="table_product_id" id="id_for_tablehasproduct_update">
-            <input type="text" name="quantity" id="quantity_for_tablehasproduct_update">
+            <input type="text" name="table_product_id" id="id_for_tablehasproduct_update" hidden>
+            <input type="text" name="quantity" id="quantity_for_tablehasproduct_update" hidden>
 
 
         </form>
@@ -206,18 +206,19 @@
         $(document).ready(function() {
 
             var totalPrices = parseInt($('#subtotalPriceOfAll').text());
-            var requesttableid = $('#currentTableId').val();
 
 
             $('.quantityPlusButton').click(function() {
 
-                var currentQuantity = parseInt($('#currentQuantity').text());
-
                 $(this).addClass('quantity-button-clicked');
                 var el = $(".quantity-button-clicked");
                 var currentTableId = el.data('item-id');
+
+
+                var currentQuantity = parseInt($('#currentQuantity_' .trim() + currentTableId ).text());
                 var CurrentproductPrice = el.data('item-price');
                 var updatedQuantity = currentQuantity += 1;
+
                 var updatedTotalPrice = totalPrices += CurrentproductPrice;
 
                 $('#id_for_tablehasproduct_update').val(currentTableId);
@@ -235,24 +236,27 @@
                         success: function(data) {
                             console.log("quantity update success");
 
-                            $('#currentQuantity').text(updatedQuantity);
+                            $('#currentQuantity_' .trim() + currentTableId ).text(updatedQuantity)
                             $('#subtotalPriceOfAll').text(updatedTotalPrice);
+                            $('.quantity-button-clicked').removeClass('quantity-button-clicked');
 
                         }
                 });
 
-
-
-
-                // $('#currentQuantity').text(currentQuantity);
-
                 $('.quantity-button-clicked').removeClass('quantity-button-clicked');
             })
 
-            $('#quantityMinusButton').click(function() {
+            $('.quantityMinusButton').click(function() {
+
                 var currentQuantity = parseInt($('#currentQuantity').text());
-                currentQuantity -= 1;
-                $('#currentQuantity').text(currentQuantity);
+
+                if (currentQuantity == 0){
+                    alert('You Reached The Minimum Quantity');
+                }else{
+
+
+
+                }
 
             })
 
