@@ -17,6 +17,7 @@ class CreateTableHasProductsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('table_id');
             $table->unsignedBigInteger('product_id');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }

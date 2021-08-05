@@ -73,13 +73,13 @@
                 <div class="trayItem">
                     <div class="quantity">
                         <div class="minus">
-                            <button data-item-id="{{ $table->products[0]->name }}" item-price="{{ $table->products[0]->price }}" id="quantityMinusButton">-</button>
+                            <button data-item-id="{{ $table->products[0]->id }}" data-item-price="{{ $table->products[0]->price }}" class="quantityMinusButton">-</button>
                         </div>
                         <div class="number">
                             <h5 id="currentQuantity">1</h5>
                         </div>
                         <div class="plus">
-                            <button data-item-id="{{ $table->products[0]->name }}" item-price="{{ $table->products[0]->price }}" id="quantityPlusButton">+</button>
+                            <button data-item-id="{{ $table->products[0]->id }}" data-item-price="{{ $table->products[0]->price }}" class="quantityPlusButton">+</button>
                         </div>
                     </div>
 
@@ -198,13 +198,19 @@
         var totalPrices = parseInt($('#subtotalPriceOfAll').text());
 
 
-        $('#quantityPlusButton').click(function () {
+        $('.quantityPlusButton').click(function () {
             var currentQuantity = parseInt($('#currentQuantity').text());
 
+            $(this).addClass('quantity-button-clicked');
+            var el = $(".quantity-button-clicked");
+            var productID = el.data('item-id');
+            var productPrice = el.data('item-price');
+            alert(productPrice)
 
+            // currentQuantity += 1;
+            // $('#currentQuantity').text(currentQuantity);
 
-            currentQuantity += 1;
-            $('#currentQuantity').text(currentQuantity);
+            $('.quantity-button-clicked').removeClass('quantity-button-clicked');
         })
 
         $('#quantityMinusButton').click(function () {

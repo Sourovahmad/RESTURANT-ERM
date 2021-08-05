@@ -39,7 +39,8 @@ class TableHasProductController extends Controller
     {
         $request->validate([
             'table_id'=> 'required',
-            'product_id' => 'required'
+            'product_id' => 'required',
+            'quantity' => 'required',
         ]);
 
         tableHasProduct::create($request->all());
