@@ -187,16 +187,25 @@
         </div>
     </footer>
 
- 
-        <form id="form_for_tableHasProduct">
 
-            @csrf
+    <form id="form_for_tableHasProduct">
 
-            <input type="text" name="table_product_id" id="id_for_tablehasproduct_update" hidden>
-            <input type="text" name="quantity" id="quantity_for_tablehasproduct_update" hidden>
+        @csrf
+
+        <input type="text" name="table_product_id" id="id_for_tablehasproduct_update" hidden>
+        <input type="text" name="quantity" id="quantity_for_tablehasproduct_update" hidden>
 
 
-        </form>
+    </form>
+
+    <form id="form_for_send_order" method="POST" action="{{ route('tableOrderStore') }}" hidden>
+        @csrf
+        <input type="text" name="table_id" id="table_id_for_send_order" value="{{ $table_id }}" hidden>
+        <button type="submit" id="send_order_submit_button"></button>
+    </form>
+
+
+
     <script>
         // the home page funtions
         let addToOrder = document.querySelector("button.addToOrder");
@@ -214,7 +223,7 @@
                 var currentTableId = el.data('item-id');
 
 
-                var currentQuantity = parseInt($('#currentQuantity_' .trim() + currentTableId ).text());
+                var currentQuantity = parseInt($('#currentQuantity_'.trim() + currentTableId).text());
                 var CurrentproductPrice = el.data('item-price');
                 var updatedQuantity = currentQuantity += 1;
 
@@ -227,18 +236,18 @@
                 var data = $('#form_for_tableHasProduct').serialize();
 
 
-                    $.ajax({
-                        type: 'POST',
-                        url: route,
-                        data: data,
-                        success: function(data) {
-                            console.log("quantity add success");
+                $.ajax({
+                    type: 'POST',
+                    url: route,
+                    data: data,
+                    success: function(data) {
+                        console.log("quantity add success");
 
-                             var updatedTotalPrice = totalPrices += CurrentproductPrice;
-                            $('#currentQuantity_' .trim() + currentTableId ).text(updatedQuantity)
-                            $('#subtotalPriceOfAll').text(updatedTotalPrice);
+                        var updatedTotalPrice = totalPrices += CurrentproductPrice;
+                        $('#currentQuantity_'.trim() + currentTableId).text(updatedQuantity)
+                        $('#subtotalPriceOfAll').text(updatedTotalPrice);
 
-                        }
+                    }
                 });
 
                 $('.quantity-button-clicked').removeClass('quantity-button-clicked');
@@ -253,23 +262,23 @@
                 var el = $(".quantity-button-clicked");
                 var currentTableId = el.data('item-id');
 
-                var currentQuantity = parseInt($('#currentQuantity_' .trim() + currentTableId ).text());
+                var currentQuantity = parseInt($('#currentQuantity_'.trim() + currentTableId).text());
 
-                if (currentQuantity == 0){
+                if (currentQuantity == 0) {
                     alert('You Reached The Minimum Quantity');
-                }else{
+                } else {
 
-                var CurrentproductPrice = el.data('item-price');
-                var updatedQuantity = currentQuantity -= 1;
+                    var CurrentproductPrice = el.data('item-price');
+                    var updatedQuantity = currentQuantity -= 1;
 
-                var updatedTotalPrice = totalPrices -= CurrentproductPrice;
+                    var updatedTotalPrice = totalPrices -= CurrentproductPrice;
 
-                $('#id_for_tablehasproduct_update').val(currentTableId);
-                $('#quantity_for_tablehasproduct_update').val(updatedQuantity)
+                    $('#id_for_tablehasproduct_update').val(currentTableId);
+                    $('#quantity_for_tablehasproduct_update').val(updatedQuantity)
 
 
-                var route = '{{ route('updateTableProduct') }}';
-                var data = $('#form_for_tableHasProduct').serialize();
+                    var route = '{{ route('updateTableProduct') }}';
+                    var data = $('#form_for_tableHasProduct').serialize();
 
 
                     $.ajax({
@@ -279,14 +288,15 @@
                         success: function(data) {
                             console.log("quantity minus success");
 
-                            $('#currentQuantity_' .trim() + currentTableId ).text(updatedQuantity)
+                            $('#currentQuantity_'.trim() + currentTableId).text(updatedQuantity)
                             $('#subtotalPriceOfAll').text(updatedTotalPrice);
-                            $('.quantity-button-clicked').removeClass('quantity-button-clicked');
+                            $('.quantity-button-clicked').removeClass(
+                            'quantity-button-clicked');
 
                         }
-                });
+                    });
 
-                $('.quantity-button-clicked').removeClass('quantity-button-clicked');
+                    $('.quantity-button-clicked').removeClass('quantity-button-clicked');
 
 
                 }
@@ -302,7 +312,7 @@
         var theNumber = 15;
 
         function theOrderPopUpShow(theNumberChanger) {
-            theNumber = 15;
+            theNumber = 5;
             var theOrderPopUp = document.querySelector(".theOrderPopUp");
             var p = document.querySelector(".theOrderPopUp .theDesc p");
             var h5 = document.querySelector(".theOrderPopUp .theOrderAlert h5");
@@ -318,9 +328,13 @@
                     h5.innerHTML = `The Order will be started in ${theNumber} seconds`;
                     button.innerHTML = "Change Order";
                 } else {
-                    p.innerHTML = "Success!";
-                    h5.innerHTML = "Your Order Has Been Placed";
-                    button.innerHTML = "Thank You";
+
+                         p.innerHTML = "Success!";
+                         h5.innerHTML = "Your Order Has Been Placed";
+                         button.innerHTML = "Thank You";
+                         $('#send_order_submit_button').trigger('click');
+
+
                 }
             }
             theOrderPopUp.classList.add("theProductShow");

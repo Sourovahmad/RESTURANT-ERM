@@ -107,6 +107,7 @@ class TableHasProductController extends Controller
 
         $tableData = tableHasProduct::where('table_id', $table_id)->get();
         $tableurl = $table->table_url;
+        $table_id = $table->id;
 
         $totalPrice = 0;
 
@@ -116,7 +117,7 @@ class TableHasProductController extends Controller
             $totalPrice +=  $multiplyQuantity;
         }
 
-         return view('pages.order.index',compact('tableData','totalPrice','tableurl'));
+         return view('pages.order.index',compact('tableData','totalPrice','tableurl','table_id'));
 
         }else{
             return view('errors.tableNotActive');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\table;
 use App\Models\tableHasOrder;
+use App\Models\tableHasProduct;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -38,7 +39,8 @@ class TableHasOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tableHasProduct = tableHasProduct::where('table_id', $request->table_id)->get();
+        return $tableHasProduct;
     }
 
     /**

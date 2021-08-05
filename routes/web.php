@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\TableHasOrderController;
 use App\Http\Controllers\TableHasProductController;
 use App\Models\tableHasProduct;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,10 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('orders/{table_id}',[TableHasProductController::class, 'OrderedProducts'])->name('orders');
 
     Route::post('updateTableProduct',[TableHasProductController::class,'update'])->name('updateTableProduct');
+
+    Route::post('tableOrderStore',[TableHasOrderController::class, 'store'])->name('tableOrderStore');
+
+
 
 
 
