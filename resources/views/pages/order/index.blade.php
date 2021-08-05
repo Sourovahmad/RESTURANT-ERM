@@ -143,7 +143,7 @@
     <footer class="userFooter">
 
         <div class="iconBox">
-            <a href="../index.html">
+            <a href="{{ $tableurl }}">
                 <div class="icon">
                     <i class="fas fa-book"></i>
                 </div>
@@ -187,8 +187,7 @@
         </div>
     </footer>
 
-    <input type="text" name="" id="currentTableId" value="{{ $tableId }}" hidden>
-
+ 
         <form id="form_for_tableHasProduct">
 
             @csrf
@@ -219,7 +218,6 @@
                 var CurrentproductPrice = el.data('item-price');
                 var updatedQuantity = currentQuantity += 1;
 
-                var updatedTotalPrice = totalPrices += CurrentproductPrice;
 
                 $('#id_for_tablehasproduct_update').val(currentTableId);
                 $('#quantity_for_tablehasproduct_update').val(updatedQuantity)
@@ -234,7 +232,52 @@
                         url: route,
                         data: data,
                         success: function(data) {
-                            console.log("quantity update success");
+                            console.log("quantity add success");
+
+                             var updatedTotalPrice = totalPrices += CurrentproductPrice;
+                            $('#currentQuantity_' .trim() + currentTableId ).text(updatedQuantity)
+                            $('#subtotalPriceOfAll').text(updatedTotalPrice);
+
+                        }
+                });
+
+                $('.quantity-button-clicked').removeClass('quantity-button-clicked');
+
+
+            })
+
+            $('.quantityMinusButton').click(function() {
+
+
+                $(this).addClass('quantity-button-clicked');
+                var el = $(".quantity-button-clicked");
+                var currentTableId = el.data('item-id');
+
+                var currentQuantity = parseInt($('#currentQuantity_' .trim() + currentTableId ).text());
+
+                if (currentQuantity == 0){
+                    alert('You Reached The Minimum Quantity');
+                }else{
+
+                var CurrentproductPrice = el.data('item-price');
+                var updatedQuantity = currentQuantity -= 1;
+
+                var updatedTotalPrice = totalPrices -= CurrentproductPrice;
+
+                $('#id_for_tablehasproduct_update').val(currentTableId);
+                $('#quantity_for_tablehasproduct_update').val(updatedQuantity)
+
+
+                var route = '{{ route('updateTableProduct') }}';
+                var data = $('#form_for_tableHasProduct').serialize();
+
+
+                    $.ajax({
+                        type: 'POST',
+                        url: route,
+                        data: data,
+                        success: function(data) {
+                            console.log("quantity minus success");
 
                             $('#currentQuantity_' .trim() + currentTableId ).text(updatedQuantity)
                             $('#subtotalPriceOfAll').text(updatedTotalPrice);
@@ -244,16 +287,6 @@
                 });
 
                 $('.quantity-button-clicked').removeClass('quantity-button-clicked');
-            })
-
-            $('.quantityMinusButton').click(function() {
-
-                var currentQuantity = parseInt($('#currentQuantity').text());
-
-                if (currentQuantity == 0){
-                    alert('You Reached The Minimum Quantity');
-                }else{
-
 
 
                 }

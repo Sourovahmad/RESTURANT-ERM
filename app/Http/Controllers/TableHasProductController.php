@@ -82,7 +82,7 @@ class TableHasProductController extends Controller
         $tableHasProduct = tableHasProduct::find($request->table_product_id);
         $tableHasProduct->quantity = $request->quantity;
         $tableHasProduct->save();
-        
+
     }
 
     /**
@@ -106,7 +106,7 @@ class TableHasProductController extends Controller
         if($table->active_status == 1){
 
         $tableData = tableHasProduct::where('table_id', $table_id)->get();
-        $tableId = $table->id;
+        $tableurl = $table->table_url;
 
         $totalPrice = 0;
 
@@ -116,7 +116,7 @@ class TableHasProductController extends Controller
             $totalPrice +=  $multiplyQuantity;
         }
 
-         return view('pages.order.index',compact('tableData','totalPrice','tableId'));
+         return view('pages.order.index',compact('tableData','totalPrice','tableurl'));
 
         }else{
             return view('errors.tableNotActive');
