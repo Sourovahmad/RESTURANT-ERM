@@ -79,7 +79,10 @@ class TableHasProductController extends Controller
      */
     public function update(Request $request, tableHasProduct $tableHasProduct)
     {
-        //
+        $tableHasProduct = tableHasProduct::find($request->table_product_id);
+        $tableHasProduct->quantity = $request->quantity;
+        $tableHasProduct->save();
+        
     }
 
     /**
@@ -103,15 +106,17 @@ class TableHasProductController extends Controller
         if($table->active_status == 1){
 
         $tableData = tableHasProduct::where('table_id', $table_id)->get();
+        $tableId = $table->id;
 
         $totalPrice = 0;
 
         for ($i=0; $i < $tableData->count(); $i++) {
 
-            $totalPrice += $tableData[$i]->products[0]->price;
+            $multiplyQuantity = $tableData[$i]->quantity * $tableData[$i]->products[0]->price;
+            $totalPrice +=  $multiplyQuantity;
         }
 
-         return view('pages.order.index',compact('tableData','totalPrice'));
+         return view('pages.order.index',compact('tableData','totalPrice','tableId'));
 
         }else{
             return view('errors.tableNotActive');

@@ -46,6 +46,10 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::get('orders/{table_id}',[TableHasProductController::class, 'OrderedProducts'])->name('orders');
 
+    Route::post('updateTableProduct',[TableHasProductController::class,'update'])->name('updateTableProduct');
+
+
+
 
     Route::get('deleteOrder/{order_id}',function($order_id){
       $table = tableHasProduct::find($order_id);

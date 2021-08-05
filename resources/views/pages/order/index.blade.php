@@ -73,13 +73,15 @@
                 <div class="trayItem">
                     <div class="quantity">
                         <div class="minus">
-                            <button data-item-id="{{ $table->products[0]->id }}" data-item-price="{{ $table->products[0]->price }}" class="quantityMinusButton">-</button>
+                            <button data-item-id="{{ $table->id }}" data-item-price="{{ $table->products[0]->price }}"
+                                class="quantityMinusButton">-</button>
                         </div>
                         <div class="number">
-                            <h5 id="currentQuantity">1</h5>
+                            <h5 id="currentQuantity">{{ $table->quantity }}</h5>
                         </div>
                         <div class="plus">
-                            <button data-item-id="{{ $table->products[0]->id }}" data-item-price="{{ $table->products[0]->price }}" class="quantityPlusButton">+</button>
+                            <button data-item-id="{{ $table->id }}" data-item-price="{{ $table->products[0]->price }}"
+                                class="quantityPlusButton">+</button>
                         </div>
                     </div>
 
@@ -91,7 +93,7 @@
 
 
                     <div class="plus">
-                       <h5>${{ $table->products[0]->price }}</h5>
+                        <h5>${{ $table->products[0]->price }}</h5>
                     </div>
 
 
@@ -185,45 +187,77 @@
         </div>
     </footer>
 
+    <input type="text" name="" id="currentTableId" value="{{ $tableId }}" hidden>
+
+        <form id="form_for_tableHasProduct">
+
+            @csrf
+
+            <input type="text" name="table_product_id" id="id_for_tablehasproduct_update">
+            <input type="text" name="quantity" id="quantity_for_tablehasproduct_update">
 
 
+        </form>
     <script>
-
         // the home page funtions
         let addToOrder = document.querySelector("button.addToOrder");
 
 
-        $(document).ready(function () {
+        $(document).ready(function() {
 
-        var totalPrices = parseInt($('#subtotalPriceOfAll').text());
+            var totalPrices = parseInt($('#subtotalPriceOfAll').text());
+            var requesttableid = $('#currentTableId').val();
 
 
-        $('.quantityPlusButton').click(function () {
-            var currentQuantity = parseInt($('#currentQuantity').text());
+            $('.quantityPlusButton').click(function() {
 
-            $(this).addClass('quantity-button-clicked');
-            var el = $(".quantity-button-clicked");
-            var productID = el.data('item-id');
-            var productPrice = el.data('item-price');
-            alert(productPrice)
+                var currentQuantity = parseInt($('#currentQuantity').text());
 
-            // currentQuantity += 1;
-            // $('#currentQuantity').text(currentQuantity);
+                $(this).addClass('quantity-button-clicked');
+                var el = $(".quantity-button-clicked");
+                var currentTableId = el.data('item-id');
+                var CurrentproductPrice = el.data('item-price');
+                var updatedQuantity = currentQuantity += 1;
+                var updatedTotalPrice = totalPrices += CurrentproductPrice;
 
-            $('.quantity-button-clicked').removeClass('quantity-button-clicked');
-        })
+                $('#id_for_tablehasproduct_update').val(currentTableId);
+                $('#quantity_for_tablehasproduct_update').val(updatedQuantity)
 
-        $('#quantityMinusButton').click(function () {
-            var currentQuantity = parseInt($('#currentQuantity').text());
-            currentQuantity -= 1;
-            $('#currentQuantity').text(currentQuantity);
 
-        })
+                var route = '{{ route('updateTableProduct') }}';
+                var data = $('#form_for_tableHasProduct').serialize();
+
+
+                    $.ajax({
+                        type: 'POST',
+                        url: route,
+                        data: data,
+                        success: function(data) {
+                            console.log("quantity update success");
+
+                            $('#currentQuantity').text(updatedQuantity);
+                            $('#subtotalPriceOfAll').text(updatedTotalPrice);
+
+                        }
+                });
+
+
+
+
+                // $('#currentQuantity').text(currentQuantity);
+
+                $('.quantity-button-clicked').removeClass('quantity-button-clicked');
+            })
+
+            $('#quantityMinusButton').click(function() {
+                var currentQuantity = parseInt($('#currentQuantity').text());
+                currentQuantity -= 1;
+                $('#currentQuantity').text(currentQuantity);
+
+            })
 
 
         });
-
-
 
 
 
@@ -280,13 +314,6 @@
             let theOrderPopUp = document.querySelector(".theOrderPopUp");
             theOrderPopUp.classList.remove("theProductShow");
         }
-
-
-
-
-
-
-
     </script>
 
 
