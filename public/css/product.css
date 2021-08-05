@@ -159,7 +159,7 @@ section.productSection .catagory-slider-swiper-slider .swiper-wrapper {
   padding: 5px 10px;
 }
 
-section.productSection .catagory-slider-swiper-slider .swiper-wrapper .swiper-slide {
+#swapperDliderActiveTab {
   width: auto;
   padding: 6px 25px;
   border-radius: 5px;
@@ -168,10 +168,18 @@ section.productSection .catagory-slider-swiper-slider .swiper-wrapper .swiper-sl
   color: var(--themeCl);
   cursor:pointer;
 }
+
+
 section.productSection .catagory-slider-swiper-slider .swiper-wrapper .activetab{
   background: var(--themeCl);
   color: #fff;
 }
+
+section.productSection .catagory-slider-swiper-slider .swiper-wrapper .classForlinkCategory{
+  text-decoration: none;
+}
+
+
 section.productSection .CategoryWisedProducts .tab-container-wrapper .tab-content {
   height: 0px;
   overflow: hidden;

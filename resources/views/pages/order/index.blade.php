@@ -73,19 +73,25 @@
                 <div class="trayItem">
                     <div class="quantity">
                         <div class="minus">
-                            <button>-</button>
+                            <button data-item-id="{{ $table->products[0]->name }}" item-price="{{ $table->products[0]->price }}" id="quantityMinusButton">-</button>
                         </div>
                         <div class="number">
-                            <h5>1</h5>
+                            <h5 id="currentQuantity">1</h5>
                         </div>
                         <div class="plus">
-                            <button>+</button>
+                            <button data-item-id="{{ $table->products[0]->name }}" item-price="{{ $table->products[0]->price }}" id="quantityPlusButton">+</button>
                         </div>
                     </div>
 
 
                     <div class="productName">
                         <h5>{{ $table->products[0]->name }}</h5>
+                    </div>
+
+
+
+                    <div class="plus">
+                       <h5>${{ $table->products[0]->price }}</h5>
                     </div>
 
 
@@ -106,7 +112,7 @@
 
     <section class="subTotalAndOrderBtn">
         <div class="theSubTotal">
-            <h5 id="">Subtotal: $ <span id="subtotalPriceOfAll">{{ $totalPrice }} </span> </h5>
+            <h5 id="">Subtotal: $<span id="subtotalPriceOfAll">{{ $totalPrice }} </span> </h5>
         </div>
         <div class="theOrderButton">
             <button class="theOrderStarter" onclick="theOrderPopUpShow()">SEND ORDER</button>
@@ -183,10 +189,35 @@
 
     <script>
 
-
-
         // the home page funtions
         let addToOrder = document.querySelector("button.addToOrder");
+
+
+        $(document).ready(function () {
+
+        var totalPrices = parseInt($('#subtotalPriceOfAll').text());
+
+
+        $('#quantityPlusButton').click(function () {
+            var currentQuantity = parseInt($('#currentQuantity').text());
+
+
+
+            currentQuantity += 1;
+            $('#currentQuantity').text(currentQuantity);
+        })
+
+        $('#quantityMinusButton').click(function () {
+            var currentQuantity = parseInt($('#currentQuantity').text());
+            currentQuantity -= 1;
+            $('#currentQuantity').text(currentQuantity);
+
+        })
+
+
+        });
+
+
 
 
 
@@ -245,13 +276,7 @@
         }
 
 
-        $(document).ready(function () {
 
-        var totalPrices = parseInt($('#subtotalPriceOfAll').text());
-        var quantity = 
-
-
-        });
 
 
 

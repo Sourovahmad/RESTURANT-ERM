@@ -83,8 +83,9 @@
 
                 @foreach ($categories as $category)
 
-                <a href="#category_tab_{{ $category->id }}">
-                    <div class="swiper-slide activetab">
+                <a href="#category_tab_{{ $category->id }}" class="classForlinkCategory">
+
+                    <div class="swiper-slide activetab" id="swapperDliderActiveTab">
                         {{ $category->name }}
 
                     </div>
