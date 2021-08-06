@@ -100,7 +100,7 @@
   }
 
   #table_icon_order,#table_icon_bill,#table_icon_service svg{
-    font-size: 22px;
+    /* font-size: 22px; */
   }
 
   #tables .tables-area > .row .table-card .wrapper .services-icon .active-btn h2{

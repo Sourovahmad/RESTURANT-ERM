@@ -27,7 +27,7 @@
             flex-basis: auto;
             display: flex;
             margin-left: auto;
-            
+
             .hnazmul-navbar-content-wrapper {
                 display: flex;
                 flex-basis: auto;
@@ -72,8 +72,7 @@
             @media screen and (max-width: 650px) {
                 padding: 0 10px;
             }
-            .hnazmul-nav-logo {
-            }
+
             .hnazmul-nav-toggle-btn {
                 display: block;
                 margin-left: auto;
@@ -103,8 +102,7 @@
                         width:80%;
                         li.navbar-list-item {
                             text-align: center;
-                            .navbar-list-link {
-                            }
+
                         }
                     }
                     button.navbar-closer-icon {
@@ -118,8 +116,7 @@
                         &:hover{
                             background:rgb(255, 0, 85);
                         }
-                        img.navbar-closer {
-                        }
+                       
                     }
                 }
             }
@@ -132,7 +129,7 @@
     display: inline-block;
     position: relative;
     z-index: 1;
-    
+
     .hnazmul-toggler-icon{
         cursor: pointer;
         color:white;
