@@ -101,13 +101,13 @@ class TableHasProductController extends Controller
 
     public function OrderedProducts($table_id)
     {
-        
+
         $table = table::find($table_id);
 
         if($table->active_status == 1){
 
         $tableData = tableHasProduct::where('table_id', $table_id)->get();
-        $tableurl = $table->table_url;
+        $requestedTable = $table;
         $table_id = $table->id;
 
         $totalPrice = 0;
@@ -118,7 +118,7 @@ class TableHasProductController extends Controller
             $totalPrice +=  $multiplyQuantity;
         }
 
-         return view('pages.order.index',compact('tableData','totalPrice','tableurl','table_id'));
+         return view('pages.order.index',compact('tableData','totalPrice','requestedTable','table_id'));
 
         }else{
             return view('errors.tableNotActive');

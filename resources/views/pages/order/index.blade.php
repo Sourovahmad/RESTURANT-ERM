@@ -42,6 +42,7 @@
         </div>
     @endif
 
+
     <section class="theAppentSection">
         <div class="containerc">
             <div class="topIconSection">
@@ -49,6 +50,8 @@
             </div>
             <div class="theAppendBody">
                 <ul>
+                    <li><a href="">table id :  </a></li>
+
                     <li><a href="">IK WILL GRAAG EEN OBER</a></li>
                     <li><a href="">Wasabi</a></li>
                     <li><a href="">GEMBER</a></li>
@@ -59,6 +62,11 @@
             </div>
         </div>
     </section>
+
+
+
+
+
 
     <section class="traySection">
         <div class="theTitle">
@@ -102,7 +110,7 @@
 
                     <div class="plus">
                         <a href="{{ route('deleteOrder', $table->id) }}">
-                            <button id="deleteButtonForOrderPage">Delete</button>
+                            <button id="deleteButtonForOrderPage" style="border:none" class="text-danger font-weight-bold"> <span><i class="fas fa-trash"></i></span></button>
                         </a>
                     </div>
 
@@ -157,7 +165,7 @@
     <footer class="userFooter">
 
         <div class="iconBox">
-            <a href="{{ $tableurl }}">
+            <a href="{{ $requestedTable->table_url }}">
                 <div class="icon">
                     <i class="fas fa-book"></i>
                 </div>
