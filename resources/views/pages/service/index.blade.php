@@ -2,7 +2,7 @@
 
 @section('content')
 
-  <header class="userMenuePageHeader">
+    <header class="userMenuePageHeader">
         <nav>
             <div class="hamBurgerIcon">
                 <i onclick="theAppend()" class="fas fa-bars"></i>
@@ -44,7 +44,7 @@
                 <h4>Call for bil</h4>
             </button>
 
-            <button class="service">
+            <button class="service" id="needExtraSauseButton">
                 <h4>Need extra soya sause</h4>
             </button>
 
@@ -67,132 +67,103 @@
     </section>
 
 
-    
- <script>
-   
-// the home page funtions
+    <section class="theOrderPopUp">
+        <div class="allContentsOrder">
+            <div class="theDesc">
+                <p class="font-weight-bold text-dark">Are You Sure Want To Send The Following ?</p>
+            </div>
+            <div class="theOrderAlert">
+                <h5>Gimber</h5>
+            </div>
+            <div class="orderChangerBtn">
+                <button id="ServiceHiderButton">Ok</button>
+            </div>
+        </div>
+    </section>
 
-const allProducts = document.querySelectorAll(".product");
-const theProductView = document.querySelector(".theProductView");
-let addToOrder = document.querySelector("button.addToOrder");
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Launch demo modal
+</button>
 
-for (var i = 0; i <= allProducts.length; i++) {
-    allProducts[i]?.addEventListener("click", function (event) {
-        theProductView.classList.add("theProductVisible");
-    });
-}
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Order Services</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
 
-function theProductViewHider() {
-    theProductView.classList.remove("theProductVisible");
-}
-function theProductViewAdder() {
-    theProductView.classList.remove("theProductVisible");
-    alert("1 Product Added To Order");
-}
+    <section class="theServiceSection">
 
-// the order page functions
-var theNumber = 15;
+        <div class="servicesTitle">
+            <h2>Choose a service</h2>
+        </div>
 
-function theOrderPopUpShow(theNumberChanger) {
-    theNumber = 15;
-    var theOrderPopUp = document.querySelector(".theOrderPopUp");
-    var p = document.querySelector(".theOrderPopUp .theDesc p");
-    var h5 = document.querySelector(".theOrderPopUp .theOrderAlert h5");
-    var button = document.querySelector(
-        ".theOrderPopUp .orderChangerBtn button"
-    );
-    function theNumberChanger() {
-        theNumber--;
-        if (theNumber > 0) {
-            p.innerHTML =
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. A, inventore.";
-            h5.innerHTML = `The Order will be started in ${theNumber} seconds`;
-            button.innerHTML = "Change Order";
-        } else {
-            p.innerHTML = "Success!";
-            h5.innerHTML = "Your Order Has Been Placed";
-            button.innerHTML = "Thank You";
+        <div class="allServices">
+            <button class="service">
+                <h4>Call for bil</h4>
+            </button>
+
+            <button class="service" id="needExtraSauseButton">
+                <h4>Need extra soya sause</h4>
+            </button>
+
+            <button class="service">
+                <h4>Call for bil</h4>
+            </button>
+
+            <button class="service">
+                <h4>Need extra soya sause</h4>
+            </button>
+
+            <button class="service">
+                <h4>Call for bil</h4>
+            </button>
+
+            <button class="service">
+                <h4>Need extra soya sause</h4>
+            </button>
+        </div>
+    </section>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+    <script>
+        $(document).ready(function() {
+
+            $('#needExtraSauseButton').on('click', function() {
+
+                $('.theOrderPopUp').addClass('theProductShow');
+
+            })
+
+            $('#ServiceHiderButton').on('click', function() {
+
+                $('.theProductShow').removeClass('theProductShow');
+
+            })
+
+
+        });
+
+
+        function theAppend() {
+            var theElement = document.querySelector(".theAppentSection");
+            theElement.classList.add("theAppendCome");
         }
-    }
-    theOrderPopUp.classList.add("theProductShow");
 
-    var setIt = setInterval(theNumberChanger, 1000);
-
-    var changeOrderBtn = document.querySelector(".orderChangerBtn");
-    changeOrderBtn.addEventListener("click", function () {
-        clearInterval(setIt);
-    });
-}
-
-function theOrderPopUpHide() {
-    let theOrderPopUp = document.querySelector(".theOrderPopUp");
-    theOrderPopUp.classList.remove("theProductShow");
-}
-
-// all page append section function
-
-function theAppend() {
-    var theElement = document.querySelector(".theAppentSection");
-    theElement.classList.add("theAppendCome");
-}
-
-function theAppendRemove() {
-    var theElement = document.querySelector(".theAppentSection");
-    theElement.classList.remove("theAppendCome");
-}
-
-/* catagory slider here */
-
-try {
-    var swiper = new Swiper(".catagory-slider-swiper-slider", {
-        slidesPerView: "auto",
-        spaceBetween: 10,
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-    });
-} catch (err) {
-    console.log(err);
-}
-
-/* tab for catagory */
-try {
-    const allTabs = document.querySelectorAll("[data-tab-caller]");
-    const allTabsContent = document.querySelectorAll("[data-tab-content]");
-    let activetab = "";
-
-    allTabs.forEach((element, index) => {
-        element.onclick = () => {
-            allTabs.forEach((x) => x.classList.remove("activetab"));
-            element.classList.add("activetab");
-            selectingActiveTab();
-            showingtab();
-        };
-    });
-
-    const selectingActiveTab = () => {
-        allTabs.forEach((x) => {
-            if (x.classList.contains("activetab")) {
-                activetab = x.dataset.tabCaller;
-            }
-        });
-    };
-    selectingActiveTab();
-
-    const showingtab = () => {
-        allTabsContent.forEach((x) => {
-            if (x.dataset.tabContent === activetab) {
-                x.classList.add("active", "show");
-            } else {
-                x.classList.remove("active", "show");
-            }
-        });
-    };
-    showingtab();
-} catch (err) {}
-
-
- </script>
+        function theAppendRemove() {
+            var theElement = document.querySelector(".theAppentSection");
+            theElement.classList.remove("theAppendCome");
+        }
+    </script>
 
 @endsection

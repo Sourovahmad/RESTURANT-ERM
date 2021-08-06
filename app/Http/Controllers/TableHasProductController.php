@@ -101,6 +101,7 @@ class TableHasProductController extends Controller
 
     public function OrderedProducts($table_id)
     {
+        
         $table = table::find($table_id);
 
         if($table->active_status == 1){
