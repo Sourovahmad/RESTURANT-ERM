@@ -50,14 +50,13 @@
             </div>
             <div class="theAppendBody">
                 <ul>
-                    <li><a href="">table id :  </a></li>
 
-                    <li><a href="">IK WILL GRAAG EEN OBER</a></li>
-                    <li><a href="">Wasabi</a></li>
-                    <li><a href="">GEMBER</a></li>
-                    <li><a href="">SOYASAUS</a></li>
-                    <li><a href="">LEAVE LOCATION</a></li>
-                    <li><a href="">PRIVACY POLICY</a></li>
+                    <li class="navbar_service_need" data-service-name="need_waiter"><a>IK WILL GRAAG EEN OBER</a></li>
+                    <li class="navbar_service_need" data-service-name="need_bill"><a>Bill</a></li>
+                    <li class="navbar_service_need" data-service-name="need_wasabi"><a >Wasabi</a></li>
+                    <li class="navbar_service_need" data-service-name="need_gember"><a >GEMBER</a></li>
+                    <li class="navbar_service_need" data-service-name="need_soyasauce"><a >SOYASAUS</a></li>
+
                 </ul>
             </div>
         </div>
@@ -222,11 +221,16 @@
 
     <form id="form_for_send_order" method="POST" action="{{ route('tableOrderStore') }}" hidden>
         @csrf
-        <input type="text" name="table_id" id="table_id_for_send_order" value="{{ $table_id }}" hidden>
+        <input type="text" name="table_id" id="table_id_for_send_order" value="{{ $table_id }}" >
         <button type="submit" id="send_order_submit_button"></button>
     </form>
 
+ <form id="form_for_sending_service" hidden>
+    <input type="text" name="table_id" id="input_for_table_id" value="{{ $requestedTable->id }}">
+    <input type="text" name="service_for" id="input_for_service_for">
+    <button type="submit" id="send_service_submit_button"></button>
 
+ </form>
 
     <script>
         // the home page funtions
@@ -234,6 +238,40 @@
 
 
         $(document).ready(function() {
+
+
+            // ************************* Service Function Start Here ***************************
+
+
+            $('.navbar_service_need').on('click', function () {
+               $(this).addClass('navbar_service_clicked');
+                var el = $(".navbar_service_clicked");
+                var needService = el.data('service-name');
+
+                alert(needService)
+
+                $('.navbar_service_clicked').removeClass('navbar_service_clicked');
+
+            })
+
+
+
+
+
+
+
+            // ************************* Service Function End Here ***************************
+
+
+
+
+
+
+
+
+
+
+            // ************************** Quantity calculation Start Here ***********************
 
             var totalPrices = parseInt($('#subtotalPriceOfAll').text());
 
@@ -323,7 +361,13 @@
 
                 }
 
-            })
+            });
+
+            // ************************** Quantity calculation end Here ***********************
+
+
+
+
 
 
         });
@@ -368,6 +412,11 @@
                 clearInterval(setIt);
             });
         }
+
+
+
+
+
 
 
 
