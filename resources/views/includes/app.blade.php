@@ -34,7 +34,7 @@
     </head>
     <body>
 
-        @include('includes.navbar')
+        {{-- @include('includes.navbar') --}}
 
 
 
