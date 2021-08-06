@@ -166,17 +166,17 @@
                 </div>
             </a>
         </div>
-
         <div class="iconBox">
-            <a href="service.html">
+            <a href="bill.html">
                 <div class="icon">
-                    <i class="fas fa-user-alt"></i>
+                    <i class="fas fa-euro-sign"></i>
                 </div>
                 <div class="iconName">
-                    <h6>Service</h6>
+                    <h6>Bill</h6>
                 </div>
             </a>
         </div>
+
 
         <div class="iconBox bg-info">
             <a href="#">
@@ -188,17 +188,17 @@
                 </div>
             </a>
         </div>
-
-        <div class="iconBox">
-            <a href="bill.html">
+        <div class="iconBox" onclick="theAppend()">
+            <a >
                 <div class="icon">
-                    <i class="fas fa-euro-sign"></i>
+                    <i class="fas fa-user-alt"></i>
                 </div>
                 <div class="iconName">
-                    <h6>Bill</h6>
+                    <h6>Service</h6>
                 </div>
             </a>
         </div>
+
     </footer>
 
 
