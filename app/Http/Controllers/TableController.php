@@ -132,9 +132,10 @@ class TableController extends Controller
 
         if($requestedTable->active_status == 1){
 
-            $products = product::all();
+            $tableOrderLimit = tableOrderLimit::where('table_id', $requestedTable->id)->first();
+            $products = product::where('active_status', 1)->get();
             $categories = category::all();
-            return view('products.index',compact('requestedTable','products','categories'));
+            return view('products.index',compact('requestedTable','products','categories', 'tableOrderLimit'));
 
         } else{
 

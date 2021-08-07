@@ -65,8 +65,6 @@
 
 
 
-
-
     <section class="traySection">
         <div class="theTitle">
             <h3>Your Tray</h3>
@@ -208,7 +206,8 @@
 
     </footer>
 
-
+    
+{{-- ************** All hidden Forms ********************* --}}
     <form id="form_for_tableHasProduct">
 
         @csrf
@@ -253,11 +252,6 @@
                 $('.navbar_service_clicked').removeClass('navbar_service_clicked');
 
             })
-
-
-
-
-
 
 
             // ************************* Service Function End Here ***************************

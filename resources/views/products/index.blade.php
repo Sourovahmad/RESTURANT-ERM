@@ -21,6 +21,32 @@
 
 
 
+    <section class="theAppentSection">
+        <div class="containerc">
+            <div class="topIconSection">
+                <i onclick="theAppendRemove()" class="fas fa-times"></i>
+            </div>
+            <div class="theAppendBody">
+                <ul>
+
+                    <li class="navbar_service_need" data-service-name="need_waiter"><a>IK WILL GRAAG EEN OBER</a></li>
+                    <li class="navbar_service_need" data-service-name="need_bill"><a>Bill</a></li>
+                    <li class="navbar_service_need" data-service-name="need_wasabi"><a >Wasabi</a></li>
+                    <li class="navbar_service_need" data-service-name="need_gember"><a >GEMBER</a></li>
+                    <li class="navbar_service_need" data-service-name="need_soyasauce"><a >SOYASAUS</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
 <section class="theConditionSearch">
     <div class="theSearch">
         <input type="text" id="search-product" placeholder="Search a food You Like">
@@ -161,7 +187,7 @@
                         </div>
 
                          @endif
-                         
+
                     @endforeach
 
 
@@ -245,14 +271,17 @@
     <div class="iconBox">
 
 
-        <a href="/pages/service.html">
+        <a href="#">
+
+            <a href="#">
 
             <div class="icon">
-                <i class="fas fa-user-alt"></i>
+                <i class="fas fa-euro-sign"></i>
             </div>
             <div class="iconName">
-                <h6>Service</h6>
+                <h6>Bill</h6>
             </div>
+        </a>
         </a>
     </div>
 
@@ -264,7 +293,7 @@
                 <i class="fas fa-bell"></i>
             </div>
             <div class="iconName">
-                <h6>Order</h6>
+                <h6>Order (<span id="total_orderd_item"> {{$tableOrderLimit->total_orderd  }}</span>  / <span id="total_order_limit">{{ $tableOrderLimit->order_limit }} </span>  ) </h6>
             </div>
         </a>
     </div>
@@ -272,19 +301,65 @@
     <div class="iconBox">
 
 
-        <a href="pages/bill.html">
+                <div class="iconBox" onclick="theAppend()">
+            <a >
+                <div class="icon">
+                    <i class="fas fa-user-alt"></i>
+                </div>
+                <div class="iconName">
+                    <h6>Service</h6>
+                </div>
+            </a>
+        </div>
 
-            <div class="icon">
-                <i class="fas fa-euro-sign"></i>
-            </div>
-            <div class="iconName">
-                <h6>Bill</h6>
-            </div>
-        </a>
     </div>
 
 </footer>
 
+
+
+{{-- *********************** All popUp SMS**************************** --}}
+
+     {{-- popup for order limitCross --}}
+    <section class="theOrderPopUp" id="PopupForOrderLimitCross">
+        <div class="allContentsOrder">
+            <div class="theDesc">
+                <p>You Have Reached The limit of Order For This Round</p>
+            </div>
+            <div class="theOrderAlert">
+                <h5></h5>
+            </div>
+            <div class="orderChangerBtn">
+                <button onclick="theOrderPopUpHide()">OK</button>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    {{-- popup for product added to cart --}}
+    <section class="theOrderPopUp" id="PopupForaddedtoCart">
+        <div class="allContentsOrder">
+            <div class="theDesc">
+                <p>Product has been added To your cart</p>
+            </div>
+            <div class="theOrderAlert">
+                <h5></h5>
+            </div>
+            <div class="orderChangerBtn">
+                <button onclick="theOrderPopUpHide()">OK</button>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+        {{-- ***************** All hidden Forms ************** --}}
 
 <form id="form_for_add_cart" hidden>
     @csrf
@@ -303,6 +378,23 @@
     const allProducts = document.querySelectorAll(".product");
     const theProductView = document.querySelector(".theProductView");
     let addToOrder = document.querySelector("button.addToOrder");
+
+
+
+
+    // order limit functtion start here
+
+    var orderLimit = parseInt($('#total_order_limit').text());
+    var orderdItem = parseInt($('#total_orderd_item').text());
+
+
+
+    // order limit function end here
+
+
+
+
+
 
 
     function theAppend() {
@@ -407,6 +499,11 @@
 
     function theProductViewAdder() {
 
+        if(orderdItem >= orderLimit){
+            theProductViewHider();
+           $('#PopupForOrderLimitCross').addClass("theProductShow");
+        } else {
+
         var data = $('#form_for_add_cart').serialize();
         var route = '{{ route('addtocart') }}'.trim();
 
@@ -415,7 +512,7 @@
             type: "post",
             data: data,
             success: function (data) {
-                alert('Product added to Your Cart');
+                $('#PopupForaddedtoCart').addClass('theProductShow');
 
             },
             error: function (jqXHR, exception) {
@@ -424,8 +521,9 @@
         });
 
         theProductView.classList.remove("theProductVisible");
-
     }
+    }
+
 
 
 
@@ -479,6 +577,14 @@
         };
         showingtab();
     } catch (err) {}
+
+
+
+        function theOrderPopUpHide() {
+
+            $('.theProductShow').removeClass('theProductShow');
+
+        }
 
 </script>
 
