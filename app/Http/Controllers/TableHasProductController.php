@@ -45,7 +45,7 @@ class TableHasProductController extends Controller
         ]);
 
         tableHasProduct::create($request->all());
-        
+
         $tableOrderlimit = tableOrderLimit::where('table_id',$request->table_id)->first();
         $totalOrderdItem = $tableOrderlimit->total_orderd + 1;
         $tableOrderlimit->total_orderd = $totalOrderdItem;
@@ -87,6 +87,20 @@ class TableHasProductController extends Controller
         $tableHasProduct->quantity = $request->quantity;
         $tableHasProduct->save();
 
+
+        $tableOrderlimit = tableOrderLimit::where('table_id',$request->table_id)->first();
+
+        if($request->request_for == 'addition'){
+            $totalOrderdItem = $tableOrderlimit->total_orderd + 1;
+            $tableOrderlimit->total_orderd = $totalOrderdItem;
+        } else {
+            $totalOrderdItem = $tableOrderlimit->total_orderd - 1;
+            $tableOrderlimit->total_orderd = $totalOrderdItem;
+        }
+
+        $tableOrderlimit->save();
+
+
     }
 
     /**
@@ -113,6 +127,7 @@ class TableHasProductController extends Controller
         $tableData = tableHasProduct::where('table_id', $table_id)->get();
         $requestedTable = $table;
         $table_id = $table->id;
+        $tableOrderlimit = tableOrderLimit::where('table_id',$table_id)->first();
 
         $totalPrice = 0;
 
@@ -122,7 +137,7 @@ class TableHasProductController extends Controller
             $totalPrice +=  $multiplyQuantity;
         }
 
-         return view('pages.order.index',compact('tableData','totalPrice','requestedTable','table_id'));
+         return view('pages.order.index',compact('tableData','totalPrice','requestedTable','table_id', 'tableOrderlimit'));
 
         }else{
             return view('errors.tableNotActive');
