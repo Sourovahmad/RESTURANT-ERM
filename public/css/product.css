@@ -105,11 +105,33 @@ section.theConditionSearch .theSearch input{
   border: none;
   background: linear-gradient(rgba(64, 64, 122, 0.8), rgba(64, 64, 122, 0.8));
   padding: 8px 16px;
-  width: 80%;
+  width: 90%;
   display: block;
   margin: auto;
   border-radius: 5px;
   color: #fff;
+}
+section.theConditionSearch .theSearch .product-suggestion{
+  list-style-type: none;
+  padding: 8px 16px;
+  width: 90%;
+  display: block;
+  margin: auto;
+  height: 300px;
+  overflow-y: scroll;
+
+
+}
+section.theConditionSearch .theSearch .product-suggestion .suggestion-image img{
+  max-height: 80px;
+   max-width: 100%;
+}
+section.theConditionSearch .theSearch .product-suggestion .suggestion-price span{
+  border: 2px  solid gold;
+  color: gold;
+  padding: 5px;
+  border-radius: 3px; 
+  float:right
 }
 section.theConditionSearch .theSearch input::placeholder{
   color: #fff;
