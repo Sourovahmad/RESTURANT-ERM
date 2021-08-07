@@ -13,7 +13,6 @@ class testController extends Controller
     {
 
 
-        return "hello" ;
             $connector = new WindowsPrintConnector("EPSON L380 Series");
 
             /* Print a "Hello world" receipt" */
