@@ -50,8 +50,6 @@ class ServiceProductController extends Controller
              $serviceProduct->cost_status = 1;
         }
 
-
-
             $fileNameFull = time() . '.full.' . $request->image->getClientOriginalName();
             $fileNameSmall = time() . '.small.' . $request->image->getClientOriginalName();
 
@@ -120,10 +118,17 @@ class ServiceProductController extends Controller
 
         if(!is_null($request->image)){
 
-        $fileName = time() . '.full.' . $request->image->getClientOriginalName();
-        $imageSize = getimagesize($request->image);
-        $pictureSmall = Photo::make($request->image)->fit($imageSize[0], $imageSize[1])->save('images/'.$fileName);
-        $serviceProduct->image = 'images/'.$fileName;
+            $fileNameFull = time() . '.full.' . $request->image->getClientOriginalName();
+            $fileNameSmall = time() . '.small.' . $request->image->getClientOriginalName();
+
+            $imageSize = getimagesize($request->image);
+
+            $pictureBig = Photo::make($request->image)->fit($imageSize[0], $imageSize[1])->save('images/' . $fileNameFull);
+            $pictureSmall = Photo::make($request->image)->fit(135, 225)->save('images/' . $fileNameSmall);
+
+
+            $serviceProduct->image_small = 'images/' . $fileNameSmall;
+            $serviceProduct->image_big = 'images/' . $fileNameFull;
 
         }
 

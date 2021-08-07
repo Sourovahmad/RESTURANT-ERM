@@ -352,7 +352,7 @@
                         }
 
                         var route = '{{ route('dashboard') }}';
-                        var image = route.trim() + '/' + serviceproducts[key].image;
+                        var image = route.trim() + '/' + serviceproducts[key].image_small;
                         $('#modal-update-image-place').attr('src', image);
 
                         return false;
