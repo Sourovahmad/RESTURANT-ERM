@@ -42,8 +42,15 @@ class ServiceProductController extends Controller
 
         $serviceProduct = new serviceProduct;
         $serviceProduct->name = $request->name;
-        $serviceProduct->cost_status = $request->cost_status;
         $serviceProduct->price = $request->price;
+
+        if($request->price != 0){
+             $serviceProduct->cost_status = 2;
+        } else {
+             $serviceProduct->cost_status = 1;
+        }
+
+
 
             $fileNameFull = time() . '.full.' . $request->image->getClientOriginalName();
             $fileNameSmall = time() . '.small.' . $request->image->getClientOriginalName();
@@ -103,8 +110,13 @@ class ServiceProductController extends Controller
 
        $serviceProduct = serviceProduct::find($request->id);
         $serviceProduct->name = $request->name;
-        $serviceProduct->cost_status = $request->cost_status;
         $serviceProduct->price = $request->price;
+
+        if ($request->price != 0) {
+            $serviceProduct->cost_status = 2;
+        } else {
+            $serviceProduct->cost_status = 1;
+        }
 
         if(!is_null($request->image)){
 
@@ -118,8 +130,6 @@ class ServiceProductController extends Controller
 
         $serviceProduct->save();
         return back()->withSuccess('Service Product Has been updated');
-
-
 
     }
 
