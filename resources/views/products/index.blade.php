@@ -40,7 +40,7 @@
                     <span>12</span>
                 </div>
             </div> -->
-          
+
 
 
         </div>
@@ -138,7 +138,7 @@
 
                     @foreach($categoryWisedProducts as $categoryWisedProduct)
 
-
+                @if($categoryWisedProduct->active_status != 2)
                         <div class="product" id="singleProduct" data="1"
                             data-item-id="{{ $categoryWisedProduct->id }}">
                             <div class="productImg">
@@ -159,7 +159,12 @@
                                 </div>
                             </div>
                         </div>
+
+                         @endif
+                         
                     @endforeach
+
+
 
                 @else
                     <div class="alertforNoProduct text-center">
@@ -357,7 +362,7 @@
         var expression = new RegExp(inputData, "i");
         var count = 0;
         var html ='';
-        var home = '{{route('dashboard') }}';  
+        var home = '{{route('dashboard') }}';
         $.each(products, function (key, value) {
 
 
@@ -378,7 +383,7 @@
         $('.product-suggestion').html(html);
 
         $('.product-suggestion').show();
-                
+
 
         }
     });
