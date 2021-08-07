@@ -65,8 +65,9 @@
 
 
                         <div class="col-12 col-md-4 form-group" id="serviceProductPrice">
-                            <label for="price">Enter Price <span class="text-danger">*</span> </label>
-                            <input type="number" class="form-control" name="price" id="price" step=".01" required>
+                            <label for="input_service_price">Enter Price <span class="text-danger">*</span> </label>
+                            <input type="number" class="form-control" name="price" id="input_service_price" step=".01"
+                                required>
 
                         </div>
 
@@ -149,7 +150,7 @@
                                 <td class="word-break category">{{ $serviceProduct->price }}</td>
                                 <td class="word-break status">
 
-                                    @if ($serviceProduct->active_status == 1)
+                                    @if ($serviceProduct->cost_status == 1)
                                         <span class="text-success text-center font-weight-bold">Free</span>
                                     @else
                                         <span class="text-success text-center font-weight-bold"> Paid</span>
@@ -159,23 +160,25 @@
                                 <td class="word-break image">
 
 
-                                    @empty($serviceProduct->image)
+                                    @empty($serviceProduct->image_small)
                                         <p> No Image</p>
                                     @endempty
 
-                                    <img class="admin_mode_product_image" src="{{ asset($serviceProduct->image) }}" alt="">
+                                    <img class="admin_mode_product_image" src="{{ asset($serviceProduct->image_small) }}"
+                                        alt="" >
 
 
                                 </td>
 
                                 <td class="align-middle">
                                     <button title="Edit" type="button" class="dataEditItemClass btn btn-success btn-sm"
-                                        id="data-edit-button" data-item-id={{ $serviceProduct->id }}> <i class="fa fa-edit"
-                                            aria-hidden="false">
+                                        id="data-edit-button" data-item-id={{ $serviceProduct->id }}> <i
+                                            class="fa fa-edit" aria-hidden="false">
                                         </i></button>
 
 
-                                    <form method="POST" action="{{ route('admin.ServicesProducts.destroy', $serviceProduct->id) }}"
+                                    <form method="POST"
+                                        action="{{ route('admin.ServicesProducts.destroy', $serviceProduct->id) }}"
                                         id="delete-form-{{ $serviceProduct->id }}" style="display:none; ">
                                         {{ csrf_field() }}
                                         {{ method_field('delete') }}
@@ -184,12 +187,12 @@
 
 
                                     <button title="Delete" class="dataDeleteItemClass btn btn-danger btn-sm" onclick="if(confirm('Are you sure Want To Delete ?')){
-                document.getElementById('delete-form-{{ $serviceProduct->id }}').submit();
-               }
-               else{
-                event.preventDefault();
-               }
-               " class="btn btn-danger btn-sm btn-raised">
+                    document.getElementById('delete-form-{{ $serviceProduct->id }}').submit();
+                   }
+                   else{
+                    event.preventDefault();
+                   }
+                   " class="btn btn-danger btn-sm btn-raised">
                                         <i class="fa fa-trash" aria-hidden="false">
 
                                         </i>
@@ -228,7 +231,7 @@
                     </button>
                 </div>
                 <div class="modal-body" id="attachment-body-content">
-                    <form id="data-edit-form" class="form-horizontal" method="POST" action="">
+                    <form id="data-edit-form" class="form-horizontal" method="POST" action="" enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="form-group">
@@ -245,10 +248,16 @@
                         </div>
 
 
-                        <div class="form-group">
+                        <div class="form-group" id="modal-update-price-section">
                             <label class="col-form-label" for="modal-update-price">Price <span
                                     style="color: red">*</span></label>
                             <input type="text" class="form-control" name="price" id="modal-update-price" required>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label" for="modal-update-image-place">Current Image : </label>
+                            <img id="modal-update-image-place" alt="" style="width: 12%">
 
                         </div>
 
@@ -257,9 +266,17 @@
 
                         <div class="form-group">
 
-                            <label for="status">Cost Stutus</label>
+                            <label for="modal_image">Change Image </label>
+                            <input type="file" name="image" id="modal_image" accept=".png, .jpg, .jpeg" />
 
-                            <select name="status" class="form-control" id="status">
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="modal_status">Cost Stutus</label>
+
+                            <select name="cost_status" class="form-control" id="modal_status">
                                 <option id="statusValueOne" value="1">Free</option>
                                 <option id="statusValueTwo" value="2">Paid</option>
                             </select>
@@ -325,18 +342,26 @@
                     if (serviceproducts[key].id == itemId) {
                         $("#modal-update-hidden-id").val(serviceproducts[key].id);
                         $("#modal-update-name").val(serviceproducts[key].name);
-                        $("#modal-update-category").val(serviceproducts[key].category);
-                        $("#modal-update-price").val(serviceproducts[key].category);
-                        if (products[key].active_status == 1) {
+                        $("#modal-update-price").val(serviceproducts[key].price);
+                        if (serviceproducts[key].cost_status == 1) {
                             $("#statusValueOne").attr("selected", "selected");
+                            $('#modal-update-price-section').hide();
+                            $('#modal-update-price').val(0);
                         } else {
                             $("#statusValueTwo").attr("selected", "selected");
                         }
+
+                        var route = '{{ route('dashboard') }}';
+                        var image = route.trim() + '/' + serviceproducts[key].image;
+                        $('#modal-update-image-place').attr('src', image);
 
                         return false;
                     }
 
                 });
+
+
+
 
 
 
@@ -354,17 +379,34 @@
             });
 
 
-
-
             $('#serviceProductPrice').hide();
-            $('#cost_status').on('change',function () {
-               var selected = $(this).children("option:selected").val();
-               if(selected == 2){
-                   $('#serviceProductPrice').show();
-               } else {
-                   $('#serviceProductPrice').hide();
-               }
-            })
+            $('#input_service_price').val(0);
+
+            $('#cost_status').on('change', function() {
+                var selected = $(this).children("option:selected").val();
+                if (selected == 2) {
+                    $('#serviceProductPrice').show();
+                } else {
+                    $('#serviceProductPrice').hide();
+                    $('#input_service_price').val(0);
+                }
+            });
+
+
+
+            // modal function for changing valaue
+
+
+            $('#modal_status').on('change', function() {
+                var selected = $(this).children("option:selected").val();
+                if (selected == 2) {
+                    $('#modal-update-price-section').show();
+                } else {
+                    $('#modal-update-price-section').hide();
+                    $('#modal-update-price').val(0);
+                }
+            });
+
 
         });
     </script>

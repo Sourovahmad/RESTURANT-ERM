@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\serviceProduct;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Intervention\Image\ImageManagerStatic as Photo;
+use SebastianBergmann\Environment\Runtime;
 
 class ServiceProductController extends Controller
 {
@@ -37,7 +39,29 @@ class ServiceProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $serviceProduct = new serviceProduct;
+        $serviceProduct->name = $request->name;
+        $serviceProduct->cost_status = $request->cost_status;
+        $serviceProduct->price = $request->price;
+
+            $fileNameFull = time() . '.full.' . $request->image->getClientOriginalName();
+            $fileNameSmall = time() . '.small.' . $request->image->getClientOriginalName();
+
+            $imageSize = getimagesize($request->image);
+
+            $pictureBig = Photo::make($request->image)->fit($imageSize[0], $imageSize[1])->save('images/'.$fileNameFull);
+            $pictureSmall = Photo::make($request->image)->fit(135,225)->save('images/'.$fileNameSmall);
+
+
+            $serviceProduct->image_small = 'images/'.$fileNameSmall;
+            $serviceProduct->image_big = 'images/'.$fileNameFull;
+
+
+        $serviceProduct->save();
+        return back()->withSuccess('Service Product Has been Saved');
+
+
     }
 
     /**
@@ -71,7 +95,32 @@ class ServiceProductController extends Controller
      */
     public function update(Request $request, serviceProduct $serviceProduct)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'cost_status' => 'required',
+        ]);
+
+       $serviceProduct = serviceProduct::find($request->id);
+        $serviceProduct->name = $request->name;
+        $serviceProduct->cost_status = $request->cost_status;
+        $serviceProduct->price = $request->price;
+
+        if(!is_null($request->image)){
+
+        $fileName = time() . '.full.' . $request->image->getClientOriginalName();
+        $imageSize = getimagesize($request->image);
+        $pictureSmall = Photo::make($request->image)->fit($imageSize[0], $imageSize[1])->save('images/'.$fileName);
+        $serviceProduct->image = 'images/'.$fileName;
+
+        }
+
+
+        $serviceProduct->save();
+        return back()->withSuccess('Service Product Has been updated');
+
+
+
     }
 
     /**

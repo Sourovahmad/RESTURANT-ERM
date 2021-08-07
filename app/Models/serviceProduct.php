@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class serviceProduct extends Model
 {
+
     use HasFactory;
+
 }

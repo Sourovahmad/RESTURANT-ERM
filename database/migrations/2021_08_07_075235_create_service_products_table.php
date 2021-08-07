@@ -18,7 +18,8 @@ class CreateServiceProductsTable extends Migration
             $table->string('name');
             $table->double('price');
             $table->unsignedBigInteger('cost_status');
-            $table->string('image');
+            $table->string('image_small');
+            $table->string('image_big');
             $table->timestamps();
         });
     }
