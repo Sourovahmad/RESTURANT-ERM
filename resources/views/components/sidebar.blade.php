@@ -37,26 +37,31 @@
 
         <hr class="sidebar-divider m-1 p-0 ">
 
-        <li class="nav-item active ">
-            <a class="nav-link p-3 " href="{{ route('admin.products.index') }}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>{{ __('Product') }}</span></a>
-        </li>
+
+    <!-- Product Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed  p-3 " href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="true" aria-controls="collapseProducts">
+            <i class="fas fa-clipboard-check "></i>
+            <span>{{__('Product')}}</span>
+        </a>
+        <div id="collapseProducts" class="collapse" aria-labelledby="headingProducts" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+
+
+                <a class="collapse-item" href="{{ route('admin.products.index') }}">{{__('General Products')}}</a>
+
+                <a class="collapse-item" href="">{{__('Service Product')}}</a>
+                <a class="collapse-item" href="{{ route('admin.categories.index') }}">{{__('Categories')}}</a>
+
+            </div>
+        </div>
+    </li>
+
+
+
 
     @endif
 
-
-    @if ($auth->role_id == 1 || $auth->role_id == 2)
-
-        <hr class="sidebar-divider m-1 p-0 ">
-
-        <li class="nav-item active ">
-            <a class="nav-link p-3 " href="{{ route('admin.categories.index') }}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>{{ __('Category') }}</span></a>
-        </li>
-
-    @endif
 
 
     @if ($auth->role_id == 1)
