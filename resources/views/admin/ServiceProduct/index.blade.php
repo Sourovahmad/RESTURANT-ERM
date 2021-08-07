@@ -4,30 +4,29 @@
 
 
 
-@if ($errors->any())
-<div class="alert alert-danger">
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
-
-@if (session()->has('success'))
-<div class="alert alert-success">
-    @if (is_array(session('success')))
-        <ul>
-            @foreach (session('success') as $message)
-                <li>{{ $message }}</li>
-            @endforeach
-        </ul>
-    @else
-        {{ session('success') }}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
-</div>
-@endif
 
+    @if (session()->has('success'))
+        <div class="alert alert-success">
+            @if (is_array(session('success')))
+                <ul>
+                    @foreach (session('success') as $message)
+                        <li>{{ $message }}</li>
+                    @endforeach
+                </ul>
+            @else
+                {{ session('success') }}
+            @endif
+        </div>
+    @endif
 
 
 
@@ -38,12 +37,12 @@
 
             <div class="card-header py-3  bg-techbot-dark">
                 <nav class="navbar navbar-dark">
-                    <a class="navbar-brand text-light"> Add Product </a>
+                    <a class="navbar-brand text-light"> Add Service Product </a>
                 </nav>
             </div>
 
             <div class="card-body">
-                <form method="POST" action="{{ route('admin.products.store') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('admin.ServicesProducts.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
 
@@ -53,42 +52,30 @@
 
                         </div>
 
-
                         <div class="col-12 col-md-4 form-group">
-                            <label for="category">Select Category <span class="text-danger">*</span> </label>
-                            <select class="form-control" name="category" id="category" required >
-                                <option value="" selected hidden disabled >Select Category</option>
-
-                                            @foreach ($categories as $category )
-
-                                            <option value="{{ $category->id }}"> {{ $category->name }}</option>
-
-                                            @endforeach
-
+                            <label for="cost_status">Cost Status </label>
+                            <select class="form-control" name="cost_status" id="cost_status" required>
+                                <option value="1" selected>Free</option>
+                                <option value="2">Paid</option>
                             </select>
 
                         </div>
 
 
-                        <div class="col-12 col-md-4 form-group">
+
+
+                        <div class="col-12 col-md-4 form-group" id="serviceProductPrice">
                             <label for="price">Enter Price <span class="text-danger">*</span> </label>
                             <input type="number" class="form-control" name="price" id="price" step=".01" required>
 
                         </div>
 
-                        <div class="col-12 col-md-4 form-group">
-                            <label for="add_status">Status </label>
-                            <select class="form-control" name="status" id="add_status">
-                                <option value="1" selected >Active</option>
-                                <option value="2" >Deactive</option>
-                            </select>
 
-                        </div>
 
 
                         <div class="col-12 col-md-4 form-group">
                             <label for="category">Upload Image </label>
-                            <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg"  required/>
+                            <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg" required />
                         </div>
 
 
@@ -103,13 +90,14 @@
     </div>
 
 
-    
+
+
     <div class="card shadow mb-4">
 
         <div class="card-header py-3 bg-techbot-dark">
             <nav class="navbar">
 
-                <div class="navbar-brand"> Products </div>
+                <div class="navbar-brand">Service Products </div>
                 <div id="AddNewFormButtonDiv"><button type="button" class="btn btn-success btn-lg" id="AddNewFormButton"
                         data-toggle="collapse" data-target="#createNewForm" aria-expanded="false"
                         aria-controls="collapseExample"><i class="fas fa-plus" id="PlusButton"></i></button></div>
@@ -127,9 +115,8 @@
 
                             <th> #</th>
                             <th>Product Name</th>
-                            <th>Category</th>
                             <th>Price</th>
-                            <th>Status</th>
+                            <th>Cost Status</th>
                             <th>Image</th>
                             <th>Action</th>
 
@@ -140,9 +127,8 @@
 
                             <th> #</th>
                             <th>Product Name</th>
-                            <th>Category</th>
                             <th>Price</th>
-                            <th>Status</th>
+                            <th>Cost Status</th>
                             <th>Image</th>
                             <th>Action</th>
 
@@ -153,47 +139,44 @@
                     <tbody>
 
 
-                        @foreach ($products as $product)
+                        @foreach ($serviceProducts as $serviceProduct)
 
-                        @php
-                            $curentCategoryId = $product->category_id;
-                        @endphp
+
                             <tr class="data-row">
 
                                 <td>{{ $loop->iteration }}</td>
-                                <td class="word-break name">{{ $product->name }}</td>
-                                <td class="word-break category">{{ $product->category->name }}</td>
-                                <td class="word-break price">{{ $product->price }}</td>
+                                <td class="word-break name">{{ $serviceProduct->name }}</td>
+                                <td class="word-break category">{{ $serviceProduct->price }}</td>
                                 <td class="word-break status">
 
-                                        @if ($product->active_status == 1)
-                                        <span class="text-success text-center font-weight-bold">Active</span>
-                                        @else
-                                        <span class="text-danger text-center font-weight-bold">Deactivated</span>
-                                        @endif
+                                    @if ($serviceProduct->active_status == 1)
+                                        <span class="text-success text-center font-weight-bold">Free</span>
+                                    @else
+                                        <span class="text-success text-center font-weight-bold"> Paid</span>
+                                    @endif
                                 </td>
 
                                 <td class="word-break image">
 
 
-                                    @empty($product->image_small)
-                                    <p> No Image</p>
+                                    @empty($serviceProduct->image)
+                                        <p> No Image</p>
                                     @endempty
 
-                                     <img class="admin_mode_product_image" src="{{ asset($product->image_small) }}" alt="">
+                                    <img class="admin_mode_product_image" src="{{ asset($serviceProduct->image) }}" alt="">
 
 
                                 </td>
 
                                 <td class="align-middle">
                                     <button title="Edit" type="button" class="dataEditItemClass btn btn-success btn-sm"
-                                        id="data-edit-button" data-item-id={{ $product->id }}> <i class="fa fa-edit"
+                                        id="data-edit-button" data-item-id={{ $serviceProduct->id }}> <i class="fa fa-edit"
                                             aria-hidden="false">
                                         </i></button>
 
 
-                                    <form method="POST" action="{{ route('admin.products.destroy', $product->id) }}"
-                                        id="delete-form-{{ $product->id }}" style="display:none; ">
+                                    <form method="POST" action="{{ route('admin.ServicesProducts.destroy', $serviceProduct->id) }}"
+                                        id="delete-form-{{ $serviceProduct->id }}" style="display:none; ">
                                         {{ csrf_field() }}
                                         {{ method_field('delete') }}
                                     </form>
@@ -201,12 +184,12 @@
 
 
                                     <button title="Delete" class="dataDeleteItemClass btn btn-danger btn-sm" onclick="if(confirm('Are you sure Want To Delete ?')){
-            document.getElementById('delete-form-{{ $product->id }}').submit();
-           }
-           else{
-            event.preventDefault();
-           }
-           " class="btn btn-danger btn-sm btn-raised">
+                document.getElementById('delete-form-{{ $serviceProduct->id }}').submit();
+               }
+               else{
+                event.preventDefault();
+               }
+               " class="btn btn-danger btn-sm btn-raised">
                                         <i class="fa fa-trash" aria-hidden="false">
 
                                         </i>
@@ -255,29 +238,30 @@
 
 
                         <div class="form-group">
-                            <label class="col-form-label" for="modal-update-name">Name <span style="color: red">*</span></label>
+                            <label class="col-form-label" for="modal-update-name">Name <span
+                                    style="color: red">*</span></label>
                             <input type="text" class="form-control" name="name" id="modal-update-name" required>
 
                         </div>
 
+
                         <div class="form-group">
-                            <label class="col-form-label" for="modal-update-category">Category <span style="color: red">*</span></label>
-                          <select name="category" class="form-control" id="modal-update-category">
-
-
-
-                          </select>
+                            <label class="col-form-label" for="modal-update-price">Price <span
+                                    style="color: red">*</span></label>
+                            <input type="text" class="form-control" name="price" id="modal-update-price" required>
 
                         </div>
 
 
+
+
                         <div class="form-group">
 
-                            <label for="status">Stutus</label>
+                            <label for="status">Cost Stutus</label>
 
                             <select name="status" class="form-control" id="status">
-                                <option id="statusValueOne" value="1">Active</option>
-                                <option id="statusValueTwo" value="2">Deactiated</option>
+                                <option id="statusValueOne" value="1">Free</option>
+                                <option id="statusValueTwo" value="2">Paid</option>
                             </select>
                         </div>
 
@@ -298,12 +282,9 @@
 
 
     <script>
+        $(document).ready(function() {
 
-
-        $(document).ready(function () {
-
-            var products = @json($products);
-            var categories = @json($categories);
+            var serviceproducts = @json($serviceProducts);
 
 
             $('#dataTable').DataTable({
@@ -317,10 +298,10 @@
 
 
 
-            $(document).on('click', "#data-edit-button", function () {
+            $(document).on('click', "#data-edit-button", function() {
 
                 $(this).addClass(
-                'edit-item-trigger-clicked');
+                    'edit-item-trigger-clicked');
                 var options = {
                     'backdrop': 'static'
                 };
@@ -329,7 +310,7 @@
 
 
             // on modal show
-            $('#data-edit-modal').on('show.bs.modal', function () {
+            $('#data-edit-modal').on('show.bs.modal', function() {
 
                 var el = $(".edit-item-trigger-clicked");
 
@@ -339,57 +320,56 @@
 
 
 
-                $.each(products, function (key) {
+                $.each(serviceproducts, function(key) {
 
-                    if(products[key].id == itemId){
-                        $("#modal-update-hidden-id").val(products[key].id);
-                        $("#modal-update-name").val(products[key].name);
-                        $("#modal-update-category").val(products[key].category);
-
-                        if (products[key].active_status == 1){
-                            $("#statusValueOne").attr("selected","selected");
+                    if (serviceproducts[key].id == itemId) {
+                        $("#modal-update-hidden-id").val(serviceproducts[key].id);
+                        $("#modal-update-name").val(serviceproducts[key].name);
+                        $("#modal-update-category").val(serviceproducts[key].category);
+                        $("#modal-update-price").val(serviceproducts[key].category);
+                        if (products[key].active_status == 1) {
+                            $("#statusValueOne").attr("selected", "selected");
                         } else {
-                            $("#statusValueTwo").attr("selected","selected");
+                            $("#statusValueTwo").attr("selected", "selected");
                         }
-
-                        var html = "";
-
-                        $.each(categories, function(k){
-
-                            if (categories[k].id ==  products[key].category_id){
-
-                                    html += '<option value="' +categories[k].id + '"selected>' + categories[k].name + '</option>'
-                                } else {
-                                   html += '<option value="' +categories[k].id + '"> '+ categories[k].name + '</option>'
-                                }
-                        })
-
-
-                        $("#modal-update-category").html(html);
-
 
                         return false;
                     }
 
-                 });
+                });
 
 
 
-                var link = "{{route('admin.products.index')}}";
-                 var action =  link.trim() + '/' + itemId;
-                 $("#data-edit-form").attr('action', action);
+                var link = "{{ route('admin.ServicesProducts.index') }}";
+                var action = link.trim() + '/' + itemId;
+                $("#data-edit-form").attr('action', action);
             });
 
 
 
             // on modal hide
-            $('#data-edit-modal').on('hide.bs.modal', function () {
+            $('#data-edit-modal').on('hide.bs.modal', function() {
                 $('.edit-item-trigger-clicked').removeClass('edit-item-trigger-clicked')
                 $("#edit-form").trigger("reset");
             });
-        });
 
+
+
+
+            $('#serviceProductPrice').hide();
+            $('#cost_status').on('change',function () {
+               var selected = $(this).children("option:selected").val();
+               if(selected == 2){
+                   $('#serviceProductPrice').show();
+               } else {
+                   $('#serviceProductPrice').hide();
+               }
+            })
+
+        });
     </script>
+
+
 
 
 
