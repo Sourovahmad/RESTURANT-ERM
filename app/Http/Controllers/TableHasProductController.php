@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\table;
 use App\Models\tableHasProduct;
+use App\Models\tableOrderLimit;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -44,8 +45,11 @@ class TableHasProductController extends Controller
         ]);
 
         tableHasProduct::create($request->all());
-
-
+        
+        $tableOrderlimit = tableOrderLimit::where('table_id',$request->table_id)->first();
+        $totalOrderdItem = $tableOrderlimit->total_orderd + 1;
+        $tableOrderlimit->total_orderd = $totalOrderdItem;
+        $tableOrderlimit->save();
     }
 
     /**

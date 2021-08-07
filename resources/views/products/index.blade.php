@@ -384,7 +384,7 @@
 
     // order limit functtion start here
 
-    var orderLimit = parseInt($('#total_order_limit').text());
+    var OrderderLimit = parseInt($('#total_order_limit').text());
     var orderdItem = parseInt($('#total_orderd_item').text());
 
 
@@ -499,7 +499,7 @@
 
     function theProductViewAdder() {
 
-        if(orderdItem >= orderLimit){
+        if(orderdItem >= OrderderLimit){
             theProductViewHider();
            $('#PopupForOrderLimitCross').addClass("theProductShow");
         } else {
@@ -512,8 +512,10 @@
             type: "post",
             data: data,
             success: function (data) {
-                $('#PopupForaddedtoCart').addClass('theProductShow');
 
+              var updatedTotalOrderd = orderdItem += 1;
+               $('#total_orderd_item').html(updatedTotalOrderd);
+                $('#PopupForaddedtoCart').addClass('theProductShow');
             },
             error: function (jqXHR, exception) {
                 console.log(jqXHR);
@@ -581,9 +583,7 @@
 
 
         function theOrderPopUpHide() {
-
             $('.theProductShow').removeClass('theProductShow');
-
         }
 
 </script>
