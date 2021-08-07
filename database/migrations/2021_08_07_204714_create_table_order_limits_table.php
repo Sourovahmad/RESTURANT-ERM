@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TableOrderLimit extends Migration
+class CreateTableOrderLimitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,6 +16,7 @@ class TableOrderLimit extends Migration
         Schema::create('table_order_limits', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('table_id');
+            $table->integer('total_customer');
             $table->unsignedBigInteger('order_limit');
             $table->unsignedBigInteger('total_orderd');
             $table->timestamps();
@@ -29,7 +30,6 @@ class TableOrderLimit extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('service_products');
-
+        Schema::dropIfExists('table_order_limits');
     }
 }
