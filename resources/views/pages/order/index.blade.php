@@ -125,8 +125,6 @@
             @endif
 
 
-
-
         </div>
     </section>
 
@@ -199,14 +197,20 @@
         </div>
         <div class="iconBox" onclick="theAppend()">
             <a>
-                <div class="icon">
-                    <i class="fas fa-user-alt"></i>
+                <div class="icon position-relative">
+                    <i class="fas fa-user-alt"></i> <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                99+
+                <span class="visually-hidden">unread messages</span>
+            </span>
                 </div>
                 <div class="iconName">
                     <h6>Service</h6>
+
                 </div>
             </a>
         </div>
+
+       
 
     </footer>
 
@@ -233,9 +237,9 @@
 
         @csrf
 
-        <input type="text" name="table_product_id" id="id_for_tablehasproduct_update" >
-        <input type="text" name="quantity" id="quantity_for_tablehasproduct_update" >
-        <input type="text" name="table_id"  value="{{ $table_id }}">
+        <input type="text" name="table_product_id" id="id_for_tablehasproduct_update">
+        <input type="text" name="quantity" id="quantity_for_tablehasproduct_update">
+        <input type="text" name="table_id" value="{{ $table_id }}">
         <input type="text" name="request_for" id="request_for" value="addition">
 
 
@@ -377,11 +381,12 @@
                         success: function(data) {
                             console.log("quantity minus success");
 
-                            $('#currentQuantity_'.trim() + currentTableId).text( updatedQuantity)
+                            $('#currentQuantity_'.trim() + currentTableId).text(updatedQuantity)
                             $('#subtotalPriceOfAll').text(updatedTotalPrice);
                             var updatedTotalOrderd = orderdItem -= 1;
                             $('#total_orderd_item').html(updatedTotalOrderd);
-                            $('.quantity-button-clicked').removeClass('quantity-button-clicked');
+                            $('.quantity-button-clicked').removeClass(
+                            'quantity-button-clicked');
 
                         }
                     });
