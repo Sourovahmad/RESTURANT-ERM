@@ -103,7 +103,7 @@
     </div>
 
 
-    
+
     <div class="card shadow mb-4">
 
         <div class="card-header py-3 bg-techbot-dark">
@@ -332,7 +332,6 @@
             $('#data-edit-modal').on('show.bs.modal', function () {
 
                 var el = $(".edit-item-trigger-clicked");
-
                 // get the data
                 var itemId = el.data('item-id');
 
@@ -385,7 +384,7 @@
             // on modal hide
             $('#data-edit-modal').on('hide.bs.modal', function () {
                 $('.edit-item-trigger-clicked').removeClass('edit-item-trigger-clicked')
-                $("#edit-form").trigger("reset");
+                $("#data-edit-form").trigger("reset");
             });
         });
 

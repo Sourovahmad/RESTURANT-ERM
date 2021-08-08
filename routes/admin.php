@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\employeeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PrintersController;
 use App\Http\Controllers\ProductController;
@@ -39,12 +40,14 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('tables/{id}',[TableController::class,'show'])->name('tableShow');
 
 
-        Route::resource('employees', TableHasOrderController::class);
+        Route::resource('employees', employeeController::class);
         Route::resource('orders', OrderController::class);
 
 
 
         Route::post('tableupdate',[TableController::class,'updateStatus'])->name('tableupdate');
+        Route::post('tableclose',[TableController::class, 'tableclose'])->name('tableclose');
+
 
 });
 

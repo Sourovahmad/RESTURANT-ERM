@@ -166,4 +166,21 @@ class TableController extends Controller
     }
 
 
+    public function tableclose(Request $request)
+    {
+        $table = table::find($request->table_id);
+        $table->active_status = 2;
+        $table->save();
+
+
+        $tableOrderLimit = tableOrderLimit::where('table_id',$request->table_id)->first();
+
+        // here will be the printing functions
+
+        $tableOrderLimit->delete();
+
+        return back()->withSuccess('Table Has been Deactivated SuccessFull');
+    }
+
+
 }
