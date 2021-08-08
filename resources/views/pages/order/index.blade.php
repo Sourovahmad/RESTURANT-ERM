@@ -108,10 +108,9 @@
 
 
                         <div class="plus">
-                            <a href="{{ route('deleteOrder', $table->id) }}">
-                                <button id="deleteButtonForOrderPage" style="border:none"
-                                    class="text-danger font-weight-bold"> <span><i class="fas fa-trash"></i></span></button>
-                            </a>
+                            <button style="border:none" class="text-danger font-weight-bold deleteButtonForOrderPage"
+                                data-order-id="{{ $table->id }}"> <span><i class="fas fa-trash"></i></span></button>
+
                         </div>
 
 
@@ -234,7 +233,7 @@
 
 
 
-        {{-- popup for minimum limit --}}
+    {{-- popup for minimum limit --}}
     <section class="theOrderPopUp" id="PopupForOrderminimumLimitCross">
         <div class="allContentsOrder">
             <div class="theDesc">
@@ -248,6 +247,8 @@
             </div>
         </div>
     </section>
+
+
 
 
     {{-- ************** All hidden Forms ********************* --}}
@@ -276,12 +277,56 @@
 
     </form>
 
+
+        {{-- form for delete the table has product  --}}
+    <form id="form_for_delete_table_has_product" hidden method="POST" action="{{ route('deleteOrder') }}">
+        @csrf
+        <input type="text" name="table_id" id="input_for_table_id_2" value="{{ $requestedTable->id }}" required>
+        <input type="text" name="order_id" id="input_for_delete_order_id" required >
+        <input type="text" name="quantity" id="input_for_delete_quantity" required >
+        <button type="submit" id="send_order_delete_submit_button"></button>
+
+    </form>
+
+
+
+
+
+
+
+
     <script>
         // the home page funtions
         let addToOrder = document.querySelector("button.addToOrder");
 
 
         $(document).ready(function() {
+
+
+
+
+
+
+            // ****************** delete order section start here ***********
+            $('.deleteButtonForOrderPage').on('click', function() {
+
+                $(this).addClass('clicked_for_delete_order');
+                var el = $(".clicked_for_delete_order");
+                var orderId = el.data('order-id');
+                var currentQuantityrunning = parseInt($('#currentQuantity_'.trim() + orderId).text());
+
+                var updatedQuantity =
+
+                $('#input_for_delete_order_id').val(orderId);
+                $('#input_for_delete_quantity').val(currentQuantityrunning);
+
+                 $(".clicked_for_delete_order").removeClass('clicked_for_delete_order');
+                 $('#send_order_delete_submit_button').trigger('click');
+
+
+
+            });
+
 
 
             // ************************* Service Function Start Here ***************************
@@ -351,14 +396,15 @@
                         url: route,
                         data: data,
                         success: function(data) {
-                            console.log("quantity add success");
-
                             var updatedTotalPrice = totalPrices += CurrentproductPrice;
                             $('#currentQuantity_'.trim() + currentTableId).text(updatedQuantity)
                             $('#subtotalPriceOfAll').text(updatedTotalPrice);
                             var updatedTotalOrderd = orderdItem += 1;
                             $('#total_orderd_item').html(updatedTotalOrderd);
-                            $('.quantity-button-clicked').removeClass('quantity-button-clicked');
+                            $('.quantity-button-clicked').removeClass(
+                            'quantity-button-clicked');
+                            console.log("quantity add success");
+
                         }
                     });
 
@@ -419,8 +465,21 @@
             // ************************** Quantity calculation end Here ***********************
 
 
+            // ****************** delete order section start here ***********
+            $('.deleteButtonForOrderPage').on('click', function() {
 
+                $(this).addClass('clicked_for_delete_order');
+                var el = $(".clicked_for_delete_order");
+                var orderId = el.data('order-id');
+                var currentQuantityrunning = parseInt($('#currentQuantity_'.trim() + orderId).text());
 
+                $('#input_for_delete_order_id').val(orderId);
+                $('#input_for_delete_quantity').val(currentQuantityrunning);
+
+                 $(".clicked_for_delete_order").removeClass('clicked_for_delete_order');
+                 $('#send_order_delete_submit_button').trigger('click');
+
+            });
 
 
         });

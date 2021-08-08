@@ -112,11 +112,9 @@ class TableHasProductController extends Controller
      * @param  \App\Models\tableHasProduct  $tableHasProduct
      * @return \Illuminate\Http\Response
      */
-    public function destroy(tableHasProduct $tableHasProduct,$order_id)
+    public function destroy(tableHasProduct $tableHasProduct)
     {
-       $tableHasProduct = tableHasProduct::find($order_id);
-       $tableHasProduct -> delete();
-       return back()->withErrors('Item Deleted');
+        //
     }
 
 
@@ -148,4 +146,20 @@ class TableHasProductController extends Controller
 
 
     }
+
+
+    public function deleteProductAndUpdateLimit(Request $request)
+    {
+        $tableHasProduct = tableHasProduct::find($request->order_id);
+        $tableHasProduct->delete();
+
+
+        $tableOrderlimit = tableOrderLimit::where('table_id',$request->table_id)->first();
+        $currentOrderItem =  $tableOrderlimit->total_orderd;
+        $tableOrderlimit->total_orderd = $currentOrderItem - $request->quantity;
+        $tableOrderlimit->save();
+        return back()->withErrors('Item Deleted');
+    }
+
+
 }
