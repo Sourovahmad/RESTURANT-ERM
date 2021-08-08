@@ -90,15 +90,18 @@ class TableHasProductController extends Controller
 
         $tableOrderlimit = tableOrderLimit::where('table_id',$request->table_id)->first();
 
-        if($request->request_for == 'addition'){
+        if($request->request_for == 1){
             $totalOrderdItem = $tableOrderlimit->total_orderd + 1;
             $tableOrderlimit->total_orderd = $totalOrderdItem;
-        } else {
+            $tableOrderlimit->save();
+        } else{
             $totalOrderdItem = $tableOrderlimit->total_orderd - 1;
             $tableOrderlimit->total_orderd = $totalOrderdItem;
+            $tableOrderlimit->save();
         }
 
-        $tableOrderlimit->save();
+
+
 
 
     }

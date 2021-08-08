@@ -186,22 +186,23 @@
 
         <div class="iconBox">
             <a href="#">
-                <div class="icon">
+                <div class="icon position-relative">
                     <i class="fas fa-bell"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        <span id="total_orderd_item"> {{ $tableOrderlimit->total_orderd }}</span>/ <span
+                            id="total_order_limit">{{ $tableOrderlimit->order_limit }} </span>
+
+                    </span>
                 </div>
                 <div class="iconName">
-                    <h6>Order (<span id="total_orderd_item"> {{ $tableOrderlimit->total_orderd }}</span> / <span
-                            id="total_order_limit">{{ $tableOrderlimit->order_limit }} </span> ) </h6>
+                    <h6>Order </h6>
                 </div>
             </a>
         </div>
         <div class="iconBox" onclick="theAppend()">
             <a>
                 <div class="icon position-relative">
-                    <i class="fas fa-user-alt"></i> <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                99+
-                <span class="visually-hidden">unread messages</span>
-            </span>
+                    <i class="fas fa-user-alt"></i>
                 </div>
                 <div class="iconName">
                     <h6>Service</h6>
@@ -210,7 +211,7 @@
             </a>
         </div>
 
-       
+
 
     </footer>
 
@@ -232,6 +233,23 @@
     </section>
 
 
+
+        {{-- popup for minimum limit --}}
+    <section class="theOrderPopUp" id="PopupForOrderminimumLimitCross">
+        <div class="allContentsOrder">
+            <div class="theDesc">
+                <p>You Have Reached The Minimum Limit</p>
+            </div>
+            <div class="theOrderAlert">
+                <h5></h5>
+            </div>
+            <div class="orderChangerBtn">
+                <button onclick="theOrderPopUpHide()">OK</button>
+            </div>
+        </div>
+    </section>
+
+
     {{-- ************** All hidden Forms ********************* --}}
     <form id="form_for_tableHasProduct" hidden>
 
@@ -240,7 +258,7 @@
         <input type="text" name="table_product_id" id="id_for_tablehasproduct_update">
         <input type="text" name="quantity" id="quantity_for_tablehasproduct_update">
         <input type="text" name="table_id" value="{{ $table_id }}">
-        <input type="text" name="request_for" id="request_for" value="addition">
+        <input type="text" name="request_for" id="request_for">
 
 
     </form>
@@ -308,6 +326,7 @@
                 if (orderdItem >= OrderderLimit) {
                     $('#PopupForOrderLimitCross').addClass("theProductShow");
                 } else {
+
                     $(this).addClass('quantity-button-clicked');
                     var el = $(".quantity-button-clicked");
                     var currentTableId = el.data('item-id');
@@ -319,7 +338,8 @@
 
 
                     $('#id_for_tablehasproduct_update').val(currentTableId);
-                    $('#quantity_for_tablehasproduct_update').val(updatedQuantity)
+                    $('#quantity_for_tablehasproduct_update').val(updatedQuantity);
+                    $('#request_for').val(1);
 
 
                     var route = '{{ route('updateTableProduct') }}';
@@ -338,7 +358,7 @@
                             $('#subtotalPriceOfAll').text(updatedTotalPrice);
                             var updatedTotalOrderd = orderdItem += 1;
                             $('#total_orderd_item').html(updatedTotalOrderd);
-
+                            $('.quantity-button-clicked').removeClass('quantity-button-clicked');
                         }
                     });
 
@@ -350,16 +370,14 @@
 
             $('.quantityMinusButton').click(function() {
 
-
-                $(this).addClass('quantity-button-clicked');
-                var el = $(".quantity-button-clicked");
-                var currentTableId = el.data('item-id');
-
-                var currentQuantity = parseInt($('#currentQuantity_'.trim() + currentTableId).text());
-
-                if (currentQuantity == 0) {
-                    alert('You Reached The Minimum Quantity');
+                if (orderdItem <= 1) {
+                    $('#PopupForOrderminimumLimitCross').addClass("theProductShow");
                 } else {
+
+                    $(this).addClass('quantity-button-clicked');
+                    var el = $(".quantity-button-clicked");
+                    var currentTableId = el.data('item-id');
+                    var currentQuantity = parseInt($('#currentQuantity_'.trim() + currentTableId).text());
 
                     var CurrentproductPrice = el.data('item-price');
                     var updatedQuantity = currentQuantity -= 1;
@@ -368,7 +386,7 @@
 
                     $('#id_for_tablehasproduct_update').val(currentTableId);
                     $('#quantity_for_tablehasproduct_update').val(updatedQuantity)
-                    $('#request_for').val('minus');
+                    $('#request_for').val(2);
 
                     var route = '{{ route('updateTableProduct') }}';
                     var data = $('#form_for_tableHasProduct').serialize();
@@ -386,7 +404,7 @@
                             var updatedTotalOrderd = orderdItem -= 1;
                             $('#total_orderd_item').html(updatedTotalOrderd);
                             $('.quantity-button-clicked').removeClass(
-                            'quantity-button-clicked');
+                                'quantity-button-clicked');
 
                         }
                     });

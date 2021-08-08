@@ -55,17 +55,17 @@
 
 
                 <!-- <div class="row bg-light rounded mb-2 suggested-product" product-id="1">
-                    <div class="col-3 suggestion-image">
-                        <img src="http://127.0.0.1:8000/images/1628323939.small.techbot gig (1).png" alt="PRODUCT"
-                           >
-                    </div>
-                    <div class="col-7 font-weight-bold">
-                        product one two three four
-                    </div>
-                    <div class="col-2 p-2 suggestion-price">
-                        <span>12</span>
-                    </div>
-                </div> -->
+                        <div class="col-3 suggestion-image">
+                            <img src="http://127.0.0.1:8000/images/1628323939.small.techbot gig (1).png" alt="PRODUCT"
+                               >
+                        </div>
+                        <div class="col-7 font-weight-bold">
+                            product one two three four
+                        </div>
+                        <div class="col-2 p-2 suggestion-price">
+                            <span>12</span>
+                        </div>
+                    </div> -->
 
 
 
@@ -291,11 +291,11 @@
 
                 <div class="icon position-relative">
                     <i class="fas fa-bell"></i>
-                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            <span id="total_orderd_item"> {{ $tableOrderLimit->total_orderd }}</span>/ <span
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        <span id="total_orderd_item"> {{ $tableOrderLimit->total_orderd }}</span>/ <span
                             id="total_order_limit">{{ $tableOrderLimit->order_limit }} </span>
 
-                        </span>
+                    </span>
 
                 </div>
                 <div class="iconName">
@@ -317,19 +317,6 @@
                     </div>
                 </a>
             </div>
-
-            {{-- <button type="button" class="btn btn-primary position-relative">
-  Inbox
-  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-    99+
-
-  </span>
-</button> --}}
-
-
-
-
-
         </div>
 
     </footer>
