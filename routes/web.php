@@ -53,11 +53,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
 
 
-    Route::get('deleteOrder/{order_id}',function($order_id){
-      $table = tableHasProduct::find($order_id);
-      $table->delete();
-      return back()->withErrors('Item Deleted');
-    })->name('deleteOrder');
+    Route::post('deleteOrder',[TableHasProductController::class,'deleteProductAndUpdateLimit'])->name('deleteOrder');
 
 
 

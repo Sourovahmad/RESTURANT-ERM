@@ -114,12 +114,57 @@
         </div>
     </section>
 
+        <!-- Modal for taking the printer input -->
+        <div class="modal fade" id="modalForCustomerQuantity" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalCenterTitle"> Print Table QR</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+
+                    <form id="formforPrinterInput">
+                        @csrf
+
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-12">
+
+                                <label for="input-for-customer-quantity">Customer Quantity</label>
+                                <input type="number" class="form-control" name="quantity" id="input-for-customer-quantity" placeholder="Enter a number" required>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" id="submit-button-printer"  class="form-control btn btn-success mt-4">
+                        </div>
+
+                    </form>
+
+
+
+                </div>
+
+            </div>
+            </div>
+        </div>
+
+
+
+
+
     <form id="form_for_table_input">
 
         @csrf
 
         <input type="text" id="form_table_input_id" name="id" hidden>
         <input type="text" id="form_table_input_value" value="1" name="value" hidden>
+        <input type="text" id="form_table_customer_quantity" name="customer_quantity" hidden>
 
 
     </form>
@@ -128,12 +173,30 @@
     <script>
         $(document).ready(function() {
             $(document).on('click', '#table_active_button', function() {
+
+
                 $(this).addClass('active-button-clicked');
                 var el = $(".active-button-clicked");
                 var itemId = el.data('item-id');
 
                 $('#form_table_input_id').val(itemId);
                 $('#form_table_input_value').val();
+
+                $(this).addClass(
+                'edit-item-trigger-clicked-for-printer');
+                var options = {
+                    'backdrop': 'static'
+                };
+                $('#modalForCustomerQuantity').modal(options)
+
+                $('.active-button-clicked').removeClass('active-button-clicked')
+            });
+
+
+            $('#submit-button-printer').on('click',function () {
+
+             var customerQuantity = $('#input-for-customer-quantity').val();
+                $('#form_table_customer_quantity').val(customerQuantity);
 
                 var route = '{{ route('admin.tableupdate') }}'.trim();
                 var data = $('#form_for_table_input').serialize();
@@ -143,7 +206,7 @@
                     type: "post",
                     data: data,
                     success: function(data) {
-                        location.reload();
+                        console.log(data)
 
                     },
                     error: function(jqXHR, exception) {
@@ -152,12 +215,6 @@
                 });
 
 
-                $('.active-button-clicked').removeClass('active-button-clicked')
-            });
-
-
-            $('#table_icon_orders').click(function () {
-                alert();
             })
 
 

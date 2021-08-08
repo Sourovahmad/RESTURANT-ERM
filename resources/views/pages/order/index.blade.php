@@ -53,16 +53,14 @@
 
                     <li class="navbar_service_need" data-service-name="need_waiter"><a>IK WILL GRAAG EEN OBER</a></li>
                     <li class="navbar_service_need" data-service-name="need_bill"><a>Bill</a></li>
-                    <li class="navbar_service_need" data-service-name="need_wasabi"><a >Wasabi</a></li>
-                    <li class="navbar_service_need" data-service-name="need_gember"><a >GEMBER</a></li>
-                    <li class="navbar_service_need" data-service-name="need_soyasauce"><a >SOYASAUS</a></li>
+                    <li class="navbar_service_need" data-service-name="need_wasabi"><a>Wasabi</a></li>
+                    <li class="navbar_service_need" data-service-name="need_gember"><a>GEMBER</a></li>
+                    <li class="navbar_service_need" data-service-name="need_soyasauce"><a>SOYASAUS</a></li>
 
                 </ul>
             </div>
         </div>
     </section>
-
-
 
 
 
@@ -76,54 +74,54 @@
 
 
 
-            @if ($tableData->count() != 0 )
-            @foreach ($tableData as $table)
+            @if ($tableData->count() != 0)
+                @foreach ($tableData as $table)
 
 
-                <div class="trayItem">
-                    <div class="quantity">
-                        <div class="minus">
-                            <button data-item-id="{{ $table->id }}" data-item-price="{{ $table->products[0]->price }}"
-                                class="quantityMinusButton">-</button>
+                    <div class="trayItem">
+                        <div class="quantity">
+                            <div class="minus">
+                                <button data-item-id="{{ $table->id }}"
+                                    data-item-price="{{ $table->products[0]->price }}"
+                                    class="quantityMinusButton">-</button>
+                            </div>
+                            <div class="number">
+                                <h5 id="currentQuantity_{{ $table->id }}">{{ $table->quantity }}</h5>
+                            </div>
+                            <div class="plus">
+                                <button data-item-id="{{ $table->id }}"
+                                    data-item-price="{{ $table->products[0]->price }}"
+                                    class="quantityPlusButton">+</button>
+                            </div>
                         </div>
-                        <div class="number">
-                            <h5 id="currentQuantity_{{ $table->id }}">{{ $table->quantity }}</h5>
+
+
+                        <div class="productName">
+                            <h5>{{ $table->products[0]->name }}</h5>
                         </div>
+
+
+
                         <div class="plus">
-                            <button data-item-id="{{ $table->id }}" data-item-price="{{ $table->products[0]->price }}"
-                                class="quantityPlusButton">+</button>
+                            <h5>${{ $table->products[0]->price }}</h5>
                         </div>
+
+
+                        <div class="plus">
+                            <button style="border:none" class="text-danger font-weight-bold deleteButtonForOrderPage"
+                                data-order-id="{{ $table->id }}"> <span><i class="fas fa-trash"></i></span></button>
+
+                        </div>
+
+
                     </div>
 
-
-                    <div class="productName">
-                        <h5>{{ $table->products[0]->name }}</h5>
-                    </div>
-
-
-
-                    <div class="plus">
-                        <h5>${{ $table->products[0]->price }}</h5>
-                    </div>
-
-
-                    <div class="plus">
-                        <a href="{{ route('deleteOrder', $table->id) }}">
-                            <button id="deleteButtonForOrderPage" style="border:none" class="text-danger font-weight-bold"> <span><i class="fas fa-trash"></i></span></button>
-                        </a>
-                    </div>
-
-
-                </div>
-
-            @endforeach
+                @endforeach
 
             @else
 
-            <p class="m-4"> looks like there is no Product in Cart. Add some and Order</p>
+                <p class="m-4"> looks like there is no Product in Cart. Add some and Order</p>
             @endif
-
-
 
 
         </div>
@@ -135,9 +133,9 @@
             <h5 id="">Subtotal: $<span id="subtotalPriceOfAll">{{ $totalPrice }} </span> </h5>
         </div>
         @if ($tableData->count() != 0)
-        <div class="theOrderButton">
-            <button class="theOrderStarter" onclick="theOrderPopUpShow()">SEND ORDER</button>
-        </div>
+            <div class="theOrderButton">
+                <button class="theOrderStarter" onclick="theOrderPopUpShow()">SEND ORDER</button>
+            </div>
         @endif
 
     </section>
@@ -185,52 +183,117 @@
         </div>
 
 
-        <div class="iconBox bg-info">
+        <div class="iconBox">
             <a href="#">
-                <div class="icon">
+                <div class="icon position-relative">
                     <i class="fas fa-bell"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        <span id="total_orderd_item"> {{ $tableOrderlimit->total_orderd }}</span>/ <span
+                            id="total_order_limit">{{ $tableOrderlimit->order_limit }} </span>
+
+                    </span>
                 </div>
                 <div class="iconName">
-                    <h6>Order</h6>
+                    <h6>Order </h6>
                 </div>
             </a>
         </div>
         <div class="iconBox" onclick="theAppend()">
-            <a >
-                <div class="icon">
+            <a>
+                <div class="icon position-relative">
                     <i class="fas fa-user-alt"></i>
                 </div>
                 <div class="iconName">
                     <h6>Service</h6>
+
                 </div>
             </a>
         </div>
 
+
+
     </footer>
 
+    {{-- *********************** All popUp SMS**************************** --}}
 
-    <form id="form_for_tableHasProduct">
+    {{-- popup for order limitCross --}}
+    <section class="theOrderPopUp" id="PopupForOrderLimitCross">
+        <div class="allContentsOrder">
+            <div class="theDesc">
+                <p>You Have Reached The limit of Order For This Round</p>
+            </div>
+            <div class="theOrderAlert">
+                <h5></h5>
+            </div>
+            <div class="orderChangerBtn">
+                <button onclick="theOrderPopUpHide()">OK</button>
+            </div>
+        </div>
+    </section>
+
+
+
+    {{-- popup for minimum limit --}}
+    <section class="theOrderPopUp" id="PopupForOrderminimumLimitCross">
+        <div class="allContentsOrder">
+            <div class="theDesc">
+                <p>You Have Reached The Minimum Limit</p>
+            </div>
+            <div class="theOrderAlert">
+                <h5></h5>
+            </div>
+            <div class="orderChangerBtn">
+                <button onclick="theOrderPopUpHide()">OK</button>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    {{-- ************** All hidden Forms ********************* --}}
+    <form id="form_for_tableHasProduct" hidden>
 
         @csrf
 
-        <input type="text" name="table_product_id" id="id_for_tablehasproduct_update" hidden>
-        <input type="text" name="quantity" id="quantity_for_tablehasproduct_update" hidden>
+        <input type="text" name="table_product_id" id="id_for_tablehasproduct_update">
+        <input type="text" name="quantity" id="quantity_for_tablehasproduct_update">
+        <input type="text" name="table_id" value="{{ $table_id }}">
+        <input type="text" name="request_for" id="request_for">
 
 
     </form>
 
     <form id="form_for_send_order" method="POST" action="{{ route('tableOrderStore') }}" hidden>
         @csrf
-        <input type="text" name="table_id" id="table_id_for_send_order" value="{{ $table_id }}" >
+        <input type="text" name="table_id" id="table_id_for_send_order" value="{{ $table_id }}">
         <button type="submit" id="send_order_submit_button"></button>
     </form>
 
- <form id="form_for_sending_service" hidden>
-    <input type="text" name="table_id" id="input_for_table_id" value="{{ $requestedTable->id }}">
-    <input type="text" name="service_for" id="input_for_service_for">
-    <button type="submit" id="send_service_submit_button"></button>
+    <form id="form_for_sending_service" hidden>
+        <input type="text" name="table_id" id="input_for_table_id" value="{{ $requestedTable->id }}">
+        <input type="text" name="service_for" id="input_for_service_for">
+        <button type="submit" id="send_service_submit_button"></button>
 
- </form>
+    </form>
+
+
+        {{-- form for delete the table has product  --}}
+    <form id="form_for_delete_table_has_product" hidden method="POST" action="{{ route('deleteOrder') }}">
+        @csrf
+        <input type="text" name="table_id" id="input_for_table_id_2" value="{{ $requestedTable->id }}" required>
+        <input type="text" name="order_id" id="input_for_delete_order_id" required >
+        <input type="text" name="quantity" id="input_for_delete_quantity" required >
+        <button type="submit" id="send_order_delete_submit_button"></button>
+
+    </form>
+
+
+
+
+
+
+
 
     <script>
         // the home page funtions
@@ -240,11 +303,37 @@
         $(document).ready(function() {
 
 
+
+
+
+
+            // ****************** delete order section start here ***********
+            $('.deleteButtonForOrderPage').on('click', function() {
+
+                $(this).addClass('clicked_for_delete_order');
+                var el = $(".clicked_for_delete_order");
+                var orderId = el.data('order-id');
+                var currentQuantityrunning = parseInt($('#currentQuantity_'.trim() + orderId).text());
+
+                var updatedQuantity =
+
+                $('#input_for_delete_order_id').val(orderId);
+                $('#input_for_delete_quantity').val(currentQuantityrunning);
+
+                 $(".clicked_for_delete_order").removeClass('clicked_for_delete_order');
+                 $('#send_order_delete_submit_button').trigger('click');
+
+
+
+            });
+
+
+
             // ************************* Service Function Start Here ***************************
 
 
-            $('.navbar_service_need').on('click', function () {
-               $(this).addClass('navbar_service_clicked');
+            $('.navbar_service_need').on('click', function() {
+                $(this).addClass('navbar_service_clicked');
                 var el = $(".navbar_service_clicked");
                 var needService = el.data('service-name');
 
@@ -255,18 +344,19 @@
             })
 
 
-
-
-
-
-
             // ************************* Service Function End Here ***************************
 
 
 
 
+            // order limit functtion start here
+
+            var OrderderLimit = parseInt($('#total_order_limit').text());
+            var orderdItem = parseInt($('#total_orderd_item').text());
 
 
+
+            // order limit function end here
 
 
 
@@ -278,55 +368,62 @@
 
             $('.quantityPlusButton').click(function() {
 
-                $(this).addClass('quantity-button-clicked');
-                var el = $(".quantity-button-clicked");
-                var currentTableId = el.data('item-id');
+                if (orderdItem >= OrderderLimit) {
+                    $('#PopupForOrderLimitCross').addClass("theProductShow");
+                } else {
+
+                    $(this).addClass('quantity-button-clicked');
+                    var el = $(".quantity-button-clicked");
+                    var currentTableId = el.data('item-id');
 
 
-                var currentQuantity = parseInt($('#currentQuantity_'.trim() + currentTableId).text());
-                var CurrentproductPrice = el.data('item-price');
-                var updatedQuantity = currentQuantity += 1;
+                    var currentQuantity = parseInt($('#currentQuantity_'.trim() + currentTableId).text());
+                    var CurrentproductPrice = el.data('item-price');
+                    var updatedQuantity = currentQuantity += 1;
 
 
-                $('#id_for_tablehasproduct_update').val(currentTableId);
-                $('#quantity_for_tablehasproduct_update').val(updatedQuantity)
+                    $('#id_for_tablehasproduct_update').val(currentTableId);
+                    $('#quantity_for_tablehasproduct_update').val(updatedQuantity);
+                    $('#request_for').val(1);
 
 
-                var route = '{{ route('updateTableProduct') }}';
-                var data = $('#form_for_tableHasProduct').serialize();
+                    var route = '{{ route('updateTableProduct') }}';
+                    var data = $('#form_for_tableHasProduct').serialize();
 
 
-                $.ajax({
-                    type: 'POST',
-                    url: route,
-                    data: data,
-                    success: function(data) {
-                        console.log("quantity add success");
+                    $.ajax({
+                        type: 'POST',
+                        url: route,
+                        data: data,
+                        success: function(data) {
+                            var updatedTotalPrice = totalPrices += CurrentproductPrice;
+                            $('#currentQuantity_'.trim() + currentTableId).text(updatedQuantity)
+                            $('#subtotalPriceOfAll').text(updatedTotalPrice);
+                            var updatedTotalOrderd = orderdItem += 1;
+                            $('#total_orderd_item').html(updatedTotalOrderd);
+                            $('.quantity-button-clicked').removeClass(
+                            'quantity-button-clicked');
+                            console.log("quantity add success");
 
-                        var updatedTotalPrice = totalPrices += CurrentproductPrice;
-                        $('#currentQuantity_'.trim() + currentTableId).text(updatedQuantity)
-                        $('#subtotalPriceOfAll').text(updatedTotalPrice);
+                        }
+                    });
 
-                    }
-                });
+                    $('.quantity-button-clicked').removeClass('quantity-button-clicked');
+                }
 
-                $('.quantity-button-clicked').removeClass('quantity-button-clicked');
+            });
 
-
-            })
 
             $('.quantityMinusButton').click(function() {
 
-
-                $(this).addClass('quantity-button-clicked');
-                var el = $(".quantity-button-clicked");
-                var currentTableId = el.data('item-id');
-
-                var currentQuantity = parseInt($('#currentQuantity_'.trim() + currentTableId).text());
-
-                if (currentQuantity == 0) {
-                    alert('You Reached The Minimum Quantity');
+                if (orderdItem <= 1) {
+                    $('#PopupForOrderminimumLimitCross').addClass("theProductShow");
                 } else {
+
+                    $(this).addClass('quantity-button-clicked');
+                    var el = $(".quantity-button-clicked");
+                    var currentTableId = el.data('item-id');
+                    var currentQuantity = parseInt($('#currentQuantity_'.trim() + currentTableId).text());
 
                     var CurrentproductPrice = el.data('item-price');
                     var updatedQuantity = currentQuantity -= 1;
@@ -335,7 +432,7 @@
 
                     $('#id_for_tablehasproduct_update').val(currentTableId);
                     $('#quantity_for_tablehasproduct_update').val(updatedQuantity)
-
+                    $('#request_for').val(2);
 
                     var route = '{{ route('updateTableProduct') }}';
                     var data = $('#form_for_tableHasProduct').serialize();
@@ -350,8 +447,10 @@
 
                             $('#currentQuantity_'.trim() + currentTableId).text(updatedQuantity)
                             $('#subtotalPriceOfAll').text(updatedTotalPrice);
+                            var updatedTotalOrderd = orderdItem -= 1;
+                            $('#total_orderd_item').html(updatedTotalOrderd);
                             $('.quantity-button-clicked').removeClass(
-                            'quantity-button-clicked');
+                                'quantity-button-clicked');
 
                         }
                     });
@@ -366,8 +465,21 @@
             // ************************** Quantity calculation end Here ***********************
 
 
+            // ****************** delete order section start here ***********
+            $('.deleteButtonForOrderPage').on('click', function() {
 
+                $(this).addClass('clicked_for_delete_order');
+                var el = $(".clicked_for_delete_order");
+                var orderId = el.data('order-id');
+                var currentQuantityrunning = parseInt($('#currentQuantity_'.trim() + orderId).text());
 
+                $('#input_for_delete_order_id').val(orderId);
+                $('#input_for_delete_quantity').val(currentQuantityrunning);
+
+                 $(".clicked_for_delete_order").removeClass('clicked_for_delete_order');
+                 $('#send_order_delete_submit_button').trigger('click');
+
+            });
 
 
         });
@@ -395,10 +507,10 @@
                     button.innerHTML = "Change Order";
                 } else {
 
-                         p.innerHTML = "Success!";
-                         h5.innerHTML = "Your Order Has Been Placed";
-                         button.innerHTML = "Thank You";
-                         $('#send_order_submit_button').trigger('click');
+                    p.innerHTML = "Success!";
+                    h5.innerHTML = "Your Order Has Been Placed";
+                    button.innerHTML = "Thank You";
+                    $('#send_order_submit_button').trigger('click');
 
 
                 }
@@ -435,6 +547,10 @@
         function theOrderPopUpHide() {
             let theOrderPopUp = document.querySelector(".theOrderPopUp");
             theOrderPopUp.classList.remove("theProductShow");
+        }
+
+        function theOrderPopUpHide() {
+            $('.theProductShow').removeClass('theProductShow');
         }
     </script>
 

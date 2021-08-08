@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\table;
 use App\Models\tableHasProduct;
+use App\Models\tableOrderLimit;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -45,7 +46,10 @@ class TableHasProductController extends Controller
 
         tableHasProduct::create($request->all());
 
-
+        $tableOrderlimit = tableOrderLimit::where('table_id',$request->table_id)->first();
+        $totalOrderdItem = $tableOrderlimit->total_orderd + 1;
+        $tableOrderlimit->total_orderd = $totalOrderdItem;
+        $tableOrderlimit->save();
     }
 
     /**
@@ -83,6 +87,23 @@ class TableHasProductController extends Controller
         $tableHasProduct->quantity = $request->quantity;
         $tableHasProduct->save();
 
+
+        $tableOrderlimit = tableOrderLimit::where('table_id',$request->table_id)->first();
+
+        if($request->request_for == 1){
+            $totalOrderdItem = $tableOrderlimit->total_orderd + 1;
+            $tableOrderlimit->total_orderd = $totalOrderdItem;
+            $tableOrderlimit->save();
+        } else{
+            $totalOrderdItem = $tableOrderlimit->total_orderd - 1;
+            $tableOrderlimit->total_orderd = $totalOrderdItem;
+            $tableOrderlimit->save();
+        }
+
+
+
+
+
     }
 
     /**
@@ -91,11 +112,9 @@ class TableHasProductController extends Controller
      * @param  \App\Models\tableHasProduct  $tableHasProduct
      * @return \Illuminate\Http\Response
      */
-    public function destroy(tableHasProduct $tableHasProduct,$order_id)
+    public function destroy(tableHasProduct $tableHasProduct)
     {
-       $tableHasProduct = tableHasProduct::find($order_id);
-       $tableHasProduct -> delete();
-       return back()->withErrors('Item Deleted');
+        //
     }
 
 
@@ -109,6 +128,7 @@ class TableHasProductController extends Controller
         $tableData = tableHasProduct::where('table_id', $table_id)->get();
         $requestedTable = $table;
         $table_id = $table->id;
+        $tableOrderlimit = tableOrderLimit::where('table_id',$table_id)->first();
 
         $totalPrice = 0;
 
@@ -118,7 +138,7 @@ class TableHasProductController extends Controller
             $totalPrice +=  $multiplyQuantity;
         }
 
-         return view('pages.order.index',compact('tableData','totalPrice','requestedTable','table_id'));
+         return view('pages.order.index',compact('tableData','totalPrice','requestedTable','table_id', 'tableOrderlimit'));
 
         }else{
             return view('errors.tableNotActive');
@@ -126,4 +146,20 @@ class TableHasProductController extends Controller
 
 
     }
+
+
+    public function deleteProductAndUpdateLimit(Request $request)
+    {
+        $tableHasProduct = tableHasProduct::find($request->order_id);
+        $tableHasProduct->delete();
+
+
+        $tableOrderlimit = tableOrderLimit::where('table_id',$request->table_id)->first();
+        $currentOrderItem =  $tableOrderlimit->total_orderd;
+        $tableOrderlimit->total_orderd = $currentOrderItem - $request->quantity;
+        $tableOrderlimit->save();
+        return back()->withErrors('Item Deleted');
+    }
+
+
 }

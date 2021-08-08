@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\category;
 use App\Models\product;
 use App\Models\table;
+use App\Models\tableOrderLimit;
 use Carbon\Carbon;
 use finfo;
 use Illuminate\Http\Request;
@@ -131,9 +132,10 @@ class TableController extends Controller
 
         if($requestedTable->active_status == 1){
 
-            $products = product::all();
+            $tableOrderLimit = tableOrderLimit::where('table_id', $requestedTable->id)->first();
+            $products = product::where('active_status', 1)->get();
             $categories = category::all();
-            return view('products.index',compact('requestedTable','products','categories'));
+            return view('products.index',compact('requestedTable','products','categories', 'tableOrderLimit'));
 
         } else{
 
@@ -149,7 +151,18 @@ class TableController extends Controller
      $table = table::find($request->id);
      $table->active_status = $request->value;
      $table->save();
-      return "successfully updated";
+
+
+    $tableOrderLimit = new tableOrderLimit;
+    $tableOrderLimit->table_id = $table->id;
+    $tableOrderLimit->total_customer = $request->customer_quantity;
+    $tableOrderLimit->order_limit = $request->customer_quantity * 5;
+    $tableOrderLimit->total_orderd = 0;
+
+    $tableOrderLimit->save();
+
+    return "table active and order limit set up success";
+
     }
 
 
