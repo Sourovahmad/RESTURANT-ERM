@@ -19,6 +19,21 @@
        <link rel="stylesheet" href="{{ asset('css/table.css') }}">
        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
+
+
+
+        <script src="{{ mix('js/app.js') }}" defer></script>
+
+    <script src="{{asset('js/admin/jquery.min.js')}}"></script>
+    <script src="{{asset('js/admin/bootstrapbundle.js')}}"></script>
+    {{-- <script src="{{asset('js/admin/easing.min.js')}}"></script> --}}
+    <script src="{{asset('js/admin/sb-admin-2.min.js')}}"></script>
+    {{-- <script src="{{asset('js/admin/Chart.min.js')}}"></script> --}}
+    <script src="{{asset('js/admin/datatables.min.js')}}"></script>
+    <script src="{{asset('bootstrap-select/js/bootstrap-select.min.js')}}"></script>
+
+
+
         <!-- Styles -->
         <style>
 
@@ -34,15 +49,7 @@
         @livewireStyles
 
         <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>
 
-    <script src="{{asset('js/admin/jquery.min.js')}}"></script>
-    <script src="{{asset('js/admin/bootstrapbundle.js')}}"></script>
-    {{-- <script src="{{asset('js/admin/easing.min.js')}}"></script> --}}
-    <script src="{{asset('js/admin/sb-admin-2.min.js')}}"></script>
-    {{-- <script src="{{asset('js/admin/Chart.min.js')}}"></script> --}}
-    <script src="{{asset('js/admin/datatables.min.js')}}"></script>
-    <script src="{{asset('bootstrap-select/js/bootstrap-select.min.js')}}"></script>
 
 <script>
     $(document).ready(function(){

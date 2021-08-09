@@ -55,9 +55,9 @@
 
 
                         <div class="col-12 col-md-4 form-group">
-                            <label for="category">Select Category <span class="text-danger">*</span> </label>
-                            <select class="form-control" name="category" id="category" required >
-                                <option value="" selected hidden disabled >Select Category</option>
+                            <label for="category_Selector">Select Category <span class="text-danger">*</span> </label>
+                            <select class="form-select"  name="category" id="category_Selector" required >
+                                <option selected hidden disabled >Select Category</option>
 
                                             @foreach ($categories as $category )
 
@@ -306,6 +306,7 @@
             var categories = @json($categories);
 
 
+
             $('#dataTable').DataTable({
                 dom: 'lBfrtip',
                 buttons: [
@@ -314,7 +315,7 @@
             });
 
 
-
+            $('#category_Selector').bsMultiSelect();
 
 
             $(document).on('click', "#data-edit-button", function () {
