@@ -106,7 +106,25 @@ class TableController extends Controller
      */
     public function update(Request $request,Table $table)
     {
-         //
+        $table->name = $request->name;
+        if(!is_null($request->description)){
+            $table->description = $request->description;
+        }
+
+        $requestTableUrl = route('dashboard') . '/' . 'gotable' . '/' . $request->table_url;
+        if ($table->table_url != $requestTableUrl){
+
+        $tableUrl = table::where('table_url', $requestTableUrl)->get();
+
+        if($tableUrl->count() == 0){
+            $table->table_url = $requestTableUrl;
+        }else{
+            $table->save();
+            return back()->withErrors('table url already used. try with a diffrent url');
+        }
+        }
+        $table->save();
+        return back()->withSuccess('table updated Successfull');
     }
 
     /**

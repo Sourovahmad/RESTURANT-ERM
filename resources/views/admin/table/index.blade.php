@@ -295,6 +295,18 @@
                             <input type="text" name="description" class="form-control" id="modal-update-description">
 
                         </div>
+
+
+
+                        <div class="form-group">
+                            <label class="col-form-label" for="modal-update-name">Url</label>
+                            <input type="text" name="table_url" class="form-control" id="modal-update-table-url">
+
+                        </div>
+
+
+
+
                         <div class="form-group">
 
                             <input type="submit" id="submit-button" value="Submit" class="form-control btn btn-success">
@@ -355,6 +367,10 @@
                         $('#modal-update-hidden-id').val(itemId);
                         $("#modal-update-name").val(tables[key].name);
                         $("#modal-update-description").val(tables[key].description);
+
+                        var route = '{{ route('dashboard') }}';
+                        var updatedUrl = tables[key].table_url.replace(route+'/gotable/','');
+                        $('#modal-update-table-url').val(updatedUrl);
 
                         return false;
                     }
