@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use finfo;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 
 class TableController extends Controller
 {
@@ -50,7 +51,7 @@ class TableController extends Controller
         $table = new table;
         $table->name = $request->name;
         $table->description = $request->description;
-        $table->active_status = $request->active_status;
+        $table->active_status = 2;
 
 
         $b = date('i');
@@ -66,6 +67,7 @@ class TableController extends Controller
         $final = $latestId . $b;
 
         $table-> table_url = route('dashboard'). '/' . 'gotable/'.$final;
+
 
         $table->save();
          return back()->withSuccess('Table Has been Save with Url And QrCode');
@@ -106,7 +108,25 @@ class TableController extends Controller
      */
     public function update(Request $request,Table $table)
     {
-         //
+        $table->name = $request->name;
+        if(!is_null($request->description)){
+            $table->description = $request->description;
+        }
+
+        $requestTableUrl = route('dashboard') . '/' . 'gotable' . '/' . $request->table_url;
+        if ($table->table_url != $requestTableUrl){
+
+        $tableUrl = table::where('table_url', $requestTableUrl)->get();
+
+        if($tableUrl->count() == 0){
+            $table->table_url = $requestTableUrl;
+        }else{
+            $table->save();
+            return back()->withErrors('table url already used. try with a diffrent url');
+        }
+        }
+        $table->save();
+        return back()->withSuccess('table updated Successfull');
     }
 
     /**
@@ -134,7 +154,28 @@ class TableController extends Controller
 
             $tableOrderLimit = tableOrderLimit::where('table_id', $requestedTable->id)->first();
             $products = product::where('active_status', 1)->get();
-            $categories = category::all();
+
+            $tableAssignedCategories = DB::table('table_has_category_assigned')
+            ->where('table_id', $requestedTable->id)->get();
+
+            $Filterdcategories = [];
+            $allcategories = category::all();
+
+            if($tableAssignedCategories[0]->category_id != 156000 ){
+                for ($i=0; $i < count($tableAssignedCategories) ; $i++) {
+
+                    $currentCategoryId = $tableAssignedCategories[$i]->category_id;
+                    $resultCategory =  $allcategories->where('id', $currentCategoryId)->first();
+                    array_push($Filterdcategories, $resultCategory);
+                    $categories = $Filterdcategories;
+                }
+            }else{
+                array_push($Filterdcategories, $allcategories);
+                $categories = $Filterdcategories[0];
+            }
+
+
+
             return view('products.index',compact('requestedTable','products','categories', 'tableOrderLimit'));
 
         } else{
@@ -148,21 +189,68 @@ class TableController extends Controller
 
     public function updateStatus(Request $request)
     {
-     $table = table::find($request->id);
-     $table->active_status = $request->value;
-     $table->save();
+        $request->validate([
+            'table_id' => 'required',
+            'customer_quantity' => 'required',
+            'category_id' => 'required',
+        ]);
 
 
-    $tableOrderLimit = new tableOrderLimit;
-    $tableOrderLimit->table_id = $table->id;
-    $tableOrderLimit->total_customer = $request->customer_quantity;
-    $tableOrderLimit->order_limit = $request->customer_quantity * 5;
-    $tableOrderLimit->total_orderd = 0;
+        $table = table::find($request->table_id);
+        $table->active_status = 1;
+        $table->save();
 
-    $tableOrderLimit->save();
 
-    return "table active and order limit set up success";
+        $tableOrderLimit = new tableOrderLimit;
+        $tableOrderLimit->table_id = $table->id;
+        $tableOrderLimit->total_customer = $request->customer_quantity;
+        $tableOrderLimit->order_limit = $request->customer_quantity * 5;
+        $tableOrderLimit->total_orderd = 0;
 
+        $tableOrderLimit->save();
+
+     $allRequestCategories =  $request->category_id;
+
+        if($allRequestCategories[0] != 156000){
+
+            for ($i=0; $i < count($allRequestCategories) ; $i++) {
+
+                DB::table('table_has_category_assigned')->insert([
+                    'table_id' => $table->id,
+                    'category_id' => $allRequestCategories[$i],
+                ]);
+            }
+        } else{
+            DB::table('table_has_category_assigned')->insert([
+                'table_id' => $table->id,
+                'category_id' => '156000',
+            ]);
+        }
+
+
+    return back()->withSuccess('table active and order limit set up success');
+
+    }
+
+
+    public function tableclose(Request $request)
+    {
+
+        $table = table::find($request->table_id);
+        $table->active_status = 2;
+        $table->save();
+
+
+        $tableOrderLimit = tableOrderLimit::where('table_id',$request->table_id)->first();
+
+        // here will be the printing functions
+
+        $tableOrderLimit->delete();
+
+        $tableAssignedCategories = DB::table('table_has_category_assigned')
+        ->where('table_id', $request->table_id)->delete();
+
+         return back()->withErrors('Table Has been Deactivated SuccessFull');
     }
 
 

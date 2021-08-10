@@ -17,8 +17,7 @@ class TableHasOrderController extends Controller
      */
     public function index()
     {
-        $tables = table::all();
-        return view('admin.employee.index',compact('tables'));
+        //
     }
 
     /**

@@ -4,7 +4,7 @@
 
     @if ($errors->any())
         <div class="alert alert-danger">
-            <ul>
+            <ul >
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
@@ -15,7 +15,7 @@
     @if (session()->has('success'))
         <div class="alert alert-success">
             @if (is_array(session('success')))
-                <ul>
+                <ul >
                     @foreach (session('success') as $message)
                         <li>{{ $message }}</li>
                     @endforeach
@@ -49,7 +49,7 @@
 
                         </div>
 
-                        <div class="col-12 col-md-4 form-group">
+                        {{-- <div class="col-12 col-md-4 form-group">
 
                             <label for="selectForTD" >Status</label>
                              <select  id="selectForTD" name="active_status" class="form-control">
@@ -59,12 +59,12 @@
 
                             </select>
 
-                        </div>
+                        </div> --}}
 
                         <div class="col-12 col-md-4 form-group">
 
                             <label for="description">Description  </label>
-                            <textarea name="description" class="form-control" id="descriptionForAddnew" cols="3"></textarea>
+                            <textarea name="description" class="form-control" id="descriptionForAddnew" ></textarea>
 
 
                         </div>
@@ -295,6 +295,18 @@
                             <input type="text" name="description" class="form-control" id="modal-update-description">
 
                         </div>
+
+
+
+                        <div class="form-group">
+                            <label class="col-form-label" for="modal-update-name">Url</label>
+                            <input type="text" name="table_url" class="form-control" id="modal-update-table-url">
+
+                        </div>
+
+
+
+
                         <div class="form-group">
 
                             <input type="submit" id="submit-button" value="Submit" class="form-control btn btn-success">
@@ -355,6 +367,10 @@
                         $('#modal-update-hidden-id').val(itemId);
                         $("#modal-update-name").val(tables[key].name);
                         $("#modal-update-description").val(tables[key].description);
+
+                        var route = '{{ route('dashboard') }}';
+                        var updatedUrl = tables[key].table_url.replace(route+'/gotable/','');
+                        $('#modal-update-table-url').val(updatedUrl);
 
                         return false;
                     }

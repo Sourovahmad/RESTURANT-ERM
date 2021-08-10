@@ -55,9 +55,9 @@
 
 
                         <div class="col-12 col-md-4 form-group">
-                            <label for="category">Select Category <span class="text-danger">*</span> </label>
-                            <select class="form-control" name="category" id="category" required >
-                                <option value="" selected hidden disabled >Select Category</option>
+                            <label for="category_Selector">Select Category <span class="text-danger">*</span> </label>
+                            <select class="form-control"  name="category" id="category_Selector" required >
+                                <option selected hidden disabled >Select Category</option>
 
                                             @foreach ($categories as $category )
 
@@ -103,7 +103,7 @@
     </div>
 
 
-    
+
     <div class="card shadow mb-4">
 
         <div class="card-header py-3 bg-techbot-dark">
@@ -306,13 +306,13 @@
             var categories = @json($categories);
 
 
+
             $('#dataTable').DataTable({
                 dom: 'lBfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print'
                 ]
             });
-
 
 
 
@@ -332,7 +332,6 @@
             $('#data-edit-modal').on('show.bs.modal', function () {
 
                 var el = $(".edit-item-trigger-clicked");
-
                 // get the data
                 var itemId = el.data('item-id');
 
@@ -385,7 +384,7 @@
             // on modal hide
             $('#data-edit-modal').on('hide.bs.modal', function () {
                 $('.edit-item-trigger-clicked').removeClass('edit-item-trigger-clicked')
-                $("#edit-form").trigger("reset");
+                $("#data-edit-form").trigger("reset");
             });
         });
 

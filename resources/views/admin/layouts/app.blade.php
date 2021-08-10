@@ -10,14 +10,26 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
         <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset('bootstrape/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{asset('css/fontawesome-free/css/all.min.css')}}" type="text/css">
 
         <link rel="stylesheet" href="{{asset('css/admin/sb-admin-2.min.css')}}">
         <link rel="stylesheet" href="{{asset('css/admin/datatables.min.css')}}">
-        <link rel="stylesheet" src="{{asset('bootstrap-select/css/bootstrap-select.min.css')}}">
+<link rel="stylesheet" href="{{ asset('bootstrap-select/css/bootstrap-select.min.css') }}">
        <link rel="stylesheet" href="{{ asset('css/table.css') }}">
        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+
+
+
+        <script src="{{ mix('js/app.js') }}" defer></script>
+
+    <script src="{{asset('js/admin/jquery.min.js')}}"></script>
+    <script src="{{asset('js/admin/bootstrapbundle.js')}}"></script>
+    <script src="{{asset('js/admin/sb-admin-2.min.js')}}"></script>
+    <script src="{{asset('js/admin/datatables.min.js')}}"></script>
+<script src="{{ asset('bootstrap-select/js/bootstrap-select.min.js') }}"></script>
+
 
         <!-- Styles -->
         <style>
@@ -34,15 +46,7 @@
         @livewireStyles
 
         <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}" defer></script>
 
-    <script src="{{asset('js/admin/jquery.min.js')}}"></script>
-    <script src="{{asset('js/admin/bootstrapbundle.js')}}"></script>
-    {{-- <script src="{{asset('js/admin/easing.min.js')}}"></script> --}}
-    <script src="{{asset('js/admin/sb-admin-2.min.js')}}"></script>
-    {{-- <script src="{{asset('js/admin/Chart.min.js')}}"></script> --}}
-    <script src="{{asset('js/admin/datatables.min.js')}}"></script>
-    <script src="{{asset('bootstrap-select/js/bootstrap-select.min.js')}}"></script>
 
 <script>
     $(document).ready(function(){
