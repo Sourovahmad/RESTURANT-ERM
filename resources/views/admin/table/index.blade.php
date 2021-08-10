@@ -4,7 +4,7 @@
 
     @if ($errors->any())
         <div class="alert alert-danger">
-            <ul>
+            <ul >
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
@@ -15,7 +15,7 @@
     @if (session()->has('success'))
         <div class="alert alert-success">
             @if (is_array(session('success')))
-                <ul>
+                <ul >
                     @foreach (session('success') as $message)
                         <li>{{ $message }}</li>
                     @endforeach
@@ -49,7 +49,7 @@
 
                         </div>
 
-                        <div class="col-12 col-md-4 form-group">
+                        {{-- <div class="col-12 col-md-4 form-group">
 
                             <label for="selectForTD" >Status</label>
                              <select  id="selectForTD" name="active_status" class="form-control">
@@ -59,12 +59,12 @@
 
                             </select>
 
-                        </div>
+                        </div> --}}
 
                         <div class="col-12 col-md-4 form-group">
 
                             <label for="description">Description  </label>
-                            <textarea name="description" class="form-control" id="descriptionForAddnew" cols="3"></textarea>
+                            <textarea name="description" class="form-control" id="descriptionForAddnew" ></textarea>
 
 
                         </div>

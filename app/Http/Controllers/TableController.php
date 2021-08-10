@@ -50,7 +50,7 @@ class TableController extends Controller
         $table = new table;
         $table->name = $request->name;
         $table->description = $request->description;
-        $table->active_status = $request->active_status;
+        $table->active_status = 2;
 
 
         $b = date('i');
@@ -66,6 +66,7 @@ class TableController extends Controller
         $final = $latestId . $b;
 
         $table-> table_url = route('dashboard'). '/' . 'gotable/'.$final;
+
 
         $table->save();
          return back()->withSuccess('Table Has been Save with Url And QrCode');
@@ -153,6 +154,8 @@ class TableController extends Controller
             $tableOrderLimit = tableOrderLimit::where('table_id', $requestedTable->id)->first();
             $products = product::where('active_status', 1)->get();
             $categories = category::all();
+
+            return $categories;
             return view('products.index',compact('requestedTable','products','categories', 'tableOrderLimit'));
 
         } else{
@@ -166,20 +169,27 @@ class TableController extends Controller
 
     public function updateStatus(Request $request)
     {
-     $table = table::find($request->id);
-     $table->active_status = $request->value;
-     $table->save();
+        $request->validate([
+            'table_id' => 'required',
+            'customer_quantity' => 'required',
+            'category_id' => 'required',
+        ]);
+
+        $table = table::find($request->table_id);
+        $table->active_status = 1;
+        $table->save();
 
 
-    $tableOrderLimit = new tableOrderLimit;
-    $tableOrderLimit->table_id = $table->id;
-    $tableOrderLimit->total_customer = $request->customer_quantity;
-    $tableOrderLimit->order_limit = $request->customer_quantity * 5;
-    $tableOrderLimit->total_orderd = 0;
+        $tableOrderLimit = new tableOrderLimit;
+        $tableOrderLimit->table_id = $table->id;
+        $tableOrderLimit->total_customer = $request->customer_quantity;
+        $tableOrderLimit->order_limit = $request->customer_quantity * 5;
+        $tableOrderLimit->total_orderd = 0;
 
-    $tableOrderLimit->save();
+        $tableOrderLimit->save();
 
-    return "table active and order limit set up success";
+
+    return back()->withSuccess('table active and order limit set up success');
 
     }
 
@@ -197,7 +207,7 @@ class TableController extends Controller
 
         $tableOrderLimit->delete();
 
-        return back()->withSuccess('Table Has been Deactivated SuccessFull');
+        return back()->withErrors('Table Has been Deactivated SuccessFull');
     }
 
 

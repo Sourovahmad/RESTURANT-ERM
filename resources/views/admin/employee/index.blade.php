@@ -135,23 +135,38 @@
                 </div>
                 <div class="modal-body">
 
-                    <form id="formforCustomerQuantityInput">
+                    <form id="formforCustomerQuantityInput" method="POST" action="{{ route('admin.tableupdate') }}">
                         @csrf
 
                         <div class="row">
 
-                            <div class="col-sm-12 col-md-">
+                            <input type="text" name="table_id" id="modal-hidden-table-id" hidden>
+
+                            <div class="col-sm-12 col-md-6">
 
                                 <label for="input-for-customer-quantity">Enter how Many Customer</label>
-                                <input type="number" class="form-control" name="quantity" id="input-for-customer-quantity"
+                                <input type="number" class="form-control" name="customer_quantity" id="input-for-customer-quantity"
                                     placeholder="Enter a number" required>
+
+                            </div>
+
+
+                            <div class="col-sm-12 col-md-6">
+
+                                <label for="category_select">Select Menu types</label>
+
+                                <select name="category_id[]" id="category_select" class="selectpicker" multiple title="Choose one of the following.." required>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }} </option>
+                                    @endforeach
+                                </select>
 
                             </div>
 
                         </div>
 
                         <div class="form-group">
-                            <input type="submit" id="submit-button-printer" class="form-control btn btn-success mt-4">
+                            <button type="submit" id="table-active-submit-button" class="form-control btn btn-success mt-4">Submit</button>
                         </div>
 
                     </form>
@@ -235,7 +250,7 @@
 
 
 
-    <!-- Modal for taking the edit the table  -->
+    <!-- Modal for taking the sure cancel the table  -->
     <div class="modal fade" id="table_close_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -247,7 +262,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-<p> Are you Sure Want to close the table ? if the Bill isn't Payed Yet. The Bill Will Be Printed</p>
+                    <p> Are you Sure Want to close the table ? if the Bill isn't Payed Yet. The Bill Will Be Printed</p>
                     <div class="button-group">
                         <button type="button" id="close_table_confirm_button" class="btn btn-success">Close Table</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
@@ -269,16 +284,7 @@
 
     {{-- hidden forms --}}
 
-    <form id="form_for_table_input" hidden>
 
-        @csrf
-
-        <input type="text" id="form_table_input_id" name="id">
-        <input type="text" id="form_table_input_value" value="1" name="value">
-        <input type="text" id="form_table_customer_quantity" name="customer_quantity">
-
-
-    </form>
 
 
     <form method="POST" action="{{ route('admin.tableclose') }}" hidden>
@@ -297,13 +303,11 @@
 
             $(document).on('click', '#table_active_button', function() {
 
-
                 $(this).addClass('active-button-clicked');
                 var el = $(".active-button-clicked");
                 var itemId = el.data('item-id');
 
-                $('#form_table_input_id').val(itemId);
-                $('#form_table_input_value').val();
+                $('#modal-hidden-table-id').val(itemId);
 
                 $(this).addClass(
                     'edit-item-trigger-clicked-for-printer');
@@ -316,29 +320,7 @@
             });
 
 
-            $('#submit-button-printer').on('click', function() {
 
-                var customerQuantity = $('#input-for-customer-quantity').val();
-                $('#form_table_customer_quantity').val(customerQuantity);
-
-                var route = '{{ route('admin.tableupdate') }}'.trim();
-                var data = $('#form_for_table_input').serialize();
-
-                $.ajax({
-                    url: route,
-                    type: "post",
-                    data: data,
-                    success: function(data) {
-                        console.log(data)
-
-                    },
-                    error: function(jqXHR, exception) {
-                        console.log(jqXHR);
-                    }
-                });
-
-
-            });
 
 
 
@@ -395,7 +377,7 @@
             })
 
 
-            $('#close_table_confirm_button').click(function () {
+            $('#close_table_confirm_button').click(function() {
                 $('#submit_button_for_close_table').trigger('click');
             })
 
