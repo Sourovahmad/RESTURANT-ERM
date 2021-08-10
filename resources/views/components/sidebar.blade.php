@@ -50,7 +50,7 @@
 
                 <a class="collapse-item" href="{{ route('admin.products.index') }}">{{__('General Products')}}</a>
 
-                <a class="collapse-item" href="{{ route('admin.ServicesProducts.index') }}">{{__('Service Product')}}</a>
+                {{-- <a class="collapse-item" href="{{ route('admin.ServicesProducts.index') }}">{{__('Service Product')}}</a> --}}
                 <a class="collapse-item" href="{{ route('admin.categories.index') }}">{{__('Categories')}}</a>
 
             </div>
@@ -101,6 +101,18 @@
         <a class="nav-link p-3 " href="{{ route('admin.employees.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>{{ __('tables (employee)') }}</span></a>
+    </li>
+
+    @endif
+
+    @if ($auth->role_id == 1)
+
+    <hr class="sidebar-divider m-1 p-0 ">
+
+    <li class="nav-item active ">
+        <a class="nav-link p-3 " href="{{ route('admin.employees.index') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>{{ __('Setting') }}</span></a>
     </li>
 
     @endif

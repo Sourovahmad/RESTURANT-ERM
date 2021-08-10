@@ -50,6 +50,9 @@ class ProductController extends Controller
         $product->active_status = $request->status;
         $product->price = $request->price;
 
+        if(!is_null($request->chinese_name)){
+            $product->chinese_name = $request->chinese_name;
+        }
         if(!is_null($request->image)){
 
             $request->validate([
@@ -107,9 +110,40 @@ class ProductController extends Controller
      * @param  \App\Models\product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, product $product)
+    public function update(productValidation $request, product $product)
     {
-        //
+        $product->name = $request->name;
+        $product->category_id = $request->category;
+        $product->active_status = $request->status;
+        $product->price = $request->price;
+        
+        if (!is_null($request->chinese_name)) {
+            $product->chinese_name = $request->chinese_name;
+        }
+        if (!is_null($request->image)) {
+
+            $request->validate([
+
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
+            ]);
+
+            $fileNameFull = time() . '.full.' . $request->image->getClientOriginalName();
+            $fileNameSmall = time() . '.small.' . $request->image->getClientOriginalName();
+
+            $imageSize = getimagesize($request->image);
+
+            $pictureBig = Photo::make($request->image)->fit($imageSize[0], $imageSize[1])->save('images/' . $fileNameFull);
+            $pictureSmall = Photo::make($request->image)->fit(135, 225)->save('images/' . $fileNameSmall);
+
+
+            $product->image_small = 'images/' . $fileNameSmall;
+            $product->image_big = 'images/' . $fileNameFull;
+        }
+
+
+        $product->save();
+        return back()->withSuccess('Product Has Been updated');
     }
 
     /**
