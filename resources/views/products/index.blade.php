@@ -434,7 +434,7 @@
                     }
                     if(minutes<10)
                     {
-                        minutes = '0'+minutesl;
+                        minutes = '0'+minutes;
                     }
                     if(seconds<10)
                     {
