@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->double('price');
             $table->string('image_small')->nullable();
             $table->string('image_big')->nullable();
+            $table->string('chinese_name')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -53,6 +53,12 @@
 
                         </div>
 
+                        <div class="col-12 col-md-4 form-group">
+                            <label for="chinese_name">Chinese Name </label>
+                            <input type="number" class="form-control" name="chinese_name" id="chinese_name" >
+
+                        </div>
+
 
                         <div class="col-12 col-md-4 form-group">
                             <label for="category_Selector">Select Category <span class="text-danger">*</span> </label>
@@ -75,6 +81,10 @@
                             <input type="number" class="form-control" name="price" id="price" step=".01" required>
 
                         </div>
+
+
+
+
 
                         <div class="col-12 col-md-4 form-group">
                             <label for="add_status">Status </label>
@@ -127,6 +137,7 @@
 
                             <th> #</th>
                             <th>Product Name</th>
+                            <th>chinese Name</th>
                             <th>Category</th>
                             <th>Price</th>
                             <th>Status</th>
@@ -140,6 +151,7 @@
 
                             <th> #</th>
                             <th>Product Name</th>
+                            <th>chinese Name</th>
                             <th>Category</th>
                             <th>Price</th>
                             <th>Status</th>
@@ -162,6 +174,7 @@
 
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="word-break name">{{ $product->name }}</td>
+                                <td class="word-break chinese_name">{{ $product->chinese_name }}</td>
                                 <td class="word-break category">{{ $product->category->name }}</td>
                                 <td class="word-break price">{{ $product->price }}</td>
                                 <td class="word-break status">
@@ -257,6 +270,13 @@
                         <div class="form-group">
                             <label class="col-form-label" for="modal-update-name">Name <span style="color: red">*</span></label>
                             <input type="text" class="form-control" name="name" id="modal-update-name" required>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-form-label" for="modal-update-chinese_name">Chinese Name </label>
+                            <input type="text" class="form-control" name="chinese_name" id="modal-update-chinese_name" >
 
                         </div>
 

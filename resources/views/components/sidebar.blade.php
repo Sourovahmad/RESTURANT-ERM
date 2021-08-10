@@ -105,6 +105,18 @@
 
     @endif
 
+    @if ($auth->role_id == 1)
+
+    <hr class="sidebar-divider m-1 p-0 ">
+
+    <li class="nav-item active ">
+        <a class="nav-link p-3 " href="{{ route('admin.employees.index') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>{{ __('Setting') }}</span></a>
+    </li>
+
+    @endif
+
     <!-- Sidebar Toggler (Sidebar) -->
     <div class="text-center  d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
