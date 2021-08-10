@@ -80,7 +80,7 @@
                 </div>
                 <div class="timeAndTitle">
                     <div class="time">
-                        <b>1: 59 min</b>
+                        <b class="time-remaining">00:00:00</b>
                     </div>
                     <div class="title">
                         <span>Time</span>
@@ -94,7 +94,7 @@
                 </div>
                 <div class="timeAndTitle">
                     <div class="time">
-                        <b>1: 59 min</b>
+                        <b class="time-remaining">00:00:00</b>
                     </div>
                     <div class="title">
                         <span>Time</span>
@@ -108,7 +108,7 @@
                 </div>
                 <div class="timeAndTitle">
                     <div class="time">
-                        <b>1: 59 min</b>
+                        <b class="time-remaining">00:00:00</b>
                     </div>
                     <div class="title">
                         <span>Time</span>
@@ -412,6 +412,39 @@
             theElement.classList.remove("theAppendCome");
         }
 
+        $(document).ready(function(){
+                var end_time = @json($requestedTable->end_time);
+               
+                var start = new Date(end_time);
+               
+                console.log(start)
+                setInterval(function() {
+                    var total_seconds = ( start - new Date  ) / 1000;   
+
+                    var hours = Math.floor(total_seconds / 3600);
+                    total_seconds = total_seconds % 3600;
+
+                    var minutes = Math.floor(total_seconds / 60);
+                    total_seconds = total_seconds % 60;
+
+                    var seconds = Math.floor(total_seconds);
+                    if(hours<10)
+                    {
+                        hours = '0'+hours;
+                    }
+                    if(minutes<10)
+                    {
+                        minutes = '0'+minutesl;
+                    }
+                    if(seconds<10)
+                    {
+                        seconds = '0'+seconds;
+                    }
+
+                    var html = hours + ':' + minutes + ':' +seconds
+                    $('.time-remaining').text(html)
+                }, 1000);
+        });
 
 
         var products = @json($products);

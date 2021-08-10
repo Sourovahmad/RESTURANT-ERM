@@ -71,12 +71,12 @@
                                         </div>
 
                                     </div>
-                                    <div class="timer">
-                                        <div class="hours">20</div>
-                                        <div class="colon"> : </div>
-                                        <div class="minutes">20</div>
-                                        <div class="colon"> : </div>
-                                        <div class="second">20</div>
+                                    <div class="timer" >
+                                        <div class="hours " data-hour-id={{$table->id}}>00</div>
+                                        <div class="colon "> : </div>
+                                        <div class="minutes " data-minute-id={{$table->id}}>00</div>
+                                        <div class="colon "> : </div>
+                                        <div class="second " data-second-id={{$table->id}}>00</div>
                                     </div>
                                 </div>
                                 <div class="edit-icon table_edit_icon" data-table-id="{{ $table->id }}"><span
@@ -386,9 +386,49 @@
                 $('#submit_button_for_close_table').trigger('click');
             });
 
+            var tables = @json($tables);
+            
+            $.each(tables , function(i,value){
+               
+                var start = new Date(value.end_time);
+                
+              
+                setInterval(function() {
+                    var total_seconds = ( start - new Date  ) / 1000;   
+
+                    var hours = Math.floor(total_seconds / 3600);
+                    total_seconds = total_seconds % 3600;
+
+                    var minutes = Math.floor(total_seconds / 60);
+                    total_seconds = total_seconds % 60;
+
+                    var seconds = Math.floor(total_seconds);
+
+                    if(hours<10)
+                    {
+                        hours = '0'+hours;
+                    }
+                    if(minutes<10)
+                    {
+                        minutes = '0'+minutesl;
+                    }
+                    if(seconds<10)
+                    {
+                        seconds = '0'+seconds;
+                    }
+                    
+                    var selector_id = value.id;
+                    var target = $('div[data-hour-id="' + selector_id + '"]').text(hours);
+                    var target = $('div[data-minute-id="' + selector_id + '"]').text(minutes);
+                    var target = $('div[data-second-id="' + selector_id + '"]').text(seconds);
+                }, 1000);
+            });
+
+
+
         });
     </script>
-
+   
 
 
 @endsection
