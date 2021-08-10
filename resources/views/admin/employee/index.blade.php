@@ -155,10 +155,15 @@
 
                                 <label for="category_select">Select Menu types</label>
 
-                                <select name="category_id[]" id="category_select" class="selectpicker" multiple title="Choose one of the following.." required>
+                                <select name="category_id[]" id="category_select" class="selectpicker" multiple data-live-search="true" title="Choose one of the following.." required>
+
+                                    <option value="156000">All </option>
+                                    <div id="hider_div_for_selector">
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }} </option>
                                     @endforeach
+                                    </div>
+
                                 </select>
 
                             </div>
@@ -379,8 +384,7 @@
 
             $('#close_table_confirm_button').click(function() {
                 $('#submit_button_for_close_table').trigger('click');
-            })
-
+            });
 
         });
     </script>
