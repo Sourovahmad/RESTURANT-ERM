@@ -245,7 +245,7 @@
                     </button>
                 </div>
                 <div class="modal-body" id="attachment-body-content">
-                    <form id="data-edit-form" class="form-horizontal" method="POST" action="">
+                    <form id="data-edit-form" class="form-horizontal" method="POST" action=""  enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div class="form-group">
@@ -260,11 +260,16 @@
 
                         </div>
 
+
+                        <div class="form-group">
+                            <label class="col-form-label" for="modal-update-price">Price <span style="color: red">*</span></label>
+                            <input type="text" class="form-control" name="price" id="modal-update-price" required>
+
+                        </div>
+
                         <div class="form-group">
                             <label class="col-form-label" for="modal-update-category">Category <span style="color: red">*</span></label>
                           <select name="category" class="form-control" id="modal-update-category">
-
-
 
                           </select>
 
@@ -280,6 +285,26 @@
                                 <option id="statusValueTwo" value="2">Deactiated</option>
                             </select>
                         </div>
+
+
+
+                        <div class="form-group">
+
+                            <label for="current_image">Current Image</label>
+                            <img  alt="product image" id="current_image_for_modal_update" style="width: 10%">
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label for="category">Change Image </label>
+                            <input type="file" name="image" id="image" accept=".png, .jpg, .jpeg" />
+
+
+                        </div>
+
 
 
                         <div class="form-group">
@@ -344,7 +369,13 @@
                         $("#modal-update-hidden-id").val(products[key].id);
                         $("#modal-update-name").val(products[key].name);
                         $("#modal-update-category").val(products[key].category);
+                        $("#modal-update-price").val(products[key].price);
 
+
+                         var route = '{{ route('dashboard') }}';
+                         var src = route + '/' + products[key].image_small;
+
+                        $('#current_image_for_modal_update').attr('src', src);
                         if (products[key].active_status == 1){
                             $("#statusValueOne").attr("selected","selected");
                         } else {
@@ -365,6 +396,8 @@
 
 
                         $("#modal-update-category").html(html);
+
+
 
 
                         return false;
