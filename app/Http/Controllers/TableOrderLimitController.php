@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\tableOrderLimit;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class TableOrderLimitController extends Controller
 {

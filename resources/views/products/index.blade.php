@@ -282,7 +282,7 @@
                 </div>
             </a>
         </div>
-
+ 
         <div class="iconBox">
 
             <a id="orderPageLink" href="{{ route('orders', $requestedTable->id) }}">

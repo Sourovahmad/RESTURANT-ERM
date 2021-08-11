@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\category;
 use App\Models\product;
 use App\Models\table;
+use App\Models\tableHasOrder;
+use App\Models\tableHasProduct;
 use App\Models\tableOrderLimit;
 use Carbon\Carbon;
 use finfo;
@@ -256,7 +258,18 @@ class TableController extends Controller
 
     public function tableBill(Request $request)
     {
-        return $request;
+        $orders = tableHasOrder::where('table_id',$request->table_id)->get();
+        $requestedTable = table::find($request->table_id);
+        $tableOrderLimit = tableOrderLimit::where('table_id',$request->table_id)->first();
+        $totalPrice = 0;
+
+        for ($i = 0; $i < $orders->count(); $i++) {
+
+            $multiplyQuantity = $orders[$i]->quantity * $orders[$i]->products->price;
+            $totalPrice +=  $multiplyQuantity;
+        }
+
+        return view('pages.bill.index',compact('orders', 'totalPrice', 'requestedTable', 'tableOrderLimit'));
     }
 
 
