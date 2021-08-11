@@ -282,18 +282,19 @@
                 </div>
             </a>
         </div>
- 
+
         <div class="iconBox">
 
             <a id="orderPageLink" href="{{ route('orders', $requestedTable->id) }}">
 
-                <div class="icon position-relative">
-                    <i class="fas fa-bell"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                <div class="icon position-relative ">
+                       <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger iconSectionForbadge">
                         <span id="total_orderd_item"> {{ $tableOrderLimit->total_orderd }}</span>/ <span
                             id="total_order_limit">{{ $tableOrderLimit->order_limit }} </span>
 
                     </span>
+                    <i class="fas fa-bell"></i>
+
 
                 </div>
                 <div class="iconName">
@@ -351,7 +352,7 @@
                 <h5></h5>
             </div>
             <div class="orderChangerBtn">
-                <button onclick="theOrderPopUpHide()">OK</button>
+                <button onclick="theOrderPopUpHideTwo()">OK</button>
             </div>
         </div>
     </section>
@@ -638,6 +639,15 @@
         function theOrderPopUpHide() {
             $('.theProductShow').removeClass('theProductShow');
         }
+
+
+
+        function theOrderPopUpHideTwo() {
+            $('.theProductShow').removeClass('theProductShow');
+            location.reload();
+        }
+
+
     </script>
 
 
