@@ -55,17 +55,17 @@
 
 
                 <!-- <div class="row bg-light rounded mb-2 suggested-product" product-id="1">
-                        <div class="col-3 suggestion-image">
-                            <img src="http://127.0.0.1:8000/images/1628323939.small.techbot gig (1).png" alt="PRODUCT"
-                               >
-                        </div>
-                        <div class="col-7 font-weight-bold">
-                            product one two three four
-                        </div>
-                        <div class="col-2 p-2 suggestion-price">
-                            <span>12</span>
-                        </div>
-                    </div> -->
+                            <div class="col-3 suggestion-image">
+                                <img src="http://127.0.0.1:8000/images/1628323939.small.techbot gig (1).png" alt="PRODUCT"
+                                   >
+                            </div>
+                            <div class="col-7 font-weight-bold">
+                                product one two three four
+                            </div>
+                            <div class="col-2 p-2 suggestion-price">
+                                <span>12</span>
+                            </div>
+                        </div> -->
 
 
 
@@ -271,20 +271,18 @@
         <div class="iconBox">
 
 
-            <a href="#">
+            <a id="billPageLink">
 
-                <a href="#">
 
-                    <div class="icon">
-                        <i class="fas fa-euro-sign"></i>
-                    </div>
-                    <div class="iconName">
-                        <h6>Bill</h6>
-                    </div>
-                </a>
+                <div class="icon">
+                    <i class="fas fa-euro-sign"></i>
+                </div>
+                <div class="iconName">
+                    <h6>Bill</h6>
+                </div>
             </a>
         </div>
-
+ 
         <div class="iconBox">
 
             <a id="orderPageLink" href="{{ route('orders', $requestedTable->id) }}">
@@ -376,6 +374,12 @@
 
 
 
+    <form method="POST" action="{{ route('bills') }}" hidden>
+        @csrf
+        <input type="number" name="table_id" id="table_hidden_id" value="{{ $requestedTable->id }}" required>
+        <button type="submit" id="submit_button_for_bill_form">butotn</button>
+    </form>
+
 
     <script>
         // the home page funtions
@@ -412,38 +416,35 @@
             theElement.classList.remove("theAppendCome");
         }
 
-        $(document).ready(function(){
-                var end_time = @json($requestedTable->end_time);
-               
-                var start = new Date(end_time);
-               
-                console.log(start)
-                setInterval(function() {
-                    var total_seconds = ( start - new Date  ) / 1000;   
+        $(document).ready(function() {
+            var end_time = @json($requestedTable->end_time);
 
-                    var hours = Math.floor(total_seconds / 3600);
-                    total_seconds = total_seconds % 3600;
+            var start = new Date(end_time);
 
-                    var minutes = Math.floor(total_seconds / 60);
-                    total_seconds = total_seconds % 60;
+            console.log(start)
+            setInterval(function() {
+                var total_seconds = (start - new Date) / 1000;
 
-                    var seconds = Math.floor(total_seconds);
-                    if(hours<10)
-                    {
-                        hours = '0'+hours;
-                    }
-                    if(minutes<10)
-                    {
-                        minutes = '0'+minutes;
-                    }
-                    if(seconds<10)
-                    {
-                        seconds = '0'+seconds;
-                    }
+                var hours = Math.floor(total_seconds / 3600);
+                total_seconds = total_seconds % 3600;
 
-                    var html = hours + ':' + minutes + ':' +seconds
-                    $('.time-remaining').text(html)
-                }, 1000);
+                var minutes = Math.floor(total_seconds / 60);
+                total_seconds = total_seconds % 60;
+
+                var seconds = Math.floor(total_seconds);
+                if (hours < 10) {
+                    hours = '0' + hours;
+                }
+                if (minutes < 10) {
+                    minutes = '0' + minutes;
+                }
+                if (seconds < 10) {
+                    seconds = '0' + seconds;
+                }
+
+                var html = hours + ':' + minutes + ':' + seconds
+                $('.time-remaining').text(html)
+            }, 1000);
         });
 
 
@@ -477,7 +478,15 @@
             $('.cliecked_on_product').removeClass('cliecked_on_product');
 
 
-        })
+        });
+
+
+        $(document).ready(function() {
+            $('#billPageLink').on('click', function() {
+              $('#submit_button_for_bill_form').trigger('click');
+            });
+
+        });
 
 
         // product suggestion
@@ -527,6 +536,10 @@
             var target = $('div[id="singleProduct"][data-item-id="' + product_id + '"]');
             target.trigger("click");
         });
+
+
+        // bill page form functions
+
 
 
 
@@ -625,7 +638,6 @@
         function theOrderPopUpHide() {
             $('.theProductShow').removeClass('theProductShow');
         }
-
     </script>
 
 

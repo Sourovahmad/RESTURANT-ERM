@@ -48,7 +48,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
 
 
-                <a class="collapse-item" href="{{ route('admin.products.index') }}">{{__('General Products')}}</a>
+                <a class="collapse-item" href="{{ route('admin.products.index') }}">{{__('Products')}}</a>
 
                 {{-- <a class="collapse-item" href="{{ route('admin.ServicesProducts.index') }}">{{__('Service Product')}}</a> --}}
                 <a class="collapse-item" href="{{ route('admin.categories.index') }}">{{__('Categories')}}</a>

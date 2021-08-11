@@ -55,13 +55,16 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::post('deleteOrder',[TableHasProductController::class,'deleteProductAndUpdateLimit'])->name('deleteOrder');
 
+    Route::post('bills',[TableController::class,'tableBill'])->name('bills');
+
+
 
 
     Route::get('products', function(){
         return view('products.index');
     });
 
-    Route::get('bill', function(){
+    Route::get('bill2', function(){
         return view('pages.bill.index');
     });
 

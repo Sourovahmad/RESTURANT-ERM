@@ -38,91 +38,38 @@
 
     <section class="bills">
         <div class="billTitle">
-            <h2>Your Bills</h2>
+            <h2>Your Orders</h2>
         </div>
+
+        @foreach ($orders as $order)
 
         <div class="billItems">
 
             <div class="item">
                 <div class="itemCount">
-                    <i>X1</i>
+                    <i>X{{ $order->quantity }}</i>
                 </div>
                 <div class="itemName">
-                    <h5>Chicken Biriyani</h5>
+                    <h5>{{ $order->products->name }}</h5>
                 </div>
                 <div class="totalCost">
-                    <b>8$</b>
+                    <b>${{ $order->products->price }}</b>
                 </div>
             </div>
 
-            <div class="item">
-                <div class="itemCount">
-                    <i>X1</i>
-                </div>
-                <div class="itemName">
-                    <h5>Chicken Biriyani</h5>
-                </div>
-                <div class="totalCost">
-                    <b>8$</b>
-                </div>
-            </div>
 
-            <div class="item">
-                <div class="itemCount">
-                    <i>X1</i>
-                </div>
-                <div class="itemName">
-                    <h5>Chicken Biriyani</h5>
-                </div>
-                <div class="totalCost">
-                    <b>8$</b>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="itemCount">
-                    <i>X1</i>
-                </div>
-                <div class="itemName">
-                    <h5>Chicken Biriyani</h5>
-                </div>
-                <div class="totalCost">
-                    <b>8$</b>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="itemCount">
-                    <i>X1</i>
-                </div>
-                <div class="itemName">
-                    <h5>Chicken Biriyani</h5>
-                </div>
-                <div class="totalCost">
-                    <b>8$</b>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="itemCount">
-                    <i>X1</i>
-                </div>
-                <div class="itemName">
-                    <h5>Chicken Biriyani</h5>
-                </div>
-                <div class="totalCost">
-                    <b>8$</b>
-                </div>
-            </div>
         </div>
+
+        @endforeach
+
 
         <div class="subTotal">
             <div class="total">
                 <div class="price">
-                    <h3>Your Total Bill is: </h3>
+                    <h5>Your Total Bill is: </h5>
                 </div>
                 <div class="amount">
-                    <b>35$</b>
+                    <b>${{ $totalPrice }}</b>
                 </div>
             </div>
         </div>
@@ -130,13 +77,90 @@
 
 
 
+    <!-- The Footer start here -->
+    <footer class="userFooter">
+
+        <div class="iconBox">
+
+
+            <a href="{{ $requestedTable->table_url }}">
+
+                <div class="icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="iconName">
+                    <h6>Menu</h6>
+                </div>
+            </a>
+        </div>
+
+        <div class="iconBox">
+
+
+            <a>
+
+
+                <div class="icon">
+                    <i class="fas fa-euro-sign"></i>
+                </div>
+                <div class="iconName">
+                    <h6>Bill</h6>
+                </div>
+            </a>
+        </div>
+
+        <div class="iconBox">
+
+            <a id="orderPageLink" href="{{ route('orders', $requestedTable->id) }}">
+
+                <div class="icon position-relative">
+                    <i class="fas fa-bell"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        <span id="total_orderd_item"> {{ $tableOrderLimit->total_orderd }}</span>/ <span
+                            id="total_order_limit">{{ $tableOrderLimit->order_limit }} </span>
+
+                    </span>
+
+                </div>
+                <div class="iconName">
+                    <h6>Order </h6>
+                </div>
+            </a>
+        </div>
+
+        <div class="iconBox">
+
+
+            <div class="iconBox" onclick="theAppend()">
+                <a>
+                    <div class="icon">
+                        <i class="fas fa-user-alt"></i>
+                    </div>
+                    <div class="iconName">
+                        <h6>Service</h6>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </footer>
+
 
 
 
 
  <script>
 
-// the home page funtions
+
+        function theAppend() {
+            var theElement = document.querySelector(".theAppentSection");
+            theElement.classList.add("theAppendCome");
+        }
+
+        function theAppendRemove() {
+            var theElement = document.querySelector(".theAppentSection");
+            theElement.classList.remove("theAppendCome");
+        }
 
 
 
