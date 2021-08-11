@@ -47,6 +47,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
         Route::post('tableupdate',[TableController::class,'updateStatus'])->name('tableupdate');
         Route::post('tableclose',[TableController::class, 'tableclose'])->name('tableclose');
+        Route::post('table-edit',[TableController::class, 'tableEdit'])->name('table-edit');
 
 
 });

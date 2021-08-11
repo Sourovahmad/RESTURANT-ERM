@@ -200,7 +200,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <form id="form_for_edit_table">
+                    <form id="form_for_edit_table" method="POST" action="{{ route('admin.table-edit') }}">
                         @csrf
 
                         <div class="row">

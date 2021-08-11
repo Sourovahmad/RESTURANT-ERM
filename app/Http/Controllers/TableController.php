@@ -13,6 +13,7 @@ use finfo;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 class TableController extends Controller
 {
@@ -256,6 +257,21 @@ class TableController extends Controller
         ->where('table_id', $request->table_id)->delete();
 
          return back()->withErrors('Table Has been Deactivated SuccessFull');
+    }
+
+
+    public function tableEdit(Request $request){
+   
+        $table = table::find($request->table_id);
+        if(!is_null($request->extra_hour)){
+            $table->end_time = Carbon::parse( $table->end_time)->addHours($request->extra_hour);
+        }
+        if(!is_null($request->extra_miniute)){
+            $table->end_time = Carbon::parse( $table->end_time)->addMinutes($request->extra_miniute);
+        }
+        $table->save();
+        return back()->withSuccess('Table data added successfully');
+
     }
 
     public function tableBill(Request $request)
