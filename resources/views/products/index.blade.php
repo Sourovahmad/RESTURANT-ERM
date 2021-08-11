@@ -341,6 +341,23 @@
 
 
 
+    {{-- popup for order limit remaining --}}
+    <section class="theOrderPopUp" id="PopupForOrderTimeRemains">
+        <div class="allContentsOrder">
+            <div class="theDesc">
+                <p>You Have Reached Last 30 min of Order For This Round</p>
+            </div>
+            <div class="theOrderAlert">
+                <h5></h5>
+            </div>
+            <div class="orderChangerBtn">
+                <button onclick="theOrderTimeWarningHide()">OK</button>
+            </div>
+        </div>
+    </section>
+
+
+
 
     {{-- popup for product added to cart --}}
     <section class="theOrderPopUp" id="PopupForaddedtoCart">
@@ -433,6 +450,11 @@
                 total_seconds = total_seconds % 60;
 
                 var seconds = Math.floor(total_seconds);
+
+                if(hours == 0 && minutes == 30 && seconds ==0){
+                    $('#PopupForOrderTimeRemains').addClass('theProductShow');
+                }
+
                 if (hours < 10) {
                     hours = '0' + hours;
                 }
@@ -639,7 +661,10 @@
         function theOrderPopUpHide() {
             $('.theProductShow').removeClass('theProductShow');
         }
-
+       
+        function theOrderTimeWarningHide(){
+            $('#PopupForOrderTimeRemains').removeClass('theProductShow');
+        }
 
 
         function theOrderPopUpHideTwo() {

@@ -263,6 +263,8 @@ class TableController extends Controller
     public function tableEdit(Request $request){
    
         $table = table::find($request->table_id);
+        $tableOrderLimit = tableOrderLimit::where('table_id',$request->table_id)->first();
+        $tableOrderLimit->total_customer =$request->total_customer ;
         if(!is_null($request->extra_hour)){
             $table->end_time = Carbon::parse( $table->end_time)->addHours($request->extra_hour);
         }
@@ -270,6 +272,7 @@ class TableController extends Controller
             $table->end_time = Carbon::parse( $table->end_time)->addMinutes($request->extra_miniute);
         }
         $table->save();
+        $tableOrderLimit->save();
         return back()->withSuccess('Table data added successfully');
 
     }
