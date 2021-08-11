@@ -47,6 +47,7 @@ class TableHasOrderController extends Controller
             $tableHasOrder->table_id = $tableHasProduct[$i]->table_id;
             $tableHasOrder->product_id = $tableHasProduct[$i]->product_id;
             $tableHasOrder->quantity = $tableHasProduct[$i]->quantity;
+            $tableHasOrder->status = true;
             $tableHasOrder->save();
 
            $currentTableProduct = $alltableProducts->find($tableHasProduct[$i]->id);
