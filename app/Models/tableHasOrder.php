@@ -13,4 +13,8 @@ class tableHasOrder extends Model
     {
         return $this->belongsTo(product::class, 'product_id', 'id');
     }
+    public function table()
+    {
+        return $this->belongsTo(table::class, 'table_id', 'id');
+    }
 }
