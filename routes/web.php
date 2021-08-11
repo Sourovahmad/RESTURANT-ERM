@@ -5,7 +5,9 @@ use App\Http\Controllers\PrintersController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\TableHasOrderController;
 use App\Http\Controllers\TableHasProductController;
+use App\Http\Controllers\TableHasServiceController;
 use App\Models\tableHasProduct;
+use App\Models\tableHasService;
 use Illuminate\Support\Facades\Route;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
@@ -41,7 +43,6 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
 });
 
-
     Route::get('gotable/{table_id}',[TableController::class, 'findTheTable']);
     Route::post('addtocart',[TableHasProductController::class,'store'])->name('addtocart');
 
@@ -52,13 +53,14 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::post('tableOrderStore',[TableHasOrderController::class, 'store'])->name('tableOrderStore');
 
-
-
     Route::post('deleteOrder',[TableHasProductController::class,'deleteProductAndUpdateLimit'])->name('deleteOrder');
 
     Route::post('bills',[TableController::class,'tableBill'])->name('bills');
 
     Route::get('/print-order-kitchen',[PrintersController::class,'printOrderKitchen'])->name('print-order-kitchen');
+
+    Route::post('/need-service',[TableHasServiceController::class,'store'])->name('need-service');
+    Route::get('/need-service',[TableHasServiceController::class,'index'])->name('need-service-get');
 
 
     Route::get('products', function(){

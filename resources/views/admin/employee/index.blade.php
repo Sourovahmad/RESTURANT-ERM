@@ -63,7 +63,7 @@
                                                     class="iconify font-weight-bold" data-icon="fa-solid:money-bill-wave"
                                                     data-inline="false"></span> </button>
                                         </div>
-                                        <div class="icon active">
+                                        <div class="icon active" id="table-service-btn">
                                             <button class="btn text-white w-100" id="table_icon_service"> <span
                                                     class="iconify font-weight-bold" data-icon="ion:fast-food"
                                                     data-inline="false"> </span> </button>
@@ -423,6 +423,27 @@
                     var target = $('div[data-second-id="' + selector_id + '"]').text(seconds);
                 }, 1000);
             });
+
+
+
+
+
+            setInterval(function() {
+                  
+                $.ajax({
+                    url: "{{ route('need-service-get') }}",
+                    type: 'GET',
+                    success: function(data) {
+                    console.log(data);
+                    },
+
+                    error: function(data) {
+                    console.log('error');
+                    },
+
+                });
+               
+        }, 30000);
 
 
 
