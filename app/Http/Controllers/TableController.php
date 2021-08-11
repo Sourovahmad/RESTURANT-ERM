@@ -53,7 +53,7 @@ class TableController extends Controller
         $table = new table;
         $table->name = $request->name;
         $table->description = $request->description;
-        $table->end_time = Carbon::now()->addMinutes(150);
+        
         $table->active_status = 2;
 
 
@@ -201,6 +201,7 @@ class TableController extends Controller
 
         $table = table::find($request->table_id);
         $table->active_status = 1;
+        $table->end_time = Carbon::now()->addMinutes(150);
         $table->save();
 
 
@@ -241,6 +242,7 @@ class TableController extends Controller
 
         $table = table::find($request->table_id);
         $table->active_status = 2;
+        $table->end_time = null;
         $table->save();
 
 
