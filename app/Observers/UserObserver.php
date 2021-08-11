@@ -18,9 +18,7 @@ class UserObserver
      */
     public function created(User $user)
     {
-        $payment = new payment;
-        $payment->user_id = $user->id;
-        $payment->save();
+    //
     }
 
     /**

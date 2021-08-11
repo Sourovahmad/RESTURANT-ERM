@@ -44,18 +44,28 @@
 
 
                         <div class="col-12 col-md-4 form-group">
-                            <label for="user">Select User <span class="text-danger">*</span> </label>
-                            <select class="form-control" name="user" id="user" required>
-                                <option selected hidden disabled>Select User</option>
-
-                                @foreach ($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                @endforeach
-
-                            </select>
+                            <label for="username">User Name<span class="text-danger">*</span> </label>
+                            <input type="text" name="name" id="username" class="form-control" required>
 
                         </div>
 
+
+
+
+                        <div class="col-12 col-md-4 form-group">
+                            <label for="email">E-mail<span class="text-danger">*</span> </label>
+                            <input type="email" name="email" id="email" class="form-control" required>
+
+                        </div>
+
+
+
+
+                        <div class="col-12 col-md-4 form-group">
+                            <label for="password">Password<span class="text-danger">*</span> </label>
+                            <input type="text" name="password" id="password" class="form-control" required>
+
+                        </div>
 
                         <div class="col-12 col-md-4 form-group">
                             <label for="role">Select Role <span class="text-danger">*</span> </label>
@@ -64,7 +74,10 @@
 
                                             @foreach ($roles as $role )
 
-                                            <option value="{{ $role->id }}"> {{ $role->role }}</option>
+                                            @if ($role->id != 1)
+                                                <option value="{{ $role->id }}"> {{ $role->role }}</option>
+                                            @endif
+
 
                                             @endforeach
 
