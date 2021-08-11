@@ -1,3 +1,8 @@
 .admin_mode_product_image{
     width: 23%;
 }
+
+.iconSectionForbadge{
+    margin-top: -7px  !important;
+    margin-left: 20px !important;
+}

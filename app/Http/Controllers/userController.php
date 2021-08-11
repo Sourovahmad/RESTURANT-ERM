@@ -40,16 +40,29 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::find($request->user);
-        $role = role::find($request->role);
-            if($user->role_id != $role->id){
-                $user->role_id = $role->id;
-                $user->save();
-                return back()->withSuccess('Role Has been Given To User');
-            }else{
-                return back()->withErrors('User Already Have this Role');
-            }
 
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'role' => 'required',
+        ]);
+
+     $requestEmail = User::where('email',$request->email)->get();
+
+
+     if($requestEmail->count() == 0){
+
+        $user = new user;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->name);
+        $user->role_id = $request->role;
+        $user->save();
+        return back()->withSuccess('User Created Successfully');
+
+     }
+     return back()->withErrors('Sorry!. Email Already has been used');
     }
 
     /**
