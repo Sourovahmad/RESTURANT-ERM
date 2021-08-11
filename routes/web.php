@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PrintersController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\TableHasOrderController;
 use App\Http\Controllers\TableHasProductController;
@@ -57,7 +58,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::post('bills',[TableController::class,'tableBill'])->name('bills');
 
-
+    Route::get('/print-order-kitchen',[PrintersController::class,'printOrderKitchen'])->name('print-order-kitchen');
 
 
     Route::get('products', function(){

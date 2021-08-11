@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\printers;
+use App\Models\tableHasOrder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
 class PrintersController extends Controller
 {
@@ -106,5 +109,34 @@ class PrintersController extends Controller
            $printers = printers::find($id);
            $printers->delete();
          return back()->withErrors("Printer Deleted Successfully");
+    }
+
+
+    public function printOrderKitchen(){
+
+      
+        $orders = tableHasOrder::where('printed',false)->orderBy('table_id')->get();
+        $table_name = '';
+        if(!$orders->isEmpty())
+        {
+            $connector = new WindowsPrintConnector("EPSON L380 Series");
+            $printer = new Printer($connector);
+
+            foreach($orders as $order){
+                if($table_name != $order->table->name){
+                    $table_name = $order->table->name;
+                    $printer -> text($table_name . '\n');
+                }
+                $printer -> text($order->quantity . 'x    '. $order->products->name .'\n');
+            }
+            $printer->cut();
+            $printer -> close();
+
+            foreach($orders as $order){
+                $order->printed = true;
+                $order->save();
+            }
+        } 
+        return 'success';
     }
 }
