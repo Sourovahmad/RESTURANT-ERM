@@ -18,6 +18,7 @@ class CreateTableHasOrdersTable extends Migration
             $table->unsignedBigInteger('table_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('quantity');
+            $table->boolean('printed')->default(false);
             $table->timestamps();
         });
     }
