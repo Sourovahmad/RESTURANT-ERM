@@ -172,7 +172,7 @@
             </a>
         </div>
         <div class="iconBox">
-            <a href="bill.html">
+            <a id="billPageLink">
                 <div class="icon">
                     <i class="fas fa-euro-sign"></i>
                 </div>
@@ -278,18 +278,22 @@
     </form>
 
 
-        {{-- form for delete the table has product  --}}
+    {{-- form for delete the table has product --}}
     <form id="form_for_delete_table_has_product" hidden method="POST" action="{{ route('deleteOrder') }}">
         @csrf
         <input type="text" name="table_id" id="input_for_table_id_2" value="{{ $requestedTable->id }}" required>
-        <input type="text" name="order_id" id="input_for_delete_order_id" required >
-        <input type="text" name="quantity" id="input_for_delete_quantity" required >
+        <input type="text" name="order_id" id="input_for_delete_order_id" required>
+        <input type="text" name="quantity" id="input_for_delete_quantity" required>
         <button type="submit" id="send_order_delete_submit_button"></button>
 
     </form>
 
 
-
+    <form method="POST" action="{{ route('bills') }}" hidden>
+        @csrf
+        <input type="number" name="table_id" id="table_hidden_id" value="{{ $requestedTable->id }}" required>
+        <button type="submit" id="submit_button_for_bill_form">butotn</button>
+    </form>
 
 
 
@@ -317,11 +321,11 @@
 
                 var updatedQuantity =
 
-                $('#input_for_delete_order_id').val(orderId);
+                    $('#input_for_delete_order_id').val(orderId);
                 $('#input_for_delete_quantity').val(currentQuantityrunning);
 
-                 $(".clicked_for_delete_order").removeClass('clicked_for_delete_order');
-                 $('#send_order_delete_submit_button').trigger('click');
+                $(".clicked_for_delete_order").removeClass('clicked_for_delete_order');
+                $('#send_order_delete_submit_button').trigger('click');
 
 
 
@@ -402,7 +406,7 @@
                             var updatedTotalOrderd = orderdItem += 1;
                             $('#total_orderd_item').html(updatedTotalOrderd);
                             $('.quantity-button-clicked').removeClass(
-                            'quantity-button-clicked');
+                                'quantity-button-clicked');
                             console.log("quantity add success");
 
                         }
@@ -462,6 +466,16 @@
 
             });
 
+
+            //bill page functions
+            $(document).ready(function() {
+                $('#billPageLink').on('click', function() {
+                    $('#submit_button_for_bill_form').trigger('click');
+                });
+
+            });
+
+
             // ************************** Quantity calculation end Here ***********************
 
 
@@ -476,8 +490,8 @@
                 $('#input_for_delete_order_id').val(orderId);
                 $('#input_for_delete_quantity').val(currentQuantityrunning);
 
-                 $(".clicked_for_delete_order").removeClass('clicked_for_delete_order');
-                 $('#send_order_delete_submit_button').trigger('click');
+                $(".clicked_for_delete_order").removeClass('clicked_for_delete_order');
+                $('#send_order_delete_submit_button').trigger('click');
 
             });
 

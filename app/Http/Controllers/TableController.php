@@ -254,5 +254,10 @@ class TableController extends Controller
          return back()->withErrors('Table Has been Deactivated SuccessFull');
     }
 
+    public function tableBill(Request $request)
+    {
+        return $request;
+    }
+
 
 }
