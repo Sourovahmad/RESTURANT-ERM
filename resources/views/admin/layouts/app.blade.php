@@ -15,7 +15,7 @@
 
         <link rel="stylesheet" href="{{asset('css/admin/sb-admin-2.min.css')}}">
         <link rel="stylesheet" href="{{asset('css/admin/datatables.min.css')}}">
-<link rel="stylesheet" href="{{ asset('bootstrap-select/css/bootstrap-select.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('bootstrap-select/css/bootstrap-select.min.css') }}">
        <link rel="stylesheet" href="{{ asset('css/table.css') }}">
        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
@@ -120,9 +120,9 @@
             error: function(data) {
               console.log('error');
             },
-        
+
           });
-                    
+
         }, 30000);
       }
 

@@ -64,7 +64,7 @@
                         <div class="col-12 col-md-4 form-group">
 
                             <label for="description">Description  </label>
-                            <textarea name="description" class="form-control" id="descriptionForAddnew" ></textarea>
+                            <input type="text" name="description" class="form-control" id="descriptionForAddnew" >
 
 
                         </div>

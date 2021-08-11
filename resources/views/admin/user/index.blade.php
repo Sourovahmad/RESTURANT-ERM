@@ -152,10 +152,10 @@
 
 
                                 <td class="align-middle">
-                                    <button title="Edit" type="button" class="dataEditItemClass btn btn-success btn-sm"
+                                    {{-- <button title="Edit" type="button" class="dataEditItemClass btn btn-success btn-sm"
                                         id="data-edit-button" data-item-id={{ $user->id }}> <i class="fa fa-edit"
                                             aria-hidden="false">
-                                        </i></button>
+                                        </i></button> --}}
 
 
                                     <form method="POST" action="{{ route('admin.users.destroy', $user->id) }}"
