@@ -114,7 +114,7 @@ class PrintersController extends Controller
 
     public function printOrderKitchen(){
 
-      
+
         $orders = tableHasOrder::where('printed',false)->orderBy('table_id')->get();
         $table_name = '';
         if(!$orders->isEmpty())
@@ -125,18 +125,18 @@ class PrintersController extends Controller
             foreach($orders as $order){
                 if($table_name != $order->table->name){
                     $table_name = $order->table->name;
-                    $printer -> text($table_name . '\n');
+                    $printer -> text($table_name . "\n");
                 }
-                $printer -> text($order->quantity . 'x    '. $order->products->name .'\n');
+                $printer -> text($order->quantity . "x    ". $order->products->name ."\n");
             }
-            $printer->cut();
+            // $printer->cut();
             $printer -> close();
 
             foreach($orders as $order){
                 $order->printed = true;
                 $order->save();
             }
-        } 
+        }
         return 'success';
     }
 }
