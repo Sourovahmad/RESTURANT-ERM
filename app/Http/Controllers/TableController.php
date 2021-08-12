@@ -54,7 +54,7 @@ class TableController extends Controller
         $table = new table;
         $table->name = $request->name;
         $table->description = $request->description;
-        
+
         $table->active_status = 2;
 
 
@@ -247,6 +247,13 @@ class TableController extends Controller
         $table->save();
 
 
+        $orders = tableHasOrder::where('table_id', $request->table_id)->where('status', true)->get();
+        foreach ($orders as $order) {
+           $order->status = false;
+           $order->save();
+        }
+
+
         $tableOrderLimit = tableOrderLimit::where('table_id',$request->table_id)->first();
 
         // here will be the printing functions
@@ -261,7 +268,7 @@ class TableController extends Controller
 
 
     public function tableEdit(Request $request){
-   
+
         $table = table::find($request->table_id);
         $tableOrderLimit = tableOrderLimit::where('table_id',$request->table_id)->first();
         $tableOrderLimit->total_customer =$request->total_customer ;
@@ -279,7 +286,7 @@ class TableController extends Controller
 
     public function tableBill(Request $request)
     {
-        $orders = tableHasOrder::where('table_id',$request->table_id)->get();
+        $orders = tableHasOrder::where('table_id',$request->table_id)->where('status',true)->get();
         $requestedTable = table::find($request->table_id);
         $tableOrderLimit = tableOrderLimit::where('table_id',$request->table_id)->first();
         $totalPrice = 0;
