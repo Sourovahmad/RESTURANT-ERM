@@ -116,7 +116,7 @@ class PrintersController extends Controller
 
 
         $orders = tableHasOrder::where('printed',false)->orderBy('table_id')->get();
-        $table_name = '';
+        $table_name = "";
         if(!$orders->isEmpty())
         {
             $connector = new WindowsPrintConnector("EPSON L380 Series");
@@ -125,9 +125,12 @@ class PrintersController extends Controller
             foreach($orders as $order){
                 if($table_name != $order->table->name){
                     $table_name = $order->table->name;
+
                     $printer -> text($table_name . "\n");
                 }
+                
                 $printer -> text($order->quantity . "x    ". $order->products->name ."\n");
+
             }
             // $printer->cut();
             $printer -> close();

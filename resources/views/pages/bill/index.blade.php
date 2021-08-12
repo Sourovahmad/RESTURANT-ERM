@@ -16,6 +16,7 @@
         </div>
     </header>
 
+
     <section class="theAppentSection">
         <div class="containerc">
             <div class="topIconSection">
@@ -23,16 +24,20 @@
             </div>
             <div class="theAppendBody">
                 <ul>
-                    <li><a href="">IK WILL GRAAG EEN OBER</a></li>
-                    <li><a href="">WASBI</a></li>
-                    <li><a href="">GEMBER</a></li>
-                    <li><a href="">SOYASAUS</a></li>
-                    <li><a href="">LEAVE LOCATION</a></li>
-                    <li><a href="">PRIVACY POLICY</a></li>
+
+                    <li class="navbar_service_need" data-service-name="need waiter"><a>IK WILL GRAAG EEN OBER</a></li>
+                    <li class="navbar_service_need" data-service-name="need bill"><a>Bill</a></li>
+                    <li class="navbar_service_need" data-service-name="need wasabi"><a>Wasabi</a></li>
+                    <li class="navbar_service_need" data-service-name="need gember"><a>GEMBER</a></li>
+                    <li class="navbar_service_need" data-service-name="need soyasauce"><a>SOYASAUS</a></li>
+
                 </ul>
             </div>
         </div>
     </section>
+
+
+
 
 
 
@@ -148,6 +153,11 @@
 
 
 
+    <form method="POST" action="{{ route('need-service') }}" id="needService" hidden>
+        @csrf
+        <input type="number" name="table_id" id="table_hidden_id" value="{{ $requestedTable->id }}" required>
+        <input type="text" name="service" id="servieName">
+    </form>
 
 
  <script>
@@ -162,6 +172,34 @@
             var theElement = document.querySelector(".theAppentSection");
             theElement.classList.remove("theAppendCome");
         }
+
+
+
+
+
+            // ************************* Service Function Start Here ***************************
+
+
+            $('.navbar_service_need').on('click', function() {
+                $(this).addClass('navbar_service_clicked');
+                var el = $(".navbar_service_clicked");
+                var needService = el.data('service-name');
+
+                var status= confirm(needService);
+                if(status == true){
+                    $('#servieName').val(needService);
+                    $('#needService').submit();
+                }
+                else{
+                    $('.navbar_service_clicked').removeClass('navbar_service_clicked');
+                }
+                
+
+            })
+
+
+            // ************************* Service Function End Here ***************************
+
 
 
 

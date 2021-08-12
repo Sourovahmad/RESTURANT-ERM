@@ -63,11 +63,10 @@
                                                     class="iconify font-weight-bold" data-icon="fa-solid:money-bill-wave"
                                                     data-inline="false"></span> </button>
                                         </div>
-                                        <div class="icon active">
-                                            <button class="btn text-white w-100" id="table_icon_service"> <span
+                                        <div class="icon  table-service-btn" data-item-id={{ $table->id }}>
+                                            <button class="btn text-dark w-100 table_icon_service" id="table_icon_service-{{ $table->id}}"> <span
                                                     class="iconify font-weight-bold" data-icon="ion:fast-food"
                                                     data-inline="false"> </span> </button>
-
                                         </div>
 
                                     </div>
@@ -283,6 +282,33 @@
     </div>
 
 
+    <!-- Modal for view service  -->
+    <div class="modal fade" id="service-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalCenterTitle"> Services </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <table class="table table-striped">
+                   
+                    <tbody id="serviceModalForm">
+                        
+                        
+                    </tbody>
+                </table>
+                   
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
 
 
 
@@ -302,6 +328,22 @@
 
     <script>
         $(document).ready(function() {
+            var all_services = [];
+            var serviceTableId;
+
+
+            $.ajax({
+                url: "{{ route('need-service-get') }}",
+                type: 'GET',
+                success: function(data) {
+                    all_services = data;
+                },
+                error: function(data) {
+                console.log('error');
+                },
+
+            });
+
 
 
             var tableOrderLimits = @json($tableOrderLimits);
@@ -323,6 +365,46 @@
 
                 $('.active-button-clicked').removeClass('active-button-clicked')
             });
+
+
+
+
+            $('.table-service-btn').on('click',function(){
+                $(this).addClass('show-service-clicked');
+                var el = $(".show-service-clicked");
+                serviceTableId = el.data('item-id');
+                var options = {
+                    'backdrop': 'static'
+                };
+                 $('#service-modal').modal(options)
+
+            });
+
+
+            $('#service-modal').on('show.bs.modal', function() {
+                var services = all_services[parseInt(serviceTableId)];
+                var html = '';
+                var url = "{{ route('dashboard') }}" + "/remove-service/";
+                if(  Array.isArray(services) ){
+                    $.each(services,function(index,value){
+
+                       html+=' <tr>  <td scope="row">'+value.service +'</td>';
+                       html+= '<td> <form method="POST" action="'+url +value.id +'">';
+                        html+= '    {{ csrf_field() }}';
+                        html+= ' <button type="submit" class="btn btn-danger rounded"><i class="fas fa-minus-circle"></i></button>';
+                        html += '</form>  </td> </tr>';
+                    });
+                    
+                }
+                $('#serviceModalForm').html(html);
+
+            });
+
+            $('#service-modal').on('hide.bs.modal', function() {
+                $(".show-service-clicked").removeClass('show-service-clicked');
+
+            });
+
 
 
 
@@ -423,6 +505,40 @@
                     var target = $('div[data-second-id="' + selector_id + '"]').text(seconds);
                 }, 1000);
             });
+
+
+            
+          
+
+            setInterval(function() {
+                  
+                $.ajax({
+                    url: "{{ route('need-service-get') }}",
+                    type: 'GET',
+                    success: function(data) {
+                       
+                        all_services = data;
+                        $('.table-service-btn').each(function(index){
+                            var el = $(this);
+                            var dataTableid = el.data('item-id');
+                            if(  Array.isArray(all_services[dataTableid]) ){
+                                el.addClass('active');
+                            }
+                            else{
+                                el.removeClass('active');
+                            }
+                          
+                            
+                        });
+                    },
+
+                    error: function(data) {
+                    console.log('error');
+                    },
+
+                });
+               
+        }, 10000);
 
 
 
