@@ -63,11 +63,10 @@
                                                     class="iconify font-weight-bold" data-icon="fa-solid:money-bill-wave"
                                                     data-inline="false"></span> </button>
                                         </div>
-                                        <div class="icon active" id="table-service-btn">
-                                            <button class="btn text-white w-100" id="table_icon_service"> <span
+                                        <div class="icon  table-service-btn" data-item-id={{ $table->id }}>
+                                            <button class="btn text-dark w-100 table_icon_service" id="table_icon_service-{{ $table->id}}"> <span
                                                     class="iconify font-weight-bold" data-icon="ion:fast-food"
                                                     data-inline="false"> </span> </button>
-
                                         </div>
 
                                     </div>
@@ -302,7 +301,7 @@
 
     <script>
         $(document).ready(function() {
-
+            var all_services = [];
 
             var tableOrderLimits = @json($tableOrderLimits);
 
@@ -425,8 +424,8 @@
             });
 
 
-
-
+            
+          
 
             setInterval(function() {
                   
@@ -434,7 +433,18 @@
                     url: "{{ route('need-service-get') }}",
                     type: 'GET',
                     success: function(data) {
-                    console.log(data);
+                       
+                        all_services = data;
+                        $('.table-service-btn').each(function(index){
+                            var el = $(this);
+                            var dataTableid = el.data('item-id');
+                            console.log(dataTableid);
+                            if(  Array.isArray(all_services[dataTableid]) ){
+                                el.addClass('active');
+                            }
+                            console.log(  all_services[  parseInt(dataTableid)  ])
+                            
+                        });
                     },
 
                     error: function(data) {
