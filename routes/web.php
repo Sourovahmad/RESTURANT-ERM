@@ -61,6 +61,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::post('/need-service',[TableHasServiceController::class,'store'])->name('need-service');
     Route::get('/need-service',[TableHasServiceController::class,'index'])->name('need-service-get');
+    Route::post('/remove-service/{id}',[TableHasServiceController::class,'destroy'])->name('remove-service');
 
 
     Route::get('products', function(){

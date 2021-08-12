@@ -86,8 +86,11 @@ class TableHasServiceController extends Controller
      * @param  \App\Models\tableHasService  $tableHasService
      * @return \Illuminate\Http\Response
      */
-    public function destroy(tableHasService $tableHasService)
+    public function destroy($id)
     {
-        //
+        $tableHasService = tableHasService::findOrFail($id);
+        $tableHasService->delete();
+        return redirect()->back()->withSuccess('Service provided' );
+
     }
 }
