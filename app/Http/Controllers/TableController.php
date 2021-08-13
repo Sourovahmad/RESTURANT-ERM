@@ -247,11 +247,6 @@ class TableController extends Controller
         $table->save();
 
 
-        $orders = tableHasOrder::where('table_id', $request->table_id)->where('status', true)->get();
-        foreach ($orders as $order) {
-           $order->status = false;
-           $order->save();
-        }
 
 
         $tableOrderLimit = tableOrderLimit::where('table_id',$request->table_id)->first();
