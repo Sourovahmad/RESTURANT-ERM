@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\printers;
 use App\Models\setting;
 use Barryvdh\Debugbar\DataCollector\ViewCollector;
 use Illuminate\Http\Request;
@@ -19,7 +20,9 @@ class SettingController extends Controller
     public function index()
     {
         $setting = setting::find(1);
-        return view('admin.setting.index',compact('setting'));
+        $printers = printers::all();
+
+        return view('admin.setting.index',compact('setting', 'printers'));
     }
 
     /**
@@ -41,10 +44,21 @@ class SettingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'website_name' => 'required'
+            'website_name' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'address' => 'required',
+            'kitchen_printer_id' => 'required',
+            'bill_printer_id' => 'required',
         ]);
         $setting = Setting::find(1);
-        $setting->update($request->all());
+        $setting->website_name = $request->website_name;
+        $setting->phone = $request->phone;
+        $setting->email = $request->email;
+        $setting->address = $request->address;
+        $setting->kitchen_printer_id = $request->kitchen_printer_id;
+        $setting->bill_printer_id = $request->bill_printer_id;
+        $setting->save();
         return back()->withSuccess('Updated SuccessFully');
     }
 

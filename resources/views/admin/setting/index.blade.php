@@ -45,18 +45,107 @@
             <form action="{{ route('admin.settings.store') }}" method="POST">
                 @csrf
 
-            <div class="container">
-                <div class="row">
+                 <div class="row mt-4">
 
+                    <div class="form-group col-12 col-md-1">
+                        <label for="name"> Name:  </label>
+                    </div>
 
-                    <div class="col-sm-12 col-md-4">
-                      Website Name:
+                    <div class=" form-group col-12 col-md-4">
+                        <input type="text" name="website_name" class="form-control" id="name"
+                            value="{{ $setting->website_name }}" required>
                     </div>
 
 
-                    <div class="col-sm-12 col-md-4">
-                       <input class="form-control" type="text" name="website_name" id="" value="{{ $setting->website_name }}" required>
+
+                    <div class="form-group col-12 col-md-1">
+                        <label for="email"> Email:  </label>
                     </div>
+
+
+                    <div class="form-group col-12 col-md-4">
+                        <input type="email" name="email" class="form-control" id="email"
+                            value="{{ $setting->email }}" required>
+                    </div>
+
+
+
+                </div>
+
+                   <div class="row mt-4">
+
+                    <div class="form-group col-12 col-md-1">
+                        <label for="phone">  Phone:  </label>
+                    </div>
+
+                    <div class=" form-group col-12 col-md-4">
+                        <input type="phone" name="phone" class="form-control" id="name"
+                            value="{{ $setting->phone }}" required>
+                    </div>
+
+
+
+                    <div class="form-group col-12 col-md-1">
+                        <label for="address">  Address:  </label>
+                    </div>
+
+
+                    <div class="form-group col-12 col-md-4">
+                        <input type="text" name="address" class="form-control" id="address"
+                            value="{{ $setting->website_name }}" required>
+                    </div>
+
+
+
+                </div>
+
+
+
+
+                   <div class="row mt-4">
+
+                    <div class="form-group col-12 col-md-1">
+                        <label for="kitchen_printer_id">  Kitchen Printer:  </label>
+                    </div>
+
+                    <div class=" form-group col-12 col-md-4">
+                          <select name="kitchen_printer_id" class="form-control" id="kitchen-printer" required>
+                            @foreach ($printers as $printer)
+
+                            <option
+                            @if ($setting->kitchen_printer_id == $printer->id)
+                                selected
+                            @endif
+                            value="{{ $printer->id }}">{{ $printer->name }}</option>
+                            @endforeach
+                          </select>
+                    </div>
+
+
+
+                    <div class="form-group col-12 col-md-1">
+                        <label for="bill-printer">  Bill Printer:  </label>
+                    </div>
+
+
+                    <div class="form-group col-12 col-md-4">
+                          <select name="bill_printer_id" class="form-control" id="bill-printer" required>
+                            @foreach ($printers as $printer)
+                            <option
+                           @if ( $setting->bill_printer_id == $printer->id)
+                               selected
+                           @endif
+                            value="{{ $printer->id }}">{{ $printer->name }}</option>
+                            @endforeach
+                          </select>
+                    </div>
+
+
+
+                </div>
+
+
+
 
 
                     <div class="form-group">
@@ -68,7 +157,6 @@
 
             </form>
 
-        </div>
     </div>
 
 

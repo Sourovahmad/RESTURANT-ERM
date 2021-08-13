@@ -15,7 +15,12 @@ class SettingSeeder extends Seeder
     public function run()
     {
         DB::table('settings')->insert([
-            'website_name' => 'Royal Fook Long Amsterdam - 53'
+            'website_name' => 'Royal Fook Long Amsterdam - 53',
+            'phone' => '12345678',
+            'email' => 'test@gmail.com',
+            'address' => 'Amsterdam, Netherland',
+            'kitchen_printer_id' => '1',
+            'bill_printer_id' => '2',
         ]);
     }
 }

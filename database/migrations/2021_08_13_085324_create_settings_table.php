@@ -16,6 +16,11 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('website_name');
+            $table->string('phone');
+            $table->string('email');
+            $table->string('address');
+            $table->unsignedBigInteger('kitchen_printer_id');
+            $table->unsignedBigInteger('bill_printer_id');
             $table->timestamps();
         });
     }
