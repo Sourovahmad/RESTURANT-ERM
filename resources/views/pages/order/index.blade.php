@@ -9,9 +9,7 @@
             <div class="hamBurgerIcon">
                 <i onclick="theAppend()" class="fas fa-bars"></i>
             </div>
-            <div class="theHeadLine">
-                <h5>Royal Fook Long Amsterdam - 53</h5>
-            </div>
+            <x-webSiteNameComponent> </x-webSiteNameComponent>
         </nav>
     </header>
 
@@ -355,7 +353,7 @@
                 else{
                     $('.navbar_service_clicked').removeClass('navbar_service_clicked');
                 }
-                
+
 
             })
 

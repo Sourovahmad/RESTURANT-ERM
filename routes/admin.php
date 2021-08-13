@@ -6,6 +6,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PrintersController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ServiceProductController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\TableHasOrderController;
 use App\Http\Controllers\userController;
@@ -42,6 +43,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
         Route::resource('employees', employeeController::class);
         Route::resource('orders', OrderController::class);
+        Route::resource('settings', SettingController::class);
 
 
 
