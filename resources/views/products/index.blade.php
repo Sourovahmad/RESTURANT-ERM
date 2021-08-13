@@ -380,6 +380,30 @@
 
 
 
+    {{-- popup for service --}}
+    <section class="theOrderPopUp" id="popup_for_service">
+        <div class="allContentsOrder">
+            <div class="theDesc">
+                <p>Do you Need The following ?</p>
+            </div>
+            <div class="theOrderAlert">
+                <h5 id="servicePopUpNeed"></h5>
+            </div>
+            <div class="orderChangerBtn">
+
+                <button class="btn btn-success" onclick="ServiceSend()">Confirm</button>
+                <button onclick="theOrderPopUpHide()">Cancel</button>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
     {{-- ***************** All hidden Forms ************** --}}
 
     <form id="form_for_add_cart" hidden>
@@ -419,17 +443,21 @@
                 var el = $(".navbar_service_clicked");
                 var needService = el.data('service-name');
 
-                var status= confirm(needService);
-                if(status == true){
-                    $('#servieName').val(needService);
+                theAppendRemove();
+
+                $('#popup_for_service').addClass('theProductShow');
+                $('#servicePopUpNeed').html(needService);
+                $('#servieName').val(needService);
+
+
+
+
+            });
+
+            function ServiceSend() {
                     $('#needService').submit();
-                }
-                else{
-                    $('.navbar_service_clicked').removeClass('navbar_service_clicked');
-                }
 
-
-            })
+            }
 
 
             // ************************* Service Function End Here ***************************
