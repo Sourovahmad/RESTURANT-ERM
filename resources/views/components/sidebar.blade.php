@@ -27,7 +27,7 @@
     <hr class="sidebar-divider m-1 p-0 ">
 
     <li class="nav-item active ">
-        <a class="nav-link p-3 " href="{{ route('admin.tables.index') }}">
+        <a class="nav-link p-3 " href="{{ route('admin.orders.index') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>{{ __('Orders') }}</span></a>
     </li>

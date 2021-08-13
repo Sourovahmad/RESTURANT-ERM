@@ -55,7 +55,7 @@
 
                         <div class="col-12 col-md-4 form-group">
                             <label for="chinese_name">Chinese Name </label>
-                            <input type="number" class="form-control" name="chinese_name" id="chinese_name" >
+                            <input type="text" class="form-control" name="chinese_name" id="chinese_name" >
 
                         </div>
 
