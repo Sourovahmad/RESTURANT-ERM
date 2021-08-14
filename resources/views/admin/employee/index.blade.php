@@ -58,11 +58,15 @@
                                                     data-icon="fluent:service-bell-24-filled" data-inline="false"></span>
                                             </button>
                                         </div>
+                                        <form action="{{ route('print-queue') }}" method="POST">
+                                            @csrf 
+                                            <input type="text" name="table_id" value="{{ $table->id }}" hidden>
                                         <div class="icon">
-                                            <button class="btn w-100" data-item-id={{ $table->id }} id="table_icon_bill-{{ $table->id}}"> <span
+                                            <button type="submit" class="btn w-100" data-item-id={{ $table->id }} id="table_icon_bill-{{ $table->id}}"> <span
                                                     class="iconify font-weight-bold" data-icon="fa-solid:money-bill-wave"
                                                     data-inline="false"></span> </button>
                                         </div>
+                                        </form>
                                         <div class="icon  table-service-btn" data-item-id={{ $table->id }}>
                                             <button class="btn text-dark w-100 table_icon_service" id="table_icon_service-{{ $table->id}}"> <span
                                                     class="iconify font-weight-bold" data-icon="ion:fast-food"
