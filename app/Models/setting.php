@@ -10,4 +10,9 @@ class setting extends Model
     use HasFactory;
 
     protected $fillable =['website_name'];
+
+    public function printer()
+    {
+       
+    }
 }

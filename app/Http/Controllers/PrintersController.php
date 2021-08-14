@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\printers;
+use App\Models\setting;
 use App\Models\tableHasOrder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -119,7 +120,10 @@ class PrintersController extends Controller
         $table_name = "";
         if(!$orders->isEmpty())
         {
-            $connector = new WindowsPrintConnector("EPSON L380 Series");
+            $settings = setting::find(1);
+            $printer = printers::find($settings->kitchen_printer_id);
+
+            $connector = new WindowsPrintConnector($printer->name);
             $printer = new Printer($connector);
 
             foreach($orders as $order){
