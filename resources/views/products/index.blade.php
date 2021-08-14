@@ -96,38 +96,42 @@
                         <b class="time-remaining">00:00:00</b>
                     </div>
                     <div class="title">
-                        <span>Time</span>
+                        <span class="font-weight-bold">Time</span>
                     </div>
                 </div>
             </div>
 
             <div class="conditionBox">
                 <div class="theTimeIcon">
-                    <i class="far fa-clock"></i>
+                   <i class="fas fa-utensils"></i>
                 </div>
                 <div class="timeAndTitle">
                     <div class="time">
-                        <b class="time-remaining">00:00:00</b>
+                        <b >1/--</b>
                     </div>
                     <div class="title">
-                        <span>Time</span>
+                        <span class="font-weight-bold">Round</span>
                     </div>
                 </div>
             </div>
 
-            <div class="conditionBox">
+
+             <div class="conditionBox">
                 <div class="theTimeIcon">
-                    <i class="far fa-clock"></i>
+                   <i class="fas fa-bell"></i>
                 </div>
                 <div class="timeAndTitle">
                     <div class="time">
-                        <b class="time-remaining">00:00:00</b>
+                      <span id="total_orderd_item" class="font-weight-bold h1" style="font-size: 18px"> {{ $tableOrderLimit->total_orderd }}</span>/ <span
+                            id="total_order_limit" class="font-weight-bold h1" style="font-size: 18px">{{ $tableOrderLimit->order_limit }} </span>
                     </div>
                     <div class="title">
-                        <span>Time</span>
+                        <span class="font-weight-bold">Orders</span>
                     </div>
                 </div>
             </div>
+
+
 
         </div>
     </section>

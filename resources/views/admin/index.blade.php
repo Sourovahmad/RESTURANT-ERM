@@ -25,7 +25,7 @@
                     <div class="col-xl-3 col-md-6 mb-4 text-center topCard">
                         <div class="card border-left-primary shadow  py-4">
                             <div class="card-img-top ">
-                            <i class="fas fa-calendar fa-2x text-info"></i>
+                            <i class="fas fa-bell fa-2x text-info"></i>
                             </div>
                             <div class="card-body">
                             <div class="row no-gutters align-items-center">
@@ -47,7 +47,7 @@
                     <div class="col-xl-3 col-md-6 mb-4 text-center topCard">
                         <div class="card border-left-primary shadow  py-4">
                             <div class="card-img-top ">
-                            <i class="fas fa-calendar fa-2x text-info"></i>
+                           <i class="fas fa-shopping-bag fa-2x text-info"></i>
                             </div>
                             <div class="card-body">
                             <div class="row no-gutters align-items-center">
@@ -69,7 +69,7 @@
                     <div class="col-xl-3 col-md-6 mb-4 text-center topCard">
                         <div class="card border-left-primary shadow  py-4">
                             <div class="card-img-top ">
-                            <i class="fas fa-calendar fa-2x text-info"></i>
+                            <i class="fas fa-table fa-2x text-info"></i>
                             </div>
                             <div class="card-body">
                             <div class="row no-gutters align-items-center">
