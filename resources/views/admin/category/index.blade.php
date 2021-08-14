@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="col-12 col-md-4 form-group">
-                            <label for="description">Description  </label>
+                             <label for="description">Description  </label>
                             <input type="text" class="form-control" name="description" id="description">
 
                         </div>
@@ -130,6 +130,7 @@
                                             aria-hidden="false">
                                         </i></button>
 
+                                        @if($category->id != 1)
 
                                     <form method="POST" action="{{ route('admin.categories.destroy', $category->id) }}"
                                         id="delete-form-{{ $category->id }}" style="display:none; ">
@@ -151,6 +152,7 @@
                                         </i>
                                     </button>
 
+                                    @endif
 
 
 
