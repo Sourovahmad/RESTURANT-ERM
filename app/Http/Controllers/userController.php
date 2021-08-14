@@ -109,16 +109,8 @@ class userController extends Controller
     {
         $user = User::find($id);
         if($user->id != 1){
-
-            if($user->role_id != 4){
-
-                $user->role_id = 4;
-                $user->save();
-                return back()->withSuccess('User Role Has been Removed');
-
-            }else{
-                return back()->withErrors('The User already in Pending Mode');
-            }
+            $user->delete();
+            return back()->withErrors('user Deleted');
         }else{
             return back()->withErrors('Super Admin Undeletable');
         }

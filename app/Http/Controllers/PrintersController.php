@@ -128,8 +128,11 @@ class PrintersController extends Controller
 
                     $printer -> text($table_name . "\n");
                 }
-                
+
                 $printer -> text($order->quantity . "x    ". $order->products->name ."\n");
+                if(!is_null($order->products->chinese_name)){
+                    $printer->text($order->products->chinese_name . "\n");
+                }
 
             }
             // $printer->cut();

@@ -49,18 +49,6 @@
 
                         </div>
 
-                        {{-- <div class="col-12 col-md-4 form-group">
-
-                            <label for="selectForTD" >Status</label>
-                             <select  id="selectForTD" name="active_status" class="form-control">
-
-                                <option selected value="1"> Active </option>
-                                <option value="2">Inactive</option>
-
-                            </select>
-
-                        </div> --}}
-
                         <div class="col-12 col-md-4 form-group">
 
                             <label for="description">Description  </label>
@@ -179,9 +167,7 @@
                                     </form>
 
 
-
-                                    <button title="Delete" class="dataDeleteItemClass btn btn-danger btn-sm" onclick="if(confirm('are you sure To remove This table
-                                    ?')){
+ <button title="Delete" class="dataDeleteItemClass btn btn-danger btn-sm" onclick="if(confirm('Are you sure Want To Delete ?')){
             document.getElementById('delete-form-{{ $table->id }}').submit();
            }
            else{

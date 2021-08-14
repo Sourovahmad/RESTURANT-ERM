@@ -67,6 +67,19 @@
                             </div>
                         </div> -->
 
+                <!-- <div class="row bg-light rounded mb-2 suggested-product" product-id="1">
+                            <div class="col-3 suggestion-image">
+                                <img src="http://127.0.0.1:8000/images/1628323939.small.techbot gig (1).png" alt="PRODUCT"
+                                   >
+                            </div>
+                            <div class="col-7 font-weight-bold">
+                                product one two three four
+                            </div>
+                            <div class="col-2 p-2 suggestion-price">
+                                <span>12</span>
+                            </div>
+                        </div> -->
+
 
 
             </div>
@@ -285,7 +298,7 @@
 
         <div class="iconBox">
 
-            <a id="orderPageLink" href="{{ route('orders', $requestedTable->id) }}">
+            <a id="orderPageLink">
 
                 <div class="icon position-relative ">
                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger iconSectionForbadge">
@@ -350,7 +363,7 @@
             <div class="theOrderAlert">
                 <h5></h5>
             </div>
-            <div class="orderChangerBtn">
+            <div class="orderrBtn">
                 <button onclick="theOrderTimeWarningHide()">OK</button>
             </div>
         </div>
@@ -430,10 +443,23 @@
     </form>
 
 
+
+    <form method="POST" action="{{ route('orders') }}" id="orderSend" hidden>
+        @csrf
+        <input type="number" name="table_id" id="table_hidden_id" value="{{ $requestedTable->id }}" required>
+        <button id="orderSendFormButton"></button>
+    </form>
+
+
     <script>
 
 
+        // ******************* orders function here ****************
 
+
+            $('#orderPageLink').on('click',function () {
+                $('#orderSendFormButton').trigger('click');
+            })
 
             // ************************* Service Function Start Here ***************************
 

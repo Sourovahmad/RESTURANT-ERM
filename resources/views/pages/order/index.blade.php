@@ -181,7 +181,7 @@
         </div>
 
 
-        <div class="iconBox">
+        <div class="iconBox" id="orderIconSection">
             <a href="#">
                 <div class="icon position-relative">
                                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger iconSectionForbadge">
@@ -321,13 +321,16 @@
 
 
 
+
+
+
+
     <script>
         // the home page funtions
         let addToOrder = document.querySelector("button.addToOrder");
 
 
         $(document).ready(function() {
-
 
 
 
@@ -549,9 +552,9 @@
                 theNumber--;
                 if (theNumber > 0) {
                     p.innerHTML =
-                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. A, inventore.";
+                        "Please Note, Your order will be sent for the entire table. Press 'CHANGE ORDER' For change the order";
                     h5.innerHTML = `The Order will be started in ${theNumber} seconds`;
-                    button.innerHTML = "Change Order";
+                    button.innerHTML = "CHANGE ORDER";
                 } else {
 
                     p.innerHTML = "Success!";

@@ -142,7 +142,12 @@ class TableController extends Controller
      */
     public function destroy(table $table)
     {
-        //
+        if($table->active_status != 1){
+            $table->delete();
+            return back()->withErrors("table deleted");
+        } else{
+            return back()->withErrors("Can't Delete Table while its Active");
+        }
     }
 
     public function findTheTable($table_id)

@@ -114,7 +114,7 @@
 
         <div class="iconBox">
 
-            <a id="orderPageLink" href="{{ route('orders', $requestedTable->id) }}">
+            <a id="orderPageLink" >
 
                 <div class="icon position-relative">
                                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger iconSectionForbadge">
@@ -181,6 +181,13 @@
         <input type="text" name="service" id="servieName">
     </form>
 
+    <form method="POST" action="{{ route('orders') }}" id="orderSend" hidden>
+        @csrf
+        <input type="number" name="table_id" id="table_hidden_id" value="{{ $requestedTable->id }}" required>
+        <button id="orderSendFormButton"></button>
+    </form>
+
+
 
  <script>
 
@@ -196,6 +203,9 @@
         }
 
 
+            $('#orderPageLink').on('click',function () {
+                $('#orderSendFormButton').trigger('click');
+            })
 
 
 
