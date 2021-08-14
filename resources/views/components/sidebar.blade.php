@@ -22,6 +22,19 @@
 
 
 
+    @if ($auth->role_id == 1)
+
+    <hr class="sidebar-divider m-1 p-0 ">
+
+    <li class="nav-item active ">
+        <a class="nav-link p-3 " href="{{ route('admin.orders.index') }}">
+            <i class="fas fa-bell"></i>
+            <span>{{ __('Orders') }}</span></a>
+    </li>
+
+    @endif
+
+
 
     @if ($auth->role_id == 1 || $auth->role_id == 2)
 
@@ -31,7 +44,7 @@
     <!-- Product Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed  p-3 " href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="true" aria-controls="collapseProducts">
-            <i class="fas fa-clipboard-check "></i>
+            <i class="fas fa-shopping-bag"></i>
             <span>{{__('Product')}}</span>
         </a>
         <div id="collapseProducts" class="collapse" aria-labelledby="headingProducts" data-parent="#accordionSidebar">
@@ -60,7 +73,7 @@
 
     <li class="nav-item active ">
         <a class="nav-link p-3 " href="{{ route('admin.tables.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <i class="fas fa-table "></i>
             <span>{{ __('Table') }}</span></a>
     </li>
 
@@ -100,7 +113,7 @@
 
         <li class="nav-item active ">
             <a class="nav-link p-3 " href="{{ route('admin.users.index') }}">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <i class="fas fa-users"></i>
                 <span>{{ __('Users') }}</span></a>
         </li>
 
@@ -111,8 +124,8 @@
     <hr class="sidebar-divider m-1 p-0 ">
 
     <li class="nav-item active ">
-        <a class="nav-link p-3 " href="{{ route('admin.employees.index') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+        <a class="nav-link p-3 " href="{{ route('admin.settings.index') }}">
+           <i class="fas fa-cogs"></i>
             <span>{{ __('Setting') }}</span></a>
     </li>
 

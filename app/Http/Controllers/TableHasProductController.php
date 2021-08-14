@@ -118,14 +118,14 @@ class TableHasProductController extends Controller
     }
 
 
-    public function OrderedProducts($table_id)
+    public function OrderedProducts(Request $request)
     {
 
-        $table = table::find($table_id);
+        $table = table::find($request->table_id);
 
         if($table->active_status == 1){
 
-        $tableData = tableHasProduct::where('table_id', $table_id)->get();
+        $tableData = tableHasProduct::where('table_id', $request->table_id)->get();
         $requestedTable = $table;
         $table_id = $table->id;
         $tableOrderlimit = tableOrderLimit::where('table_id',$table_id)->first();

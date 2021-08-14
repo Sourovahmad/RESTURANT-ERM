@@ -9,9 +9,9 @@
             <div class="hamBurgerIcon">
                 <i onclick="theAppend()" class="fas fa-bars"></i>
             </div>
-            <div class="theHeadLine">
-                <h5>Royal Fook Long Amsterdam - 53</h5>
-            </div>
+
+            <x-webSiteNameComponent> </x-webSiteNameComponent>
+
         </nav>
         <div class="theTopImages">
             <img src="{{ asset('images/pexels-engin-akyurt-2673353.jpg') }}" alt="">
@@ -67,6 +67,19 @@
                             </div>
                         </div> -->
 
+                <!-- <div class="row bg-light rounded mb-2 suggested-product" product-id="1">
+                            <div class="col-3 suggestion-image">
+                                <img src="http://127.0.0.1:8000/images/1628323939.small.techbot gig (1).png" alt="PRODUCT"
+                                   >
+                            </div>
+                            <div class="col-7 font-weight-bold">
+                                product one two three four
+                            </div>
+                            <div class="col-2 p-2 suggestion-price">
+                                <span>12</span>
+                            </div>
+                        </div> -->
+
 
 
             </div>
@@ -83,38 +96,42 @@
                         <b class="time-remaining">00:00:00</b>
                     </div>
                     <div class="title">
-                        <span>Time</span>
+                        <span class="font-weight-bold">Time</span>
                     </div>
                 </div>
             </div>
 
             <div class="conditionBox">
                 <div class="theTimeIcon">
-                    <i class="far fa-clock"></i>
+                   <i class="fas fa-utensils"></i>
                 </div>
                 <div class="timeAndTitle">
                     <div class="time">
-                        <b class="time-remaining">00:00:00</b>
+                        <b >1/--</b>
                     </div>
                     <div class="title">
-                        <span>Time</span>
+                        <span class="font-weight-bold">Round</span>
                     </div>
                 </div>
             </div>
 
-            <div class="conditionBox">
+
+             <div class="conditionBox">
                 <div class="theTimeIcon">
-                    <i class="far fa-clock"></i>
+                   <i class="fas fa-bell"></i>
                 </div>
                 <div class="timeAndTitle">
                     <div class="time">
-                        <b class="time-remaining">00:00:00</b>
+                      <span id="total_orderd_item" class="font-weight-bold h1" style="font-size: 18px"> {{ $tableOrderLimit->total_orderd }}</span>/ <span
+                            id="total_order_limit" class="font-weight-bold h1" style="font-size: 18px">{{ $tableOrderLimit->order_limit }} </span>
                     </div>
                     <div class="title">
-                        <span>Time</span>
+                        <span class="font-weight-bold">Orders</span>
                     </div>
                 </div>
             </div>
+
+
 
         </div>
     </section>
@@ -285,7 +302,7 @@
 
         <div class="iconBox">
 
-            <a id="orderPageLink" href="{{ route('orders', $requestedTable->id) }}">
+            <a id="orderPageLink">
 
                 <div class="icon position-relative ">
                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger iconSectionForbadge">
@@ -350,7 +367,7 @@
             <div class="theOrderAlert">
                 <h5></h5>
             </div>
-            <div class="orderChangerBtn">
+            <div class="orderrBtn">
                 <button onclick="theOrderTimeWarningHide()">OK</button>
             </div>
         </div>
@@ -373,6 +390,30 @@
             </div>
         </div>
     </section>
+
+
+
+
+
+
+
+    {{-- popup for service --}}
+    <section class="theOrderPopUp" id="popup_for_service">
+        <div class="allContentsOrder">
+            <div class="theDesc">
+                <p>Do you Need The following ?</p>
+            </div>
+            <div class="theOrderAlert">
+                <h5 id="servicePopUpNeed"></h5>
+            </div>
+            <div class="orderChangerBtn">
+
+                <button class="btn btn-success" onclick="ServiceSend()">Confirm</button>
+                <button onclick="theOrderPopUpHide()">Cancel</button>
+            </div>
+        </div>
+    </section>
+
 
 
 
@@ -406,10 +447,23 @@
     </form>
 
 
+
+    <form method="POST" action="{{ route('orders') }}" id="orderSend" hidden>
+        @csrf
+        <input type="number" name="table_id" id="table_hidden_id" value="{{ $requestedTable->id }}" required>
+        <button id="orderSendFormButton"></button>
+    </form>
+
+
     <script>
 
 
+        // ******************* orders function here ****************
 
+
+            $('#orderPageLink').on('click',function () {
+                $('#orderSendFormButton').trigger('click');
+            })
 
             // ************************* Service Function Start Here ***************************
 
@@ -419,17 +473,21 @@
                 var el = $(".navbar_service_clicked");
                 var needService = el.data('service-name');
 
-                var status= confirm(needService);
-                if(status == true){
-                    $('#servieName').val(needService);
-                    $('#needService').submit();
-                }
-                else{
-                    $('.navbar_service_clicked').removeClass('navbar_service_clicked');
-                }
-                
+                theAppendRemove();
 
-            })
+                $('#popup_for_service').addClass('theProductShow');
+                $('#servicePopUpNeed').html(needService);
+                $('#servieName').val(needService);
+
+
+
+
+            });
+
+            function ServiceSend() {
+                    $('#needService').submit();
+
+            }
 
 
             // ************************* Service Function End Here ***************************
@@ -699,7 +757,7 @@
         function theOrderPopUpHide() {
             $('.theProductShow').removeClass('theProductShow');
         }
-       
+
         function theOrderTimeWarningHide(){
             $('#PopupForOrderTimeRemains').removeClass('theProductShow');
         }

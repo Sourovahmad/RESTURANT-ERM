@@ -9,9 +9,7 @@
             <div class="hamBurgerIcon">
                 <i onclick="theAppend()" class="fas fa-bars"></i>
             </div>
-            <div class="theHeadLine">
-                <h5>Royal Fook Long Amsterdam - 53</h5>
-            </div>
+            <x-webSiteNameComponent> </x-webSiteNameComponent>
         </nav>
     </header>
 
@@ -183,7 +181,7 @@
         </div>
 
 
-        <div class="iconBox">
+        <div class="iconBox" id="orderIconSection">
             <a href="#">
                 <div class="icon position-relative">
                                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger iconSectionForbadge">
@@ -250,6 +248,24 @@
     </section>
 
 
+        {{-- popup for service --}}
+    <section class="theOrderPopUp" id="popup_for_service">
+        <div class="allContentsOrder">
+            <div class="theDesc">
+                <p>Do you Need The following ?</p>
+            </div>
+            <div class="theOrderAlert">
+                <h5 id="servicePopUpNeed"></h5>
+            </div>
+            <div class="orderChangerBtn">
+
+                <button class="btn btn-success" onclick="ServiceSend()">Confirm</button>
+                <button onclick="theOrderPopUpHide()">Cancel</button>
+            </div>
+        </div>
+    </section>
+
+
 
 
     {{-- ************** All hidden Forms ********************* --}}
@@ -305,13 +321,16 @@
 
 
 
+
+
+
+
     <script>
         // the home page funtions
         let addToOrder = document.querySelector("button.addToOrder");
 
 
         $(document).ready(function() {
-
 
 
 
@@ -342,22 +361,27 @@
             // ************************* Service Function Start Here ***************************
 
 
+
             $('.navbar_service_need').on('click', function() {
                 $(this).addClass('navbar_service_clicked');
                 var el = $(".navbar_service_clicked");
                 var needService = el.data('service-name');
 
-                var status= confirm(needService);
-                if(status == true){
-                    $('#servieName').val(needService);
-                    $('#needService').submit();
-                }
-                else{
-                    $('.navbar_service_clicked').removeClass('navbar_service_clicked');
-                }
-                
+                theAppendRemove();
 
-            })
+                $('#popup_for_service').addClass('theProductShow');
+                $('#servicePopUpNeed').html(needService);
+                $('#servieName').val(needService);
+
+
+
+
+            });
+
+            function ServiceSend() {
+                    $('#needService').submit();
+
+            }
 
 
             // ************************* Service Function End Here ***************************
@@ -528,9 +552,9 @@
                 theNumber--;
                 if (theNumber > 0) {
                     p.innerHTML =
-                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. A, inventore.";
+                        "Please Note, Your order will be sent for the entire table. Press 'CHANGE ORDER' For change the order";
                     h5.innerHTML = `The Order will be started in ${theNumber} seconds`;
-                    button.innerHTML = "Change Order";
+                    button.innerHTML = "CHANGE ORDER";
                 } else {
 
                     p.innerHTML = "Success!";

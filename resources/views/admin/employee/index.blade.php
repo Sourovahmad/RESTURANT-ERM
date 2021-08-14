@@ -59,7 +59,7 @@
                                             </button>
                                         </div>
                                         <div class="icon">
-                                            <button class="btn w-100" id="table_icon_bill"> <span
+                                            <button class="btn w-100" data-item-id={{ $table->id }} id="table_icon_bill-{{ $table->id}}"> <span
                                                     class="iconify font-weight-bold" data-icon="fa-solid:money-bill-wave"
                                                     data-inline="false"></span> </button>
                                         </div>
@@ -295,13 +295,40 @@
                 </div>
                 <div class="modal-body">
                 <table class="table table-striped">
-                   
+
                     <tbody id="serviceModalForm">
-                        
-                        
+
+
                     </tbody>
                 </table>
-                   
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+        <!-- Modal for view service  -->
+    <div class="modal fade" id="bill-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalCenterTitle"> Services </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <table class="table table-striped">
+
+                    <tbody id="billmodalForm">
+
+
+                    </tbody>
+                </table>
+
                 </div>
 
             </div>
@@ -394,7 +421,7 @@
                         html+= ' <button type="submit" class="btn btn-danger rounded"><i class="fas fa-minus-circle"></i></button>';
                         html += '</form>  </td> </tr>';
                     });
-                    
+
                 }
                 $('#serviceModalForm').html(html);
 
@@ -404,11 +431,6 @@
                 $(".show-service-clicked").removeClass('show-service-clicked');
 
             });
-
-
-
-
-
 
 
             $('.table_edit_icon').on('click', function() {
@@ -469,14 +491,14 @@
             });
 
             var tables = @json($tables);
-            
+
             $.each(tables , function(i,value){
-               
+
                 var start = new Date(value.end_time);
-                
-              
+
+
                 setInterval(function() {
-                    var total_seconds = ( start - new Date  ) / 1000;   
+                    var total_seconds = ( start - new Date  ) / 1000;
 
                     var hours = Math.floor(total_seconds / 3600);
                     total_seconds = total_seconds % 3600;
@@ -498,7 +520,7 @@
                     {
                         seconds = '0'+seconds;
                     }
-                    
+
                     var selector_id = value.id;
                     var target = $('div[data-hour-id="' + selector_id + '"]').text(hours);
                     var target = $('div[data-minute-id="' + selector_id + '"]').text(minutes);
@@ -507,16 +529,16 @@
             });
 
 
-            
-          
+
+
 
             setInterval(function() {
-                  
+
                 $.ajax({
                     url: "{{ route('need-service-get') }}",
                     type: 'GET',
                     success: function(data) {
-                       
+
                         all_services = data;
                         $('.table-service-btn').each(function(index){
                             var el = $(this);
@@ -527,8 +549,8 @@
                             else{
                                 el.removeClass('active');
                             }
-                          
-                            
+
+
                         });
                     },
 
@@ -537,14 +559,14 @@
                     },
 
                 });
-               
+
         }, 10000);
 
 
 
         });
     </script>
-   
+
 
 
 @endsection

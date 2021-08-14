@@ -7,9 +7,7 @@
             <div class="hamBurgerIcon">
                 <i onclick="theAppend()" class="fas fa-bars"></i>
             </div>
-            <div class="theHeadLine">
-                <h5>Royal Fook Long Amsterdam - 53</h5>
-            </div>
+            <x-webSiteNameComponent> </x-webSiteNameComponent>
         </nav>
         <div class="theTopImages">
             <img src="images/pexels-engin-akyurt-2673353.jpg" alt="">
@@ -116,7 +114,7 @@
 
         <div class="iconBox">
 
-            <a id="orderPageLink" href="{{ route('orders', $requestedTable->id) }}">
+            <a id="orderPageLink" >
 
                 <div class="icon position-relative">
                                         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger iconSectionForbadge">
@@ -153,11 +151,42 @@
 
 
 
+    {{-- hidden forms --}}
+
+    {{-- popup for service --}}
+    <section class="theOrderPopUp" id="popup_for_service">
+        <div class="allContentsOrder">
+            <div class="theDesc">
+                <p>Do you Need The following ?</p>
+            </div>
+            <div class="theOrderAlert">
+                <h5 id="servicePopUpNeed"></h5>
+            </div>
+            <div class="orderChangerBtn">
+
+                <button class="btn btn-success" onclick="ServiceSend()">Confirm</button>
+                <button onclick="theOrderPopUpHide()">Cancel</button>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
     <form method="POST" action="{{ route('need-service') }}" id="needService" hidden>
         @csrf
         <input type="number" name="table_id" id="table_hidden_id" value="{{ $requestedTable->id }}" required>
         <input type="text" name="service" id="servieName">
     </form>
+
+    <form method="POST" action="{{ route('orders') }}" id="orderSend" hidden>
+        @csrf
+        <input type="number" name="table_id" id="table_hidden_id" value="{{ $requestedTable->id }}" required>
+        <button id="orderSendFormButton"></button>
+    </form>
+
 
 
  <script>
@@ -174,6 +203,9 @@
         }
 
 
+            $('#orderPageLink').on('click',function () {
+                $('#orderSendFormButton').trigger('click');
+            })
 
 
 
@@ -185,18 +217,21 @@
                 var el = $(".navbar_service_clicked");
                 var needService = el.data('service-name');
 
-                var status= confirm(needService);
-                if(status == true){
-                    $('#servieName').val(needService);
+                theAppendRemove();
+
+                $('#popup_for_service').addClass('theProductShow');
+                $('#servicePopUpNeed').html(needService);
+                $('#servieName').val(needService);
+
+
+
+
+            });
+
+            function ServiceSend() {
                     $('#needService').submit();
-                }
-                else{
-                    $('.navbar_service_clicked').removeClass('navbar_service_clicked');
-                }
-                
 
-            })
-
+            }
 
             // ************************* Service Function End Here ***************************
 

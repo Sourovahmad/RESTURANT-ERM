@@ -116,7 +116,7 @@ class ProductController extends Controller
         $product->category_id = $request->category;
         $product->active_status = $request->status;
         $product->price = $request->price;
-        
+
         if (!is_null($request->chinese_name)) {
             $product->chinese_name = $request->chinese_name;
         }
@@ -154,6 +154,7 @@ class ProductController extends Controller
      */
     public function destroy(product $product)
     {
-        //
+        $product->delete();
+        return back()->withErrors('Product has been Deleted');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\printers;
+use App\Models\setting;
 use App\Models\tableHasOrder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -114,29 +115,38 @@ class PrintersController extends Controller
 
     public function printOrderKitchen(){
 
-      
+
         $orders = tableHasOrder::where('printed',false)->orderBy('table_id')->get();
         $table_name = "";
         if(!$orders->isEmpty())
         {
-            $connector = new WindowsPrintConnector("EPSON L380 Series");
+            $settings = setting::find(1);
+            $printer = printers::find($settings->kitchen_printer_id);
+
+            $connector = new WindowsPrintConnector($printer->name);
             $printer = new Printer($connector);
 
             foreach($orders as $order){
                 if($table_name != $order->table->name){
                     $table_name = $order->table->name;
-                    $printer -> text($table_name ."\n");
+
+                    $printer -> text($table_name . "\n");
                 }
-                $printer -> text($order->quantity ."x    ". $order->products->name ."\n");
+
+                $printer -> text($order->quantity . "x    ". $order->products->name ."\n");
+                if(!is_null($order->products->chinese_name)){
+                    $printer->text($order->products->chinese_name . "\n");
+                }
+
             }
-            $printer->cut();
+            // $printer->cut();
             $printer -> close();
 
             foreach($orders as $order){
                 $order->printed = true;
                 $order->save();
             }
-        } 
+        }
         return 'success';
     }
 }

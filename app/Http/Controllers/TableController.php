@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\category;
+use App\Models\order;
 use App\Models\product;
 use App\Models\table;
 use App\Models\tableHasOrder;
@@ -141,7 +142,12 @@ class TableController extends Controller
      */
     public function destroy(table $table)
     {
-        //
+        if($table->active_status != 1){
+            $table->delete();
+            return back()->withErrors("table deleted");
+        } else{
+            return back()->withErrors("Can't Delete Table while its Active");
+        }
     }
 
     public function findTheTable($table_id)
@@ -247,11 +253,25 @@ class TableController extends Controller
         $table->save();
 
 
-        $orders = tableHasOrder::where('table_id', $request->table_id)->where('status', true)->get();
-        foreach ($orders as $order) {
-           $order->status = false;
-           $order->save();
+        //remove all table orders
+
+        $tableHasorder = tableHasOrder::where('table_id',$request->table_id)->get();
+
+        $totalPrice = 0;
+
+        for ($i = 0; $i < $tableHasorder->count(); $i++) {
+
+            $multiplyQuantity = $tableHasorder[$i]->quantity * $tableHasorder[$i]->products->price;
+            $totalPrice +=  $multiplyQuantity;
+            $tableHasorder[$i]->delete();
+
         }
+
+
+        $Adminorders = new order;
+        $Adminorders->table_name = $table->name;
+        $Adminorders->total_amount = $totalPrice;
+        $Adminorders->save();
 
 
         $tableOrderLimit = tableOrderLimit::where('table_id',$request->table_id)->first();
@@ -286,7 +306,7 @@ class TableController extends Controller
 
     public function tableBill(Request $request)
     {
-        $orders = tableHasOrder::where('table_id',$request->table_id)->where('status',true)->get();
+        $orders = tableHasOrder::where('table_id',$request->table_id)->get();
         $requestedTable = table::find($request->table_id);
         $tableOrderLimit = tableOrderLimit::where('table_id',$request->table_id)->first();
         $totalPrice = 0;
