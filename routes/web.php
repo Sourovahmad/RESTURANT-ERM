@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PrintersController;
+use App\Http\Controllers\PrintQueueController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\TableHasOrderController;
 use App\Http\Controllers\TableHasProductController;
 use App\Http\Controllers\TableHasServiceController;
+use App\Models\printQueue;
 use App\Models\tableHasProduct;
 use App\Models\tableHasService;
 use Illuminate\Support\Facades\Route;
@@ -62,6 +64,10 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::post('/need-service',[TableHasServiceController::class,'store'])->name('need-service');
     Route::get('/need-service',[TableHasServiceController::class,'index'])->name('need-service-get');
     Route::post('/remove-service/{id}',[TableHasServiceController::class,'destroy'])->name('remove-service');
+
+
+    Route::post('/print-queue',[PrintQueueController::class,'store'])->name('print-queue');
+    Route::get('/print-memo',[PrintQueueController::class,'index'])->name('print-memo');
 
 
     Route::get('products', function(){

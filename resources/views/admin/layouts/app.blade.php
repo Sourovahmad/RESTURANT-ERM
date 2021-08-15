@@ -124,6 +124,22 @@
           });
 
         }, 30000);
+
+        setInterval(function() {
+          $.ajax({
+            url: "{{ route('print-memo') }}",
+            type: 'GET',
+            success: function(data) {
+              console.log(data);
+            },
+
+            error: function(data) {
+              console.log('error');
+            },
+
+          });
+
+        }, 15000);
       }
 
 
