@@ -58,12 +58,19 @@
                                                     data-icon="fluent:service-bell-24-filled" data-inline="false"></span>
                                             </button>
                                         </div>
-                                        <form action="{{ route('print-queue') }}" method="POST">
-                                            @csrf 
+                                        <form action="{{ route('print-queue') }}" method="POST" id="printbillform-{{$table->id}}">
+                                            @csrf
                                             <input type="text" name="table_id" value="{{ $table->id }}" hidden>
                                         <div class="icon">
                                             <button type="submit" class="btn w-100" data-item-id={{ $table->id }} id="table_icon_bill-{{ $table->id}}"> <span
-                                                    class="iconify font-weight-bold" data-icon="fa-solid:money-bill-wave"
+                                                    class="iconify font-weight-bold"
+                                                    onclick="if(confirm('Are you sure Want To Print the bill ?')){
+            document.getElementById('printbillform-{{ $table->id }}').submit();
+           }
+           else{
+            event.preventDefault();
+           }
+           " data-icon="fa-solid:money-bill-wave"
                                                     data-inline="false"></span> </button>
                                         </div>
                                         </form>

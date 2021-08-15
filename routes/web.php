@@ -70,18 +70,3 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/print-memo',[PrintQueueController::class,'index'])->name('print-memo');
 
 
-    Route::get('products', function(){
-        return view('products.index');
-    });
-
-    Route::get('bill2', function(){
-        return view('pages.bill.index');
-    });
-
-    Route::get('order', function(){
-        return view('pages.order.index');
-    });
-
-    Route::get('service', function(){
-        return view('pages.service.index');
-    });

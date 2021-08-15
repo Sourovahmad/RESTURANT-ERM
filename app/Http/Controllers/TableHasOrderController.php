@@ -41,6 +41,7 @@ class TableHasOrderController extends Controller
         $alltableProducts = tableHasProduct::all();
         $tableHasProduct = tableHasProduct::where('table_id', $request->table_id)->get();
 
+
         for ($i=0; $i < $tableHasProduct->count(); $i++) {
 
             $tableHasOrder = new tableHasOrder;
@@ -54,7 +55,8 @@ class TableHasOrderController extends Controller
 
         }
 
-        return back()->withSuccess('We Recived Your Order, Thank You');
+        $table = table::find($request->table_id);
+        return redirect($table->table_url)->withSuccess('We Recived Your Order, Thank You');
 
     }
 

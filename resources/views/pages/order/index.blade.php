@@ -279,7 +279,7 @@
         <input type="text" name="request_for" id="request_for">
 
 
-    </form>
+    </form> 
 
     <form id="form_for_send_order" method="POST" action="{{ route('tableOrderStore') }}" hidden>
         @csrf
