@@ -38,6 +38,14 @@ class TableHasProductController extends Controller
      */
     public function store(Request $request)
     {
+        $tableOrderlimit = tableOrderLimit::where('table_id', $request->table_id)->first();
+        $totalOrderdItem = $tableOrderlimit->total_orderd + $request->quantity;
+        if ($totalOrderdItem > $tableOrderlimit->order_limit) {
+            return back()->withErrors('Sorry You Cant order More Then Your Limit');
+        }
+        $tableOrderlimit->total_orderd = $totalOrderdItem;
+        $tableOrderlimit->save();
+
         $request->validate([
             'table_id'=> 'required',
             'product_id' => 'required',
@@ -46,10 +54,6 @@ class TableHasProductController extends Controller
 
         tableHasProduct::create($request->all());
 
-        $tableOrderlimit = tableOrderLimit::where('table_id',$request->table_id)->first();
-        $totalOrderdItem = $tableOrderlimit->total_orderd + 1;
-        $tableOrderlimit->total_orderd = $totalOrderdItem;
-        $tableOrderlimit->save();
     }
 
     /**

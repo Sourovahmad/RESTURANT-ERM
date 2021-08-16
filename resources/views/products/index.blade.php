@@ -280,6 +280,17 @@
                     </div>
                 </div>
 
+
+                <div class="quantityAndTotalPrice">
+                    <div class="quantity">
+                        Quantity
+                    </div>
+                    <div class="totalPrice">
+                      <button class="ProductQuantityminusbutton btn mr-2"> <i class="fas fa-minus"></i> </button> <span class="totalProductQuantity "> 1 </span>    <button class="productaddQuanityPlus btn ml-2"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+
+
                 <div class="theButton">
                     <button class="addToOrder" onclick="theProductViewAdder()">ADD TO ORDER</button>
                 </div>
@@ -449,7 +460,7 @@
         @csrf
         <input type="text" name="table_id" id="cart_input_for_table_id" value="{{ $requestedTable->id }}">
         <input type="text" name="product_id" id="cart_input_for_table_product_id">
-        <input type="text" name="quantity" id="cart_input_for_table_quantity" value="1">
+        <input type="text" name="quantity" id="cart_input_for_table_quantity" >
 
     </form>
 
@@ -478,6 +489,29 @@
 
 
     <script>
+
+
+
+
+        // product quantity function
+
+        var totalCurrentQuantity = parseInt($('.totalProductQuantity').text());
+
+        $('.ProductQuantityminusbutton').on('click',function () {
+            if(totalCurrentQuantity != 1){
+                var updateProductQuantity = totalCurrentQuantity -= 1;
+               $('.totalProductQuantity').text(updateProductQuantity);
+               $('#cart_input_for_table_quantity').val(updateProductQuantity);
+            }
+        });
+
+
+        $('.productaddQuanityPlus').on('click',function () {
+                var updateProductQuantity = totalCurrentQuantity += 1;
+               $('.totalProductQuantity').text(updateProductQuantity);
+                $('#cart_input_for_table_quantity').val(updateProductQuantity);
+        });
+
 
 
         // ******************* orders function here ****************
@@ -571,12 +605,12 @@
 
                 if(hours == 0 && minutes == 30 && seconds ==0){
                     $('#PopupForOrderTimeRemains').addClass('theProductShow');
-                }
+                }  
 
                 if (hours < 10) {
                     hours = '0' + hours;
                 }
-                if (minutes < 10) {
+                if (minutes < 10) {=`
                     minutes = '0' + minutes;
                 }
                 if (seconds < 10) {

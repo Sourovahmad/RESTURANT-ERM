@@ -279,7 +279,7 @@
         <input type="text" name="request_for" id="request_for">
 
 
-    </form> 
+    </form>
 
     <form id="form_for_send_order" method="POST" action="{{ route('tableOrderStore') }}" hidden>
         @csrf
@@ -456,14 +456,16 @@
 
             $('.quantityMinusButton').click(function() {
 
-                if (orderdItem <= 1) {
-                    $('#PopupForOrderminimumLimitCross').addClass("theProductShow");
-                } else {
-
                     $(this).addClass('quantity-button-clicked');
                     var el = $(".quantity-button-clicked");
                     var currentTableId = el.data('item-id');
                     var currentQuantity = parseInt($('#currentQuantity_'.trim() + currentTableId).text());
+
+                if(currentQuantity != 1){
+                if (orderdItem <= 1) {
+                    $('#PopupForOrderminimumLimitCross').addClass("theProductShow");
+                } else {
+
 
                     var CurrentproductPrice = el.data('item-price');
                     var updatedQuantity = currentQuantity -= 1;
@@ -494,6 +496,8 @@
 
                         }
                     });
+
+                  }
 
                     $('.quantity-button-clicked').removeClass('quantity-button-clicked');
 

@@ -130,7 +130,7 @@ section.theConditionSearch .theSearch .product-suggestion .suggestion-price span
   border: 2px  solid gold;
   color: gold;
   padding: 5px;
-  border-radius: 3px; 
+  border-radius: 3px;
   float:right
 }
 section.theConditionSearch .theSearch input::placeholder{
@@ -312,7 +312,7 @@ section.theProductView {
   background: rgba(0, 0, 0, 0.541);
 }
 section.theProductView .theProductViewLayOut{
-  height: 350px;
+  height: auto;
   width: 300px;
   background: #fff;
   border-radius: 12px;

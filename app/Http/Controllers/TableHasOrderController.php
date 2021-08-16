@@ -43,7 +43,7 @@ class TableHasOrderController extends Controller
 
 
         for ($i=0; $i < $tableHasProduct->count(); $i++) {
-
+            
             $tableHasOrder = new tableHasOrder;
             $tableHasOrder->table_id = $tableHasProduct[$i]->table_id;
             $tableHasOrder->product_id = $tableHasProduct[$i]->product_id;
