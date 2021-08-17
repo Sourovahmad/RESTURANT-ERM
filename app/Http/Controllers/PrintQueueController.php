@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\order;
 use App\Models\printers;
 use App\Models\printQueue;
 use App\Models\setting;
+use App\Models\table;
 use App\Models\tableHasOrder;
+use App\Models\tableHasRound;
+use App\Models\tableOrderLimit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use TableHasCategoryAssigned;
+
+use function PHPUnit\Framework\isEmpty;
 
 class PrintQueueController extends Controller
 {
@@ -26,36 +34,77 @@ class PrintQueueController extends Controller
             if(!$orders->isEmpty())
             {
                 $settings = setting::find(1);
-                $printer = printers::find($settings->bill_printer_id);
-    
-                $connector = new WindowsPrintConnector($printer->name);
-                $printer = new Printer($connector);
+                $Settingprinter = printers::find($settings->bill_printer_id);
+
+
+                // $connector = new WindowsPrintConnector($Settingprinter->name);
+                // $printer = new Printer($connector);
+
+
+                // $printer -> text($settings->website_name."\n");
+                // $printer -> text($settings->address."\n");
+                // $printer -> text($settings->email."\n");
+                // $printer -> text($settings->phone."\n");
+                // $printer -> text("-----------------------------\n");
+
+
                 $total_price = 0;
 
-                $printer -> text($settings->website_name."\n");
-                $printer -> text($settings->address."\n");
-                $printer -> text($settings->email."\n");
-                $printer -> text($settings->phone."\n");
-                $printer -> text("-----------------------------\n");
                 foreach($orders as $order){
-                  
-                    $printer -> text($order->quantity . "x    ". $order->products->name ."\n");
+
+                    // $printer -> text($order->quantity . "x    ". $order->products->name ."\n");
                     $total_price += $order->quantity * $order->products->price;
+                    $order->delete();
                 }
-                $printer -> text("-----------------------------\n");
-                $printer -> text("Total Price  : ".$total_price . "\n");
-                $printer -> text("Thank You\n");
+
+                $table = table::find($orders[0]->table_id);
 
 
 
-                 $printer->cut();
-                $printer -> close();
+                $adminOrder = new order;
+                $adminOrder->table_name = $table->name;
+                $adminOrder->total_amount = $total_price;
+                $adminOrder->save();
+
+                $tableOrderLimit = tableOrderLimit::where('table_id',$table->id)->first();
+                $tableOrderLimit->delete();
+
+
+                $tablehasround = tableHasRound::where('table_id', $table->id)->first();
+                $tablehasround->delete();
+
+
+                $tablehascategoryAssined = DB::table('table_has_category_assigned')
+                ->where('table_id',$table->id)->delete();
+
+                // delete table order limit
+
+
+
+
+                // $printer -> text("-----------------------------\n");
+                // $printer -> text("Total Price  : ".$total_price . "\n");
+                // $printer -> text("Thank You\n");
+
+
+
+                //  $printer->cut();
+                // $printer -> close();
+
+
+                $printQueue->delete();
+
 
             }
+
             $printQueue->delete();
 
+
+
+
+
         }
-        return $total_price;
+        return "nothing to print";
     }
 
     /**
@@ -76,10 +125,18 @@ class PrintQueueController extends Controller
      */
     public function store(Request $request)
     {
-        $printQueue =new printQueue;
-        $printQueue->table_id = $request->table_id;
-        $printQueue->save();
-        return redirect()->back()->withSuccess('Memo Printing');
+        $orderQueeCheck = printQueue::where('table_id', $request->table_id)->get();
+        if (isEmpty($orderQueeCheck)) {
+            $printQueue = new printQueue;
+            $printQueue->table_id = $request->table_id;
+            $printQueue->save();
+        }
+
+        $table = table::find($request->table_id);
+        $table->active_status = 2;
+        $table->end_time = null;
+        $table->save();
+        return redirect()->back()->withSuccess('Memo Printing,let The Memo Come,Then Active Again');
     }
 
     /**

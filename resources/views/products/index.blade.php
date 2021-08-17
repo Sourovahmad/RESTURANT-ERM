@@ -487,7 +487,7 @@
         <button id="orderSendFormButton"></button>
     </form>
 
-    <form method="POST" id="form_for_round">
+    <form method="POST" id="form_for_round" hidden>
         @csrf
         <input type="number" name="table_id"  value="{{ $requestedTable->id }}" required>
         <input type="number" name="current_round" value="{{ $current_round }}">

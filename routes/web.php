@@ -60,17 +60,18 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::post('bills',[TableController::class,'tableBill'])->name('bills');
 
-    Route::get('/print-order-kitchen',[PrintersController::class,'printOrderKitchen'])->name('print-order-kitchen');
 
     Route::post('/need-service',[TableHasServiceController::class,'store'])->name('need-service');
     Route::get('/need-service',[TableHasServiceController::class,'index'])->name('need-service-get');
     Route::post('/remove-service/{id}',[TableHasServiceController::class,'destroy'])->name('remove-service');
 
 
-    Route::post('/print-queue',[PrintQueueController::class,'store'])->name('print-queue');
-    Route::get('/print-memo',[PrintQueueController::class,'index'])->name('print-memo');
-
-
     Route::post('Roundupdate', [TableHasRoundController::class, 'Roundupdate'])->name('Roundupdate');
 
+
+
+       // printer controllers
+         Route::post('/print-queue', [PrintQueueController::class, 'store'])->name('print-queue');
+        Route::get('/print-memo', [PrintQueueController::class, 'index'])->name('print-memo');
+        Route::get('/print-order-kitchen', [PrintersController::class, 'printOrderKitchen'])->name('print-order-kitchen');
 

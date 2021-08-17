@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\category;
 use App\Models\order;
+use App\Models\printQueue;
 use App\Models\product;
 use App\Models\table;
 use App\Models\tableHasOrder;
@@ -16,6 +17,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
+
+use function PHPUnit\Framework\isEmpty;
 
 class TableController extends Controller
 {
@@ -257,48 +260,21 @@ class TableController extends Controller
     public function tableclose(Request $request)
     {
 
+        $orderQueeCheck = printQueue::where('table_id', $request->table_id)->get();
+        if (isEmpty($orderQueeCheck)) {
+            $printQueue = new printQueue;
+            $printQueue->table_id = $request->table_id;
+            $printQueue->save();
+        }
+
         $table = table::find($request->table_id);
         $table->active_status = 2;
         $table->end_time = null;
         $table->save();
 
 
-        //remove all table orders
 
-        $tableHasorder = tableHasOrder::where('table_id',$request->table_id)->get();
-
-        $totalPrice = 0;
-
-        for ($i = 0; $i < $tableHasorder->count(); $i++) {
-
-            $multiplyQuantity = $tableHasorder[$i]->quantity * $tableHasorder[$i]->products->price;
-            $totalPrice +=  $multiplyQuantity;
-            $tableHasorder[$i]->delete();
-
-        }
-
-
-        $Adminorders = new order;
-        $Adminorders->table_name = $table->name;
-        $Adminorders->total_amount = $totalPrice;
-        $Adminorders->save();
-
-
-        $tableOrderLimit = tableOrderLimit::where('table_id',$request->table_id)->first();
-
-        // here will be the printing functions
-
-        $tableOrderLimit->delete();
-
-        $tableAssignedCategories = DB::table('table_has_category_assigned')
-        ->where('table_id', $request->table_id)->delete();
-
-        // round deleting
-
-        $tableRound = tableHasRound::where('table_id', $request->table_id)->first();
-        $tableRound->delete();
-
-         return back()->withErrors('Table Has been Deactivated SuccessFull');
+        return back()->withErrors('Table Has been Deactivated SuccessFull');
     }
 
 
