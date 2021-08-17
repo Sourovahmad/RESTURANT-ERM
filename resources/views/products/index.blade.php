@@ -468,14 +468,14 @@
 
     <form method="POST" action="{{ route('bills') }}" hidden>
         @csrf
-        <input type="number" name="table_id" id="table_hidden_id" value="{{ $requestedTable->id }}" required>
+        <input type="number" name="table_id"  value="{{ $requestedTable->id }}" required>
         <button type="submit" id="submit_button_for_bill_form">butotn</button>
     </form>
 
 
     <form method="POST" action="{{ route('need-service') }}" id="needService" hidden>
         @csrf
-        <input type="number" name="table_id" id="table_hidden_id" value="{{ $requestedTable->id }}" required>
+        <input type="number" name="table_id"  value="{{ $requestedTable->id }}" required>
         <input type="text" name="service" id="servieName">
     </form>
 
@@ -483,13 +483,13 @@
 
     <form method="POST"  id="orderSend" action="{{ route('orders') }}"  hidden>
         @csrf
-        <input type="number" name="table_id" id="table_hidden_id" value="{{ $requestedTable->id }}" required>
+        <input type="number" name="table_id"  value="{{ $requestedTable->id }}" required>
         <button id="orderSendFormButton"></button>
     </form>
 
     <form method="POST" id="form_for_round">
         @csrf
-        <input type="number" name="table_id" id="table_hidden_id" value="{{ $requestedTable->id }}" required>
+        <input type="number" name="table_id"  value="{{ $requestedTable->id }}" required>
         <input type="number" name="current_round" value="{{ $current_round }}">
     </form>
 
@@ -501,6 +501,7 @@
         // product quantity function
 
         var totalCurrentQuantity = parseInt($('.totalProductQuantity').text());
+        $('#cart_input_for_table_quantity').val(totalCurrentQuantity);
 
         $('.ProductQuantityminusbutton').on('click',function () {
             if(totalCurrentQuantity != 1){
