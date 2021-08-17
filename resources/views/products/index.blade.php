@@ -498,9 +498,18 @@
 
 
 
+        // order limit functtion start here
+
+        var OrderderLimit = parseInt($('#total_order_limit').text());
+        var orderdItem = parseInt($('#total_orderd_item').text());
+
+
+
+
         // product quantity function
 
         var totalCurrentQuantity = parseInt($('.totalProductQuantity').text());
+
         $('#cart_input_for_table_quantity').val(totalCurrentQuantity);
 
         $('.ProductQuantityminusbutton').on('click',function () {
@@ -513,9 +522,14 @@
 
 
         $('.productaddQuanityPlus').on('click',function () {
+
+            var limit = OrderderLimit - orderdItem;
+            if(totalCurrentQuantity < limit){
                 var updateProductQuantity = totalCurrentQuantity += 1;
                $('.totalProductQuantity').text(updateProductQuantity);
                 $('#cart_input_for_table_quantity').val(updateProductQuantity);
+            }
+
         });
 
 
@@ -564,13 +578,6 @@
         const theProductView = document.querySelector(".theProductView");
         let addToOrder = document.querySelector("button.addToOrder");
 
-
-
-
-        // order limit functtion start here
-
-        var OrderderLimit = parseInt($('#total_order_limit').text());
-        var orderdItem = parseInt($('#total_orderd_item').text());
 
 
 
