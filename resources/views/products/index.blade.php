@@ -129,7 +129,7 @@
                 </div>
                 <div class="timeAndTitle">
                     <div class="time">
-                        <b >1/--</b>
+                        <b >  {{ $current_round }} /--</b>
                     </div>
                     <div class="title">
                         <span class="font-weight-bold">Round</span>
@@ -481,12 +481,17 @@
 
 
 
-    <form method="POST" action="{{ route('orders') }}" id="orderSend" hidden>
+    <form method="POST"  id="orderSend" action="{{ route('orders') }}"  hidden>
         @csrf
         <input type="number" name="table_id" id="table_hidden_id" value="{{ $requestedTable->id }}" required>
         <button id="orderSendFormButton"></button>
     </form>
 
+    <form method="POST" id="form_for_round">
+        @csrf
+        <input type="number" name="table_id" id="table_hidden_id" value="{{ $requestedTable->id }}" required>
+        <input type="number" name="current_round" value="{{ $current_round }}">
+    </form>
 
     <script>
 
@@ -605,12 +610,34 @@
 
                 if(hours == 0 && minutes == 30 && seconds ==0){
                     $('#PopupForOrderTimeRemains').addClass('theProductShow');
-                }  
+                };
+
+                if(hours == 0 && minutes == 00 && seconds == 0){
+
+                var data = $('#form_for_round').serialize();
+                var route = '{{ route('Roundupdate') }}'.trim();
+
+                $.ajax({
+                    url: route,
+                    type: "post",
+                    data: data,
+                    success: function() {
+                        console.log('Round Updated');
+                        location.reload();
+                    },
+                    error: function(jqXHR, exception) {
+                        console.log(jqXHR);
+                    }
+                });
+
+
+                }
+
 
                 if (hours < 10) {
                     hours = '0' + hours;
                 }
-                if (minutes < 10) {=`
+                if (minutes < 10) {
                     minutes = '0' + minutes;
                 }
                 if (seconds < 10) {

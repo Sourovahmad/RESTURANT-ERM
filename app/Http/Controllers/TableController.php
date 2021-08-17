@@ -8,6 +8,7 @@ use App\Models\product;
 use App\Models\table;
 use App\Models\tableHasOrder;
 use App\Models\tableHasProduct;
+use App\Models\tableHasRound;
 use App\Models\tableOrderLimit;
 use Carbon\Carbon;
 use finfo;
@@ -163,6 +164,8 @@ class TableController extends Controller
         if($requestedTable->active_status == 1){
 
             $tableOrderLimit = tableOrderLimit::where('table_id', $requestedTable->id)->first();
+            $tablehasround = tableHasRound::where('table_id', $requestedTable->id)->first();
+            $current_round = $tablehasround->current_round;
             $products = product::where('active_status', 1)->get();
 
             $tableAssignedCategories = DB::table('table_has_category_assigned')
@@ -186,7 +189,7 @@ class TableController extends Controller
 
 
 
-            return view('products.index',compact('requestedTable','products','categories', 'tableOrderLimit'));
+            return view('products.index',compact('requestedTable','products','categories', 'tableOrderLimit', 'current_round'));
 
         } else{
 
@@ -219,6 +222,13 @@ class TableController extends Controller
         $tableOrderLimit->total_orderd = 0;
 
         $tableOrderLimit->save();
+
+
+        $tableRound = new tableHasRound;
+        $tableRound -> table_id = $table->id;
+        $tableRound -> current_round = 1;
+        $tableRound->save();
+
 
      $allRequestCategories =  $request->category_id;
 
@@ -282,6 +292,11 @@ class TableController extends Controller
 
         $tableAssignedCategories = DB::table('table_has_category_assigned')
         ->where('table_id', $request->table_id)->delete();
+
+        // round deleting
+
+        $tableRound = tableHasRound::where('table_id', $request->table_id)->first();
+        $tableRound->delete();
 
          return back()->withErrors('Table Has been Deactivated SuccessFull');
     }

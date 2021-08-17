@@ -6,6 +6,7 @@ use App\Http\Controllers\PrintQueueController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\TableHasOrderController;
 use App\Http\Controllers\TableHasProductController;
+use App\Http\Controllers\TableHasRoundController;
 use App\Http\Controllers\TableHasServiceController;
 use App\Models\printQueue;
 use App\Models\tableHasProduct;
@@ -68,5 +69,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::post('/print-queue',[PrintQueueController::class,'store'])->name('print-queue');
     Route::get('/print-memo',[PrintQueueController::class,'index'])->name('print-memo');
+
+
+    Route::post('Roundupdate', [TableHasRoundController::class, 'Roundupdate'])->name('Roundupdate');
 
 
