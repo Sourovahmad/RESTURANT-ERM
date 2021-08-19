@@ -36,63 +36,67 @@ class PrintQueueController extends Controller
                 $settings = setting::find(1);
                 $Settingprinter = printers::find($settings->bill_printer_id);
 
+                if(!is_null($Settingprinter)){
 
-                $connector = new WindowsPrintConnector($Settingprinter->name);
-                $printer = new Printer($connector);
-
-                
-                $printer -> text($settings->website_name."\n");
-                $printer -> text($settings->address."\n");
-                $printer -> text($settings->email."\n");
-                $printer -> text($settings->phone."\n");
-                $printer -> text("-----------------------------\n");
+                    $connector = new WindowsPrintConnector($Settingprinter->name);
+                    $printer = new Printer($connector);
 
 
-                $total_price = 0;
+                    $printer -> text($settings->website_name."\n");
+                    $printer -> text($settings->address."\n");
+                    $printer -> text($settings->email."\n");
+                    $printer -> text($settings->phone."\n");
+                    $printer -> text("-----------------------------\n");
 
-                foreach($orders as $order){
 
-                    $printer -> text($order->quantity . "x    ". $order->products->name ."\n");
-                    $total_price += $order->quantity * $order->products->price;
-                    $order->delete();
+                    $total_price = 0;
+
+                    foreach($orders as $order){
+
+                        $printer -> text($order->quantity . "x    ". $order->products->name ."\n");
+                        $total_price += $order->quantity * $order->products->price;
+                        $order->delete();
+                    }
+
+                    $table = table::find($orders[0]->table_id);
+
+
+
+                    $adminOrder = new order;
+                    $adminOrder->table_name = $table->name;
+                    $adminOrder->total_amount = $total_price;
+                    $adminOrder->save();
+
+                    $tableOrderLimit = tableOrderLimit::where('table_id',$table->id)->first();
+                    $tableOrderLimit->delete();
+
+
+                    $tablehasround = tableHasRound::where('table_id', $table->id)->first();
+                    $tablehasround->delete();
+
+
+                    $tablehascategoryAssined = DB::table('table_has_category_assigned')
+                    ->where('table_id',$table->id)->delete();
+
+                    // delete table order limit
+
+
+
+
+                    $printer -> text("-----------------------------\n");
+                    $printer -> text("Total Price  : ".$total_price . "\n");
+                    $printer -> text("Thank You\n");
+
+
+
+                    $printer->cut();
+                    $printer -> close();
+
+
+                    $printQueue->delete();
+                }else{
+                    return 'Printer Not Found.Please check the Printer Setting';
                 }
-
-                $table = table::find($orders[0]->table_id);
-
-
-
-                $adminOrder = new order;
-                $adminOrder->table_name = $table->name;
-                $adminOrder->total_amount = $total_price;
-                $adminOrder->save();
-
-                $tableOrderLimit = tableOrderLimit::where('table_id',$table->id)->first();
-                $tableOrderLimit->delete();
-
-
-                $tablehasround = tableHasRound::where('table_id', $table->id)->first();
-                $tablehasround->delete();
-
-
-                $tablehascategoryAssined = DB::table('table_has_category_assigned')
-                ->where('table_id',$table->id)->delete();
-
-                // delete table order limit
-
-
-
-
-                $printer -> text("-----------------------------\n");
-                $printer -> text("Total Price  : ".$total_price . "\n");
-                $printer -> text("Thank You\n");
-
-
-
-                 $printer->cut();
-                $printer -> close();
-
-
-                $printQueue->delete();
 
 
             }

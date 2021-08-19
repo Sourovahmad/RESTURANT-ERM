@@ -107,9 +107,21 @@ class PrintersController extends Controller
     public function destroy($id)
     {
     //    find the connections and connect them with a default printers
-           $printers = printers::find($id);
-           $printers->delete();
-         return back()->withErrors("Printer Deleted Successfully");
+            if($id != 1){
+                $settings = setting::find(1);
+                if($settings->kitchen_printer_id == $id){
+                    $settings->kitchen_printer_id = 1;
+                    $settings->save();
+                }elseif($settings->bill_printer_id == $id){
+                    $settings->bill_printer_id = 1;
+                    $settings->save();
+                }
+                $printer = printers::find($id);
+                $printer->delete();
+                return back()->withErrors("Printer Deleted Successfully");
+                } else{
+                    return back()->withErrors('You Cannot Delete the Default One. only Edit');
+                }
     }
 
 
@@ -123,29 +135,35 @@ class PrintersController extends Controller
             $settings = setting::find(1);
             $printer = printers::find($settings->kitchen_printer_id);
 
-            $connector = new WindowsPrintConnector($printer->name);
-            $printer = new Printer($connector);
+            if(!is_null($printer)){
 
-            foreach($orders as $order){
-                if($table_name != $order->table->name){
-                    $table_name = $order->table->name;
+                $connector = new WindowsPrintConnector($printer->name);
+                $printer = new Printer($connector);
 
-                    $printer -> text($table_name . "\n");
+                foreach($orders as $order){
+                    if($table_name != $order->table->name){
+                        $table_name = $order->table->name;
+
+                        $printer -> text($table_name . "\n");
+                    }
+
+                    $printer -> text($order->quantity . "x    ". $order->products->name ."\n");
+                    if(!is_null($order->products->chinese_name)){
+                        $printer->text($order->products->chinese_name . "\n");
+                    }
+
                 }
+                // $printer->cut();
+                $printer -> close();
 
-                $printer -> text($order->quantity . "x    ". $order->products->name ."\n");
-                if(!is_null($order->products->chinese_name)){
-                    $printer->text($order->products->chinese_name . "\n");
+                foreach($orders as $order){
+                    $order->printed = true;
+                    $order->save();
                 }
-
+            }else{
+                return 'Printer Not Found. Please check the printer on Setting';
             }
-            // $printer->cut();
-            $printer -> close();
 
-            foreach($orders as $order){
-                $order->printed = true;
-                $order->save();
-            }
         }
         return 'success';
     }

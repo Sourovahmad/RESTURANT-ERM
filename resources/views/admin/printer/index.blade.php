@@ -142,6 +142,8 @@
                                             aria-hidden="false">
                                         </i></button>
 
+                                        @if ($printer->id != 1)
+
 
                                     <form method="POST" action="{{ route('admin.printers.destroy', $printer->id) }}"
                                         id="delete-form-{{ $printer->id }}" style="display:none; ">
@@ -162,7 +164,7 @@
 
                                         </i>
                                     </button>
-
+                                      @endif
 
 
 
