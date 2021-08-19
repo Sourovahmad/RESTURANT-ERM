@@ -9,7 +9,7 @@
             <div class="hamBurgerIcon">
                 <i onclick="theAppend()" class="fas fa-bars"></i>
             </div>
-            <x-webSiteNameComponent> </x-webSiteNameComponent>
+            <x-WebsiteNameComponent> </x-WebsiteNameComponent>
         </nav>
     </header>
 

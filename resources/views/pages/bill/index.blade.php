@@ -7,7 +7,7 @@
             <div class="hamBurgerIcon">
                 <i onclick="theAppend()" class="fas fa-bars"></i>
             </div>
-            <x-webSiteNameComponent> </x-webSiteNameComponent>
+            <x-WebsiteNameComponent> </x-WebsiteNameComponent>
         </nav>
         <div class="theTopImages">
             <img src="images/pexels-engin-akyurt-2673353.jpg" alt="">

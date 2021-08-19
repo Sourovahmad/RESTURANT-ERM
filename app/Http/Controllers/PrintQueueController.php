@@ -37,22 +37,22 @@ class PrintQueueController extends Controller
                 $Settingprinter = printers::find($settings->bill_printer_id);
 
 
-                // $connector = new WindowsPrintConnector($Settingprinter->name);
-                // $printer = new Printer($connector);
+                $connector = new WindowsPrintConnector($Settingprinter->name);
+                $printer = new Printer($connector);
 
-
-                // $printer -> text($settings->website_name."\n");
-                // $printer -> text($settings->address."\n");
-                // $printer -> text($settings->email."\n");
-                // $printer -> text($settings->phone."\n");
-                // $printer -> text("-----------------------------\n");
+                
+                $printer -> text($settings->website_name."\n");
+                $printer -> text($settings->address."\n");
+                $printer -> text($settings->email."\n");
+                $printer -> text($settings->phone."\n");
+                $printer -> text("-----------------------------\n");
 
 
                 $total_price = 0;
 
                 foreach($orders as $order){
 
-                    // $printer -> text($order->quantity . "x    ". $order->products->name ."\n");
+                    $printer -> text($order->quantity . "x    ". $order->products->name ."\n");
                     $total_price += $order->quantity * $order->products->price;
                     $order->delete();
                 }
@@ -82,14 +82,14 @@ class PrintQueueController extends Controller
 
 
 
-                // $printer -> text("-----------------------------\n");
-                // $printer -> text("Total Price  : ".$total_price . "\n");
-                // $printer -> text("Thank You\n");
+                $printer -> text("-----------------------------\n");
+                $printer -> text("Total Price  : ".$total_price . "\n");
+                $printer -> text("Thank You\n");
 
 
 
-                //  $printer->cut();
-                // $printer -> close();
+                 $printer->cut();
+                $printer -> close();
 
 
                 $printQueue->delete();
