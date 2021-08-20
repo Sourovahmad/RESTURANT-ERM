@@ -620,7 +620,7 @@
                     $('#PopupForOrderTimeRemains').addClass('theProductShow');
                 };
 
-                if(hours == 0 && minutes == 00 && seconds == 0){
+                if(hours <= 0 && minutes <= 00 && seconds <= 0){
 
                 var data = $('#form_for_round').serialize();
                 var route = '{{ route('Roundupdate') }}'.trim();

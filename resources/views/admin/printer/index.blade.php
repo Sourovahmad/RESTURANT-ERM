@@ -103,7 +103,6 @@
                             <th> #</th>
                             <th>Name</th>
                             <th>description</th>
-                            <th>Connections</th>
                             <th>Action</th>
 
                         </tr>
@@ -114,7 +113,6 @@
                             <th> #</th>
                             <th>Name</th>
                             <th>description</th>
-                            <th>Connections</th>
                             <th>Action</th>
 
                         </tr>
@@ -132,7 +130,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td class="word-break name">{{ $printer->name }}</td>
                                 <td class="word-break description">{{ $printer->description }}</td>
-                                <td class="word-break connection">work on conncetions</td>
+
 
 
 

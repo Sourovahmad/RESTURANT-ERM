@@ -106,7 +106,7 @@
 
       })(jQuery); // End of use strict
 
-       if(role_id == 2 || role_id = 1){
+       if(role_id == 2 || role_id == 1){
 
         setInterval(function() {
           $.ajax({
@@ -147,7 +147,7 @@
 
 
 
-    })
+    });
 </script>
 
     </head>
