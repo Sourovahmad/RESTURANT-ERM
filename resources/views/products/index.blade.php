@@ -675,7 +675,7 @@
 
             $.each(products, function(key) {
 
-                if (products[key].id == itemId) {
+                  if (products[key].id == itemId) {
 
                     $('#productViewName').html(products[key].name);
                     if(products[key].price == 0 || products[key].price == 00){
