@@ -164,7 +164,7 @@
 
         <!-- catagory slider code  -->
         <div class="swiper-container catagory-slider-swiper-slider mb-4">
-            <div class="swiper-wrapper">
+            <div class="">
 
                 @foreach ($categories as $category)
 
@@ -216,12 +216,16 @@
                                             <h5>
                                                 Name: <span>{{ $categoryWisedProduct->name }}</span></h5>
                                         </div>
-
+                                        @if ($categoryWisedProduct->price != 0 || $categoryWisedProduct->price != 00)
                                         <div class="productPriceAndNumber">
                                             <div class="thePrice">
-                                                <span><b>{{ $categoryWisedProduct->price }}</b></span>
+                                                <span><b>
+                                                    {{ $categoryWisedProduct->price }}
+                                                    </b>
+                                                </span>
                                             </div>
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
 
@@ -674,7 +678,12 @@
                 if (products[key].id == itemId) {
 
                     $('#productViewName').html(products[key].name);
-                    $('#productViewPrice').html(products[key].price);
+                    if(products[key].price == 0 || products[key].price == 00){
+                         $('#productViewPrice').html('');
+                    }else {
+                         $('#productViewPrice').html(products[key].price);
+                    }
+
                     $('#cart_input_for_table_product_id').val(products[key].id);
 
                     var route = '{{ route('dashboard') }}';

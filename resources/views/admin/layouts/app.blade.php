@@ -122,7 +122,7 @@
 
           });
 
-        }, 30000);
+        }, 30000);    
 
         setInterval(function() {
                   $.ajax({

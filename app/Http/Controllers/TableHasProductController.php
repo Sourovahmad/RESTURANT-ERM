@@ -162,7 +162,7 @@ class TableHasProductController extends Controller
         $currentOrderItem =  $tableOrderlimit->total_orderd;
         $tableOrderlimit->total_orderd = $currentOrderItem - $request->quantity;
         $tableOrderlimit->save();
-        return back()->withErrors('Item Deleted');
+        return $this->OrderedProducts($request);
     }
 
 

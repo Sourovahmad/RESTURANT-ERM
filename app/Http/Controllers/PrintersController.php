@@ -43,7 +43,6 @@ class PrintersController extends Controller
     {
         $request->validate([
             'name' => "required",
-            'description' => "required",
         ]);
 
         printers::create($request->only([
@@ -135,6 +134,7 @@ class PrintersController extends Controller
             $settings = setting::find(1);
             $printer = printers::find($settings->kitchen_printer_id);
 
+
             if(!is_null($printer)){
 
                 $connector = new WindowsPrintConnector($printer->name);
@@ -153,7 +153,7 @@ class PrintersController extends Controller
                     }
 
                 }
-                // $printer->cut();
+                $printer->cut();
                 $printer -> close();
 
                 foreach($orders as $order){
