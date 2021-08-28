@@ -71,6 +71,12 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
 
 
+
+
+
+
+
+    
     // printer controllers
         Route::post('/print-queue', [PrintQueueController::class, 'store'])->name('print-queue');
     Route::get('/print-memo', [PrintQueueController::class, 'index'])->name('print-memo');
