@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\table;
 use App\Models\tableHasProduct;
+use App\Models\tableHasRound;
 use App\Models\tableOrderLimit;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -133,7 +134,8 @@ class TableHasProductController extends Controller
         $requestedTable = $table;
         $table_id = $table->id;
         $tableOrderlimit = tableOrderLimit::where('table_id',$table_id)->first();
-
+        $tableRound = tableHasRound::where('table_id',$table_id)->first();
+        $current_round = $tableRound->current_round;
         $totalPrice = 0;
 
         for ($i=0; $i < $tableData->count(); $i++) {
@@ -142,7 +144,7 @@ class TableHasProductController extends Controller
             $totalPrice +=  $multiplyQuantity;
         }
 
-         return view('pages.order.index',compact('tableData','totalPrice','requestedTable','table_id', 'tableOrderlimit'));
+         return view('pages.order.index',compact('tableData','totalPrice','requestedTable','table_id', 'tableOrderlimit', 'current_round'));
 
         }else{
             return view('errors.tableNotActive');

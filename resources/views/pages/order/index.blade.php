@@ -284,6 +284,7 @@
     <form id="form_for_send_order" method="POST" action="{{ route('tableOrderStore') }}" hidden>
         @csrf
         <input type="text" name="table_id" id="table_id_for_send_order" value="{{ $table_id }}">
+        <input type="text" name="round" id="send_order_round" value="{{ $current_round }}">
         <button type="submit" id="send_order_submit_button"></button>
     </form>
 

@@ -38,19 +38,18 @@ class TableHasOrderController extends Controller
      */
     public function store(Request $request)
     {
-        $alltableProducts = tableHasProduct::all();
         $tableHasProduct = tableHasProduct::where('table_id', $request->table_id)->get();
 
-
         for ($i=0; $i < $tableHasProduct->count(); $i++) {
-            
+
             $tableHasOrder = new tableHasOrder;
             $tableHasOrder->table_id = $tableHasProduct[$i]->table_id;
             $tableHasOrder->product_id = $tableHasProduct[$i]->product_id;
             $tableHasOrder->quantity = $tableHasProduct[$i]->quantity;
+            $tableHasOrder->round = $request->round;
             $tableHasOrder->save();
 
-           $currentTableProduct = $alltableProducts->find($tableHasProduct[$i]->id);
+           $currentTableProduct = tableHasProduct::find($tableHasProduct[$i]->id);
             $currentTableProduct->delete();
 
         }

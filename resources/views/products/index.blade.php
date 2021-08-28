@@ -464,7 +464,7 @@
         @csrf
         <input type="text" name="table_id" id="cart_input_for_table_id" value="{{ $requestedTable->id }}">
         <input type="text" name="product_id" id="cart_input_for_table_product_id">
-        <input type="text" name="quantity" id="cart_input_for_table_quantity" >
+        <input type="text" name="quantity" id="cart_input_for_table_quantity">
 
     </form>
 
@@ -500,13 +500,10 @@
     <script>
 
 
-
-
         // order limit functtion start here
 
         var OrderderLimit = parseInt($('#total_order_limit').text());
         var orderdItem = parseInt($('#total_orderd_item').text());
-
 
 
 
