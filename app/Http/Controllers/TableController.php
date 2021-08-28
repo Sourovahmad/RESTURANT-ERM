@@ -297,8 +297,7 @@ class TableController extends Controller
 
     public function tableBill(Request $request)
     {
-        $orders = tableHasOrder::where('table_id',$request->table_id)->group('round')->get();
-        return $orders;
+        $orders = tableHasOrder::where('table_id',$request->table_id)->orderBy('round','asc')->get();
         $requestedTable = table::find($request->table_id);
         $tableOrderLimit = tableOrderLimit::where('table_id',$request->table_id)->first();
         $totalPrice = 0;

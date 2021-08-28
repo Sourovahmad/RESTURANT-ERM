@@ -43,13 +43,33 @@
         <div class="billTitle">
             <h2>Your Orders</h2>
         </div>
+        @foreach ($orders as $order)
 
+
+                @php
+
+            $currentOrder = $orders[0];
+            $previousOrder = $orders[0];
+                if(!$loop->first){
+                    $currentOrder = $orders[$loop->index];
+                    $previousOrder = $orders[$loop->index - 1];
+                }
+
+
+                @endphp
 
         <div class="billTitle">
-            <h4> Round 1:</h4>
+            @if ($loop->first)
+                <h4> Round 1 </h4>
+
+               @elseif ($currentOrder->round != $previousOrder->round)
+                     <h4> Round {{ $order->round }} </h4>
+            @endif
+            
+
         </div>
 
-        @foreach ($orders as $order)
+
 
         <div class="billItems">
 
