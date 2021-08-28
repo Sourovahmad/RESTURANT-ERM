@@ -869,13 +869,17 @@
         }
 
 
+    </script>
 
 
+@section('customjs')
+
+    <script>
 
           $(document).ready(function(){
 
-            $('.sliderContent').slick({
-            dots: true,
+            $('.div_for_slick_slider').slick({
+            dots: false,
             infinite: false,
             speed: 1000,
             slidesToShow: 4,
@@ -895,15 +899,15 @@
                 {
                 breakpoint: 600,
                 settings: {
-                    slidesToShow: 2,
+                    slidesToShow: 3,
                     slidesToScroll: 2
                 }
                 },
                 {
                 breakpoint: 480,
                 settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1
+                    slidesToShow: 3,
+                    slidesToScroll: 3
                 }
                 }
                 // You can unslick at a given breakpoint now by adding:
@@ -913,8 +917,11 @@
             });
             });
 
-
     </script>
+
+    @endsection
+
+
 
 
 @endsection

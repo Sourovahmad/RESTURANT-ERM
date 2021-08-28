@@ -28,7 +28,6 @@
         <script src="{{ asset('js/popper.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/custom.js') }}"></script>
-        <script src="{{ asset('js/order.js') }}"></script>
         <script type="text/javascript" src="{{ asset('slick/slick.min.js')}}"></script>
         @yield('customjs')
 
