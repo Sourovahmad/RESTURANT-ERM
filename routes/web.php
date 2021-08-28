@@ -8,6 +8,7 @@ use App\Http\Controllers\TableHasOrderController;
 use App\Http\Controllers\TableHasProductController;
 use App\Http\Controllers\TableHasRoundController;
 use App\Http\Controllers\TableHasServiceController;
+use App\Http\Controllers\testController;
 use App\Models\printQueue;
 use App\Models\tableHasProduct;
 use App\Models\tableHasService;
@@ -75,3 +76,4 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/print-memo', [PrintQueueController::class, 'index'])->name('print-memo');
     Route::get('/print-order-kitchen', [PrintersController::class, 'printOrderKitchen'])->name('print-order-kitchen');
 
+    Route::get('printer-test',[testController::class,'index']);
