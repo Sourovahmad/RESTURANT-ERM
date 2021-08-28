@@ -139,7 +139,7 @@ section.theConditionSearch .theSearch input::placeholder{
 section.theConditionSearch .condition {
   display: flex;
   justify-content: space-evenly;
-  padding: 8px 10px;
+  padding: 8px;
 }
 
 section.theConditionSearch .condition .conditionBox {
@@ -150,6 +150,10 @@ section.theConditionSearch .condition .conditionBox {
   border-right: 3px solid var(--themeCl);
   border-radius: 3px;
   padding: 0px 15px;
+}
+
+section.theConditionSearch .condition .conditionBox:last-child{
+    border-right:none;
 }
 
 section.theConditionSearch .condition .conditionBox .timeAndTitle span {
