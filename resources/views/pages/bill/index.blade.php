@@ -44,6 +44,11 @@
             <h2>Your Orders</h2>
         </div>
 
+
+        <div class="billTitle">
+            <h4> Round 1:</h4>
+        </div>
+
         @foreach ($orders as $order)
 
         <div class="billItems">

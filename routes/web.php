@@ -72,8 +72,9 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
 
     // printer controllers
-        Route::post('/print-queue', [PrintQueueController::class, 'store'])->name('print-queue');
+    Route::post('/print-queue', [PrintQueueController::class, 'store'])->name('print-queue');
     Route::get('/print-memo', [PrintQueueController::class, 'index'])->name('print-memo');
     Route::get('/print-order-kitchen', [PrintersController::class, 'printOrderKitchen'])->name('print-order-kitchen');
 
-    Route::get('printer-test',[testController::class,'index']);
+    Route::view('printer-test', 'printerTest');
+    Route::post('printerInput',[testController::class,'index'])->name('printerInput');
