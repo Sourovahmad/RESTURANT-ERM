@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
-use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
