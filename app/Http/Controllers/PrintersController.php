@@ -163,7 +163,7 @@ class PrintersController extends Controller
             }else{
                 return 'Printer Not Found. Please check the printer on Setting';
             }
-
+ 
         }
         return 'success';
     }

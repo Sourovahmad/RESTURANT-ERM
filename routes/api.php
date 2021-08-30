@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\api\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +20,10 @@ Route::middleware('auth:sanctum')->post('/user', function (Request $request) {
 });
 
 
-Route::middleware(['auth:sanctum'])->post('/check-answer', [ApiController::class, 'checkAnswer'])->name('check-answer');
+Route::get('print-kitchen-orders', [ApiController::class, 'kitchenOrders']);
+Route::get('kitchen-print-success', [ApiController::class, 'kitchenOrdersSuccess']);
+
+
+
+Route::get('memo-print' , [ApiController::class, 'memoPrint']);
+Route::get('memo-print-success',[ApiController::class, 'memoSuccess']);
