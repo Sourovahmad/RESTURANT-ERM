@@ -386,13 +386,14 @@ section.bills .billTitle h2 {
 }
 
 section.bills .billTitle h2::after {
-  content: "";
   background: var(--themeCl);
   width: 70px;
   height: 3px;
   display: block;
   margin: 8px;
 }
+
+
 
 section.bills .billItems .item {
   display: -webkit-box;

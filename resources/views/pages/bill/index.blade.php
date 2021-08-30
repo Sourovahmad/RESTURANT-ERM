@@ -7,7 +7,7 @@
             <div class="hamBurgerIcon">
                 <i onclick="theAppend()" class="fas fa-bars"></i>
             </div>
-            <x-WebsiteNameComponent> </x-WebsiteNameComponent>
+            <x-WebName> </x-WebName>
         </nav>
         <div class="theTopImages">
             <img src="images/pexels-engin-akyurt-2673353.jpg" alt="">
@@ -40,8 +40,8 @@
 
 
     <section class="bills">
-        <div class="billTitle">
-            <h2>Your Orders</h2>
+        <div class="billTitle text-center m-2">
+            <h2 class="border-bottom border-dark p-2">Your Orders</h2>
         </div>
         @foreach ($orders as $order)
 
@@ -65,7 +65,7 @@
                @elseif ($currentOrder->round != $previousOrder->round)
                      <h4> Round {{ $order->round }} </h4>
             @endif
-            
+
 
         </div>
 

@@ -300,7 +300,7 @@ class TableController extends Controller
 
         $requestedTable = table::find($request->table_id);
 
-        if($requestedTable->active_status != 1){
+        if($requestedTable->active_status == 1){
 
         $orders = tableHasOrder::where('table_id',$request->table_id)->orderBy('round','asc')->get();
         $requestedTable = table::find($request->table_id);

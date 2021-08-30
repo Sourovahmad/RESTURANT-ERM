@@ -4,9 +4,9 @@
             <x-jet-authentication-card-logo />
 
         </x-slot>
-        
+
         <div class="text-center">
-            <x-WebsiteNameComponent> </x-WebsiteNameComponent>
+            <x-WebName> </x-WebName>
         </div>
 
 
