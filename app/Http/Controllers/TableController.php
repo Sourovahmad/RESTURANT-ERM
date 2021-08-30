@@ -297,6 +297,11 @@ class TableController extends Controller
 
     public function tableBill(Request $request)
     {
+
+        $requestedTable = table::find($request->table_id);
+
+        if($requestedTable->active_status != 1){
+
         $orders = tableHasOrder::where('table_id',$request->table_id)->orderBy('round','asc')->get();
         $requestedTable = table::find($request->table_id);
         $tableOrderLimit = tableOrderLimit::where('table_id',$request->table_id)->first();
@@ -309,6 +314,9 @@ class TableController extends Controller
         }
 
         return view('pages.bill.index',compact('orders', 'totalPrice', 'requestedTable', 'tableOrderLimit'));
+        } else{
+            return view('errors.tableNotActive');
+        }
     }
 
 
