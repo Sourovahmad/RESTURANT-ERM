@@ -35,6 +35,8 @@ class ApiController extends Controller
 
                  ));
                 $table = $value->table->name;
+                $value->printed = true;
+                $value->save();
             }
             $apiOrders[$table] = $temp;
         }
@@ -51,15 +53,15 @@ class ApiController extends Controller
 
 
 
-    public function kitchenOrdersSuccess()
-    {
-        $orders = tableHasOrder::where('printed', false)->orderBy('table_id')->get();
-        foreach ($orders as $order) {
-            $order->printed = true;
-            $order->save();
-        }
-        return "success";
-    }
+    // public function kitchenOrdersSuccess()
+    // {
+    //     $orders = tableHasOrder::where('printed', false)->orderBy('table_id')->get();
+    //     foreach ($orders as $order) {
+    //         $order->printed = true;
+    //         $order->save();
+    //     }
+    //     return "success";
+    // }
 
 
     public function memoPrint()
@@ -68,12 +70,14 @@ class ApiController extends Controller
 
         $apiMemo = array();
 
+        if (!$printQueues->isEmpty()) {
+
         foreach ($printQueues as $printQueue) {
 
 
             $orders = tableHasOrder::where('table_id', $printQueue[0]->table_id)->get();
 
-            if (!$orders->isEmpty()) {
+
 
                 $total_price = 0;
                 $allOrders = array();
@@ -88,6 +92,8 @@ class ApiController extends Controller
                         "products" => $products,
 
                     ));
+
+                    $order->delete();
                 }
 
                 array_push($allOrders, array(
@@ -102,14 +108,36 @@ class ApiController extends Controller
 
 
 
-            }else{
-                return "no data";
-            }
+                $table = table::find($printQueue[0]->table_id);
+
+                $adminOrder = new order;
+                $adminOrder->table_name = $table->name;
+                $adminOrder->total_amount = $total_price;
+                $adminOrder->save();
+
+                $tableOrderLimit = tableOrderLimit::where('table_id', $table->id)->first();
+                $tableOrderLimit->delete();
+
+
+                $tablehasround = tableHasRound::where('table_id', $table->id)->first();
+                $tablehasround->delete();
+
+
+                $tablehascategoryAssined = DB::table('table_has_category_assigned')
+                ->where('table_id', $table->id)->delete();
+
+
+
+                $printQueue[0]->delete();
+
 
         }
 
         return $apiMemo;
 
+        }else{
+                return "no data";
+            }
 
     }
 
@@ -159,7 +187,6 @@ class ApiController extends Controller
 
         }
 
-        return "success";
     }
 
 

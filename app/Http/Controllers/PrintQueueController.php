@@ -131,7 +131,7 @@ class PrintQueueController extends Controller
     public function store(Request $request)
     {
         $tableHasproducts = tableHasProduct::where('table_id', $request->table_id)->get();
-        if (!is_null($tableHasproducts)) {
+        if (!$tableHasproducts->isEmpty()) {
             foreach ($tableHasproducts as $tableHasproduct) {
                 $tableHasproduct->delete();
             }

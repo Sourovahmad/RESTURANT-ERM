@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->post('/user', function (Request $request) {
 
 
 Route::get('print-kitchen-orders', [ApiController::class, 'kitchenOrders']);
-Route::get('kitchen-print-success', [ApiController::class, 'kitchenOrdersSuccess']);
+// Route::get('kitchen-print-success', [ApiController::class, 'kitchenOrdersSuccess']);
 
 
 

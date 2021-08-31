@@ -261,7 +261,8 @@ class TableController extends Controller
     {
         //this function is for if someone add to cart but did't orderd.
         $tableHasproducts = tableHasProduct::where('table_id',$request->table_id)->get();
-        if(!is_null($tableHasproducts)){
+
+        if(!$tableHasproducts->isEmpty()){
             foreach ($tableHasproducts as $tableHasproduct) {
                $tableHasproduct->delete();
             }
@@ -275,6 +276,7 @@ class TableController extends Controller
                 ->where('table_id', $request->table_id)->delete();
 
         }
+
         $orderQueeCheck = printQueue::where('table_id', $request->table_id)->get();
         if (isEmpty($orderQueeCheck)) {
             $printQueue = new printQueue;
