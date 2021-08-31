@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\order;
 use App\Models\printQueue;
+use App\Models\setting;
 use App\Models\table;
 use App\Models\tableHasOrder;
 use App\Models\tableHasRound;
@@ -16,6 +17,8 @@ class ApiController extends Controller
     public function kitchenOrders()
     {
         $orders = tableHasOrder::where('printed', false)->get()->groupBy('table_id');
+
+        if (!$orders->isEmpty()) {
         $apiOrders = array();
         foreach ($orders as $key=> $order) {
             $temp= array();
@@ -37,6 +40,11 @@ class ApiController extends Controller
         }
 
         return $apiOrders;
+
+
+        } else{
+            return "no data";
+        }
 
     }
 
@@ -108,18 +116,23 @@ class ApiController extends Controller
 
     public function memoSuccess()
     {
-        $printQueues = printQueue::all()->groupBy('table_id');
+        $printQueues = printQueue::all();
         foreach ($printQueues as $printQueue) {
 
-            $orders = tableHasOrder::where('table_id', $printQueue[0]->table_id)->get();
+
+            $orders = tableHasOrder::where('table_id', $printQueue->table_id)->get();
+
+
 
             $total_price = 0;
+
             foreach ($orders as $order) {
                 $total_price += $order->quantity * $order->products->price;
                 $order->delete();
             }
 
-            $table = table::find($orders[0]->table_id);
+
+            $table = table::find($printQueue->table_id);
 
 
 
@@ -141,10 +154,28 @@ class ApiController extends Controller
 
 
 
+            $printQueue->delete();
 
-
-            return "success";
 
         }
+
+        return "success";
+    }
+
+
+    public function WebDetails()
+    {
+        $setting = setting::find(1);
+        $details = array();
+
+        array_push($details, array(
+            "website_name" => $setting->website_name,
+            "phone" =>  $setting->phone,
+            "email" =>  $setting->email,
+            "address" =>  $setting->address,
+        ));
+
+        return $details;
+
     }
 }

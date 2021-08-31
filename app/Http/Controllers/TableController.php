@@ -259,7 +259,22 @@ class TableController extends Controller
 
     public function tableclose(Request $request)
     {
+        //this function is for if someone add to cart but did't orderd.
+        $tableHasproducts = tableHasProduct::where('table_id',$request->table_id)->get();
+        if(!is_null($tableHasproducts)){
+            foreach ($tableHasproducts as $tableHasproduct) {
+               $tableHasproduct->delete();
+            }
+            $tableOrderLimit = tableOrderLimit::where('table_id',$request->table_id)->first();
+            $tableOrderLimit->delete();
 
+            $tablehasround = tableHasRound::where('table_id',$request->table_id)->first();
+            $tablehasround->delete();
+
+            $tablehascategoryAssined = DB::table('table_has_category_assigned')
+                ->where('table_id', $request->table_id)->delete();
+
+        }
         $orderQueeCheck = printQueue::where('table_id', $request->table_id)->get();
         if (isEmpty($orderQueeCheck)) {
             $printQueue = new printQueue;
@@ -274,7 +289,7 @@ class TableController extends Controller
 
 
 
-        return back()->withErrors('Table Has been Deactivated SuccessFull');
+        return back()->withSuccess('Table Has been Deactivated SuccessFull, Collect The Memo');
     }
 
 

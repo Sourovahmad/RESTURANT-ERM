@@ -8,6 +8,7 @@ use App\Models\printQueue;
 use App\Models\setting;
 use App\Models\table;
 use App\Models\tableHasOrder;
+use App\Models\tableHasProduct;
 use App\Models\tableHasRound;
 use App\Models\tableOrderLimit;
 use Illuminate\Http\Request;
@@ -129,6 +130,23 @@ class PrintQueueController extends Controller
      */
     public function store(Request $request)
     {
+        $tableHasproducts = tableHasProduct::where('table_id', $request->table_id)->get();
+        if (!is_null($tableHasproducts)) {
+            foreach ($tableHasproducts as $tableHasproduct) {
+                $tableHasproduct->delete();
+            }
+            $tableOrderLimit = tableOrderLimit::where('table_id', $request->table_id)->first();
+            $tableOrderLimit->delete();
+
+            $tablehasround = tableHasRound::where('table_id', $request->table_id)->first();
+            $tablehasround->delete();
+
+            $tablehascategoryAssined = DB::table('table_has_category_assigned')
+            ->where('table_id', $request->table_id)->delete();
+        }
+
+
+
         $orderQueeCheck = printQueue::where('table_id', $request->table_id)->get();
         if (isEmpty($orderQueeCheck)) {
             $printQueue = new printQueue;
