@@ -27,7 +27,7 @@ class ApiController extends Controller
 
                 $chinese_name = '';
                 if (!is_null($value->products->chinese_name)) {
-                    $chinese_name = '(' . $value->products->chinese_name . ')';
+                    $chinese_name = '/' . $value->products->chinese_name;
                 }
                 $name= $value->products->name . $chinese_name;
                 array_push($temp, array("product_name" =>$name ,
@@ -35,8 +35,8 @@ class ApiController extends Controller
 
                  ));
                 $table = $value->table->name;
-                $value->printed = true;
-                $value->save();
+                // $value->printed = true;
+                // $value->save();
             }
             $apiOrders[$table] = $temp;
         }
@@ -49,19 +49,6 @@ class ApiController extends Controller
         }
 
     }
-
-
-
-
-    // public function kitchenOrdersSuccess()
-    // {
-    //     $orders = tableHasOrder::where('printed', false)->orderBy('table_id')->get();
-    //     foreach ($orders as $order) {
-    //         $order->printed = true;
-    //         $order->save();
-    //     }
-    //     return "success";
-    // }
 
 
     public function memoPrint()
@@ -140,55 +127,6 @@ class ApiController extends Controller
             }
 
     }
-
-
-    public function memoSuccess()
-    {
-        $printQueues = printQueue::all();
-        foreach ($printQueues as $printQueue) {
-
-
-            $orders = tableHasOrder::where('table_id', $printQueue->table_id)->get();
-
-
-
-            $total_price = 0;
-
-            foreach ($orders as $order) {
-                $total_price += $order->quantity * $order->products->price;
-                $order->delete();
-            }
-
-
-            $table = table::find($printQueue->table_id);
-
-
-
-            $adminOrder = new order;
-            $adminOrder->table_name = $table->name;
-            $adminOrder->total_amount = $total_price;
-            $adminOrder->save();
-
-            $tableOrderLimit = tableOrderLimit::where('table_id', $table->id)->first();
-            $tableOrderLimit->delete();
-
-
-            $tablehasround = tableHasRound::where('table_id', $table->id)->first();
-            $tablehasround->delete();
-
-
-            $tablehascategoryAssined = DB::table('table_has_category_assigned')
-            ->where('table_id', $table->id)->delete();
-
-
-
-            $printQueue->delete();
-
-
-        }
-
-    }
-
 
     public function WebDetails()
     {

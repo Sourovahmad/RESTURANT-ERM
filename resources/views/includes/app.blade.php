@@ -13,8 +13,9 @@
         <link rel="stylesheet" href="{{ asset('bootstrape/bootstrap.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('slick/slick.css') }}">
         <link rel="stylesheet" href="{{ asset('slick/slick-theme.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
-        <link rel="stylesheet" href="{{ asset('css/product.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/rakib_style.css') }}">
+
+
 
 
         @yield('customCSS')
