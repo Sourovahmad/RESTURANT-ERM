@@ -278,7 +278,7 @@ class TableController extends Controller
         }
 
         $orderQueeCheck = printQueue::where('table_id', $request->table_id)->get();
-        if (isEmpty($orderQueeCheck)) {
+        if ($orderQueeCheck->isEmpty()) {
             $printQueue = new printQueue;
             $printQueue->table_id = $request->table_id;
             $printQueue->save();
