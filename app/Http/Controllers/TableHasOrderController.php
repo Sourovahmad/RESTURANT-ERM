@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\table;
 use App\Models\tableHasOrder;
 use App\Models\tableHasProduct;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -55,6 +56,8 @@ class TableHasOrderController extends Controller
         }
 
         $table = table::find($request->table_id);
+        $table->order_limit_time = Carbon::now()->addMinutes(10);
+        $table->save();
         return redirect($table->table_url)->withSuccess('We Recived Your Order, Thank You');
 
     }

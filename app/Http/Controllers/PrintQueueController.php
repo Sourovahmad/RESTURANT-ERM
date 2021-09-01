@@ -157,6 +157,9 @@ class PrintQueueController extends Controller
         $table = table::find($request->table_id);
         $table->active_status = 2;
         $table->end_time = null;
+        if(!is_null($table->order_limit_time)){
+            $table->order_limit_time = null;
+        }
         $table->save();
         return redirect()->back()->withSuccess('Memo Printing,let The Memo Come,Then Active Again');
     }

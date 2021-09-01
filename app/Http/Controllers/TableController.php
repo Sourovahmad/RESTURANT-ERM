@@ -287,6 +287,9 @@ class TableController extends Controller
         $table = table::find($request->table_id);
         $table->active_status = 2;
         $table->end_time = null;
+        if (!is_null($table->order_limit_time)) {
+            $table->order_limit_time = null;
+        }
         $table->save();
 
 
@@ -334,6 +337,14 @@ class TableController extends Controller
         } else{
             return view('errors.tableNotActive');
         }
+    }
+
+
+    public function OrderTimeLimitupdate(Request $request)
+    {
+        $table = table::find($request->table_id);
+        $table->order_limit_time = null;
+        $table->save();
     }
 
 

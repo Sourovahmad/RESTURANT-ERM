@@ -270,7 +270,7 @@
 
                         <div class="form-group">
                             <label class="col-form-label" for="modal-update-name">Name <span style="color: red">*</span></label>
-                            <input type="text" name="name" id="modal-update-name" class="form-control">
+                            <input type="text" name="name" id="modal-update-name" class="form-control" required>
 
                         </div>
 
@@ -286,7 +286,7 @@
 
                         <div class="form-group">
                             <label class="col-form-label" for="modal-update-name">Url</label>
-                            <input type="text" name="table_url" class="form-control" id="modal-update-table-url">
+                            <input type="number" name="table_url" class="form-control" id="modal-update-table-url" required>
 
                         </div>
 

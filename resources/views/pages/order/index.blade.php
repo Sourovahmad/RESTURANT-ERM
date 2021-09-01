@@ -133,6 +133,7 @@
         @if ($tableData->count() != 0)
             <div class="theOrderButton">
                 <button class="theOrderStarter" onclick="theOrderPopUpShow()">SEND ORDER</button>
+                 <button class="buttonForLimitTimer" > <span> Again Order In</span> <span class="theOrderlimits"></span> </button>
             </div>
         @endif
 
@@ -319,8 +320,80 @@
         <input type="text" name="service" id="servieName">
     </form>
 
+    <form hidden method="POST" id="form_for_order_time_limit">
+        @csrf
+        <input type="number" name="table_id" id="table_id_for_table_time_limit" value="{{ $requestedTable->id }}" required>
+
+    </form>
 
 
+    <script>
+        // 10 minit limitaion code
+        $(document).ready(function () {
+
+        var end_limit = @json($requestedTable->order_limit_time);
+        if(end_limit !== null){
+
+        $('.theOrderStarter').hide();
+        var start = new Date(end_limit);
+
+            setInterval(function() {
+                var total_seconds = (start - new Date) / 1000;
+
+                var minutes = Math.floor(total_seconds / 60);
+                total_seconds = total_seconds % 60;
+
+                var seconds = Math.floor(total_seconds);
+
+                if(minutes <= 00 && seconds <= 0){
+
+                var data = $('#form_for_order_time_limit').serialize();
+                var route = '{{ route('OrderTimeLimitupdate') }}'.trim();
+
+                $.ajax({
+                    url: route,
+                    type: "post",
+                    data: data,
+                    success: function() {
+                        console.log('Round Updated');
+                        location.reload();
+                    },
+                    error: function(jqXHR, exception) {
+                        console.log(jqXHR);
+                    }
+                });
+
+
+                }
+
+                if (minutes < 10) {
+                    minutes = '0' + minutes;
+                }
+                if (seconds < 10) {
+                    seconds = '0' + seconds;
+                }
+
+                var html =  minutes + ':' + seconds
+                $('.theOrderlimits').text(html)
+            }, 1000);
+
+
+        }
+        else{
+
+        $('.theOrderStarter').show();
+        $('.buttonForLimitTimer').hide();
+
+
+        }
+
+
+        })
+
+
+
+
+    </script>
 
 
 
@@ -579,6 +652,7 @@
                 clearInterval(setIt);
             });
         }
+
 
 
 

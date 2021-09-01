@@ -68,6 +68,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
 
     Route::post('Roundupdate', [TableHasRoundController::class, 'Roundupdate'])->name('Roundupdate');
+    Route::post('OrderTimeLimitupdate', [TableController::class, 'OrderTimeLimitupdate'])->name('OrderTimeLimitupdate');
 
 
 

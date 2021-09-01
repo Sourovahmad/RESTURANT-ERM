@@ -52,12 +52,15 @@
                                         <h4>{{ $table->name }}</span></h4>
                                     </div>
                                     <div class="services-icon">
+
+                                        @if (!is_null($table->order_limit_time))
+
                                         <div class="icon">
-                                            <button class="btn w-100" id="table_icon_order"> <span
-                                                    class="iconify font-weight-bold"
-                                                    data-icon="fluent:service-bell-24-filled" data-inline="false"></span>
+                                            <button class="btn w-100 button_for_table_order_time_limit" data-item-id="{{ $table->id }}" id="table_icon_order"> <span class="font-weight-bold" > <i class="fas fa-ban"></i></span>
                                             </button>
                                         </div>
+
+                                        @endif
                                         <form action="{{ route('print-queue') }}" method="POST" id="printbillform-{{$table->id}}">
                                             @csrf
                                             <input type="text" name="table_id" value="{{ $table->id }}" hidden>
@@ -264,6 +267,37 @@
     </div>
 
 
+    <!-- Modal for taking times for table  -->
+    <div class="modal fade" id="table_order_time_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalCenterTitle"> Next Order In </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>This Table Can order Again in <span id="again_order_for_table"> </span>  </p>
+                    <div class="button-group">
+                        <form action="{{ route('OrderTimeLimitupdate') }}" method="POST" id="form_for_order_time_limit">
+                            @csrf
+                        <input type="number" name="table_id" id="table_time_limit_hidden_table_id" hidden>
+                        <button type="submit"  class="btn btn-success"> Reset</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
 
     <!-- Modal for taking the sure cancel the table  -->
     <div class="modal fade" id="table_close_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -366,6 +400,96 @@
 
     <script>
         $(document).ready(function() {
+
+            var tables = @json($tables);
+
+
+            $(document).on('click','.button_for_table_order_time_limit',function () {
+
+                $(this).addClass('order-time-limit-button-clicked');
+
+
+                var options = {
+                    'backdrop': 'static'
+                };
+
+                $('#table_order_time_modal').modal(options);
+
+            });
+
+
+            $('#table_order_time_modal').on('show.bs.modal', function() {
+
+                var el = $(".order-time-limit-button-clicked");
+                var itemId = el.data('item-id');
+
+                $('#table_time_limit_hidden_table_id').val(itemId);
+
+                $.each(tables , function(i,value){
+
+                    if(tables[i].id == itemId){
+
+                    var end_Order_time = tables[i].order_limit_time
+                    var start = new Date(end_Order_time);
+
+                        setInterval(function() {
+                            var total_seconds = (start - new Date) / 1000;
+
+                            var minutes = Math.floor(total_seconds / 60);
+                            total_seconds = total_seconds % 60;
+
+                            var seconds = Math.floor(total_seconds);
+
+                            if(minutes <= 00 && seconds <= 0){
+
+                            var data = $('#form_for_order_time_limit').serialize();
+                            var route = '{{ route('OrderTimeLimitupdate') }}'.trim();
+
+                            $.ajax({
+                                url: route,
+                                type: "post",
+                                data: data,
+                                success: function() {
+                                    console.log('Round Updated');
+                                    location.reload();
+                                },
+                                error: function(jqXHR, exception) {
+                                    console.log(jqXHR);
+                                }
+                            });
+
+
+                            }
+
+                            if (minutes < 10) {
+                                minutes = '0' + minutes;
+                            }
+                            if (seconds < 10) {
+                                seconds = '0' + seconds;
+                            }
+
+                            var html =  minutes + ':' + seconds
+                            $('#again_order_for_table').text(html)
+                        }, 1000);
+
+
+                    }
+
+                });
+
+
+
+            });
+
+            $('#table_order_time_modal').on('hide.bs.modal', function() {
+
+                 $(".order-time-limit-button-clicked").removeClass('order-time-limit-button-clicked');
+
+            });
+
+
+
+
             var all_services = [];
             var serviceTableId;
 
@@ -501,7 +625,7 @@
                 $('#submit_button_for_close_table').trigger('click');
             });
 
-            var tables = @json($tables);
+
 
             $.each(tables , function(i,value){
 

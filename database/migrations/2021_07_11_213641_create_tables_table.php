@@ -20,6 +20,7 @@ class CreateTablesTable extends Migration
             $table->string('table_url');
             $table->integer('active_status');
             $table->dateTime('end_time')->nullable();
+            $table->dateTime('order_limit_time')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
