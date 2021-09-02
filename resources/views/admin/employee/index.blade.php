@@ -281,7 +281,7 @@
                 <div class="modal-body">
                     <p>This Table Can order Again in <span id="again_order_for_table"> </span>  </p>
                     <div class="button-group">
-                        <form action="{{ route('OrderTimeLimitupdate') }}" method="POST" id="form_for_order_time_limit">
+                        <form action="{{ route('OrderTimeLimitupdateTwo') }}" method="POST" id="form_for_order_time_limit">
                             @csrf
                         <input type="number" name="table_id" id="table_time_limit_hidden_table_id" hidden>
                         <button type="submit"  class="btn btn-success"> Reset</button>

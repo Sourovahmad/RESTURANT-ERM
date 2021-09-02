@@ -347,5 +347,13 @@ class TableController extends Controller
         $table->save();
     }
 
+        public function OrderTimeLimitupdateTwo(Request $request)
+    {
+        $table = table::find($request->table_id);
+        $table->order_limit_time = null;
+        $table->save();
+        return back()->withSuccess('Time limit Stoped');
+    }
+
 
 }
