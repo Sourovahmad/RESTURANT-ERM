@@ -16,10 +16,6 @@ class CreateServiceProductsTable extends Migration
         Schema::create('service_products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->double('price');
-            $table->unsignedBigInteger('cost_status');
-            $table->string('image_small');
-            $table->string('image_big');
             $table->timestamps();
         });
     }

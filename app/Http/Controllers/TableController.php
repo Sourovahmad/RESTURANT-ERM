@@ -6,6 +6,7 @@ use App\Models\category;
 use App\Models\order;
 use App\Models\printQueue;
 use App\Models\product;
+use App\Models\serviceProduct;
 use App\Models\table;
 use App\Models\tableHasOrder;
 use App\Models\tableHasProduct;
@@ -170,7 +171,7 @@ class TableController extends Controller
             $tablehasround = tableHasRound::where('table_id', $requestedTable->id)->first();
             $current_round = $tablehasround->current_round;
             $products = product::where('active_status', 1)->get();
-
+            $services = serviceProduct::all();
             $tableAssignedCategories = DB::table('table_has_category_assigned')
             ->where('table_id', $requestedTable->id)->get();
 
@@ -192,7 +193,7 @@ class TableController extends Controller
 
 
 
-            return view('products.index',compact('requestedTable','products','categories', 'tableOrderLimit', 'current_round'));
+            return view('products.index',compact('requestedTable','products','categories', 'tableOrderLimit', 'current_round', 'services'));
 
         } else{
 
@@ -325,6 +326,7 @@ class TableController extends Controller
         $orders = tableHasOrder::where('table_id',$request->table_id)->orderBy('round','asc')->get();
         $requestedTable = table::find($request->table_id);
         $tableOrderLimit = tableOrderLimit::where('table_id',$request->table_id)->first();
+        $services = serviceProduct::all();
         $totalPrice = 0;
 
         for ($i = 0; $i < $orders->count(); $i++) {
@@ -333,7 +335,7 @@ class TableController extends Controller
             $totalPrice +=  $multiplyQuantity;
         }
 
-        return view('pages.bill.index',compact('orders', 'totalPrice', 'requestedTable', 'tableOrderLimit'));
+        return view('pages.bill.index',compact('orders', 'totalPrice', 'requestedTable', 'tableOrderLimit', 'services'));
         } else{
             return view('errors.tableNotActive');
         }

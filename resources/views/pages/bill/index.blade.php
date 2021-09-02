@@ -23,11 +23,11 @@
             <div class="theAppendBody">
                 <ul>
 
-                    <li class="navbar_service_need" data-service-name="need waiter"><a>IK WILL GRAAG EEN OBER</a></li>
-                    <li class="navbar_service_need" data-service-name="need bill"><a>Bill</a></li>
-                    <li class="navbar_service_need" data-service-name="need wasabi"><a>Wasabi</a></li>
-                    <li class="navbar_service_need" data-service-name="need gember"><a>GEMBER</a></li>
-                    <li class="navbar_service_need" data-service-name="need soyasauce"><a>SOYASAUS</a></li>
+                    @foreach ($services as $service)
+                            <li class="navbar_service_need" data-service-name="{{ $service->name }}"><a>{{ $service->name }}</a></li>
+                    @endforeach
+
+
 
                 </ul>
             </div>

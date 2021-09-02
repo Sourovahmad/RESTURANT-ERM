@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\serviceProduct;
 use App\Models\table;
 use App\Models\tableHasProduct;
 use App\Models\tableHasRound;
@@ -135,6 +136,7 @@ class TableHasProductController extends Controller
         $table_id = $table->id;
         $tableOrderlimit = tableOrderLimit::where('table_id',$table_id)->first();
         $tableRound = tableHasRound::where('table_id',$table_id)->first();
+        $services = serviceProduct::all();
         $current_round = $tableRound->current_round;
         $totalPrice = 0;
 
@@ -144,7 +146,7 @@ class TableHasProductController extends Controller
             $totalPrice +=  $multiplyQuantity;
         }
 
-         return view('pages.order.index',compact('tableData','totalPrice','requestedTable','table_id', 'tableOrderlimit', 'current_round'));
+         return view('pages.order.index',compact('tableData','totalPrice','requestedTable','table_id', 'tableOrderlimit', 'current_round', 'services'));
 
         }else{
             return view('errors.tableNotActive');

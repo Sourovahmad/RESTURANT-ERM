@@ -52,16 +52,27 @@
 
 
                 <a class="collapse-item" href="{{ route('admin.products.index') }}">{{__('Products')}}</a>
-
-                {{-- <a class="collapse-item" href="{{ route('admin.ServicesProducts.index') }}">{{__('Service Product')}}</a> --}}
                 <a class="collapse-item" href="{{ route('admin.categories.index') }}">{{__('Categories')}}</a>
+
 
             </div>
         </div>
     </li>
 
 
+    @endif
 
+
+
+    @if ($auth->role_id == 1 || $auth->role_id == 2)
+
+    <hr class="sidebar-divider m-1 p-0 ">
+
+    <li class="nav-item active ">
+        <a class="nav-link p-3 " href="{{ route('admin.ServicesProducts.index') }}">
+            <i class="fas fa-table "></i>
+            <span>{{ __('Service') }}</span></a>
+    </li>
 
     @endif
 

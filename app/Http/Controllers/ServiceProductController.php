@@ -40,31 +40,15 @@ class ServiceProductController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+
         $serviceProduct = new serviceProduct;
         $serviceProduct->name = $request->name;
-        $serviceProduct->price = $request->price;
-
-        if($request->price != 0){
-             $serviceProduct->cost_status = 2;
-        } else {
-             $serviceProduct->cost_status = 1;
-        }
-
-            $fileNameFull = time() . '.full.' . $request->image->getClientOriginalName();
-            $fileNameSmall = time() . '.small.' . $request->image->getClientOriginalName();
-
-            $imageSize = getimagesize($request->image);
-
-            $pictureBig = Photo::make($request->image)->fit($imageSize[0], $imageSize[1])->save('images/'.$fileNameFull);
-            $pictureSmall = Photo::make($request->image)->fit(135,225)->save('images/'.$fileNameSmall);
-
-
-            $serviceProduct->image_small = 'images/'.$fileNameSmall;
-            $serviceProduct->image_big = 'images/'.$fileNameFull;
-
-
         $serviceProduct->save();
-        return back()->withSuccess('Service Product Has been Saved');
+        return back()->withSuccess('Service Has been Saved');
 
 
     }
@@ -102,39 +86,12 @@ class ServiceProductController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'price' => 'required',
-            'cost_status' => 'required',
         ]);
 
        $serviceProduct = serviceProduct::find($request->id);
         $serviceProduct->name = $request->name;
-        $serviceProduct->price = $request->price;
-
-        if ($request->price != 0) {
-            $serviceProduct->cost_status = 2;
-        } else {
-            $serviceProduct->cost_status = 1;
-        }
-
-        if(!is_null($request->image)){
-
-            $fileNameFull = time() . '.full.' . $request->image->getClientOriginalName();
-            $fileNameSmall = time() . '.small.' . $request->image->getClientOriginalName();
-
-            $imageSize = getimagesize($request->image);
-
-            $pictureBig = Photo::make($request->image)->fit($imageSize[0], $imageSize[1])->save('images/' . $fileNameFull);
-            $pictureSmall = Photo::make($request->image)->fit(135, 225)->save('images/' . $fileNameSmall);
-
-
-            $serviceProduct->image_small = 'images/' . $fileNameSmall;
-            $serviceProduct->image_big = 'images/' . $fileNameFull;
-
-        }
-
-
         $serviceProduct->save();
-        return back()->withSuccess('Service Product Has been updated');
+        return back()->withSuccess('Service Has been updated');
 
     }
 
