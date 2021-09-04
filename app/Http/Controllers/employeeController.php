@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\category;
+use App\Models\menu;
 use App\Models\table;
 use App\Models\tableOrderLimit;
 use Illuminate\Http\Request;
@@ -20,7 +21,8 @@ class employeeController extends Controller
         $tableOrderLimits = tableOrderLimit::all();
         $tables = table::all();
         $categories = category::all();
-        return view('admin.employee.index', compact('tables', 'tableOrderLimits', 'categories'));
+        $menus = menu::all();
+        return view('admin.employee.index', compact('tables', 'tableOrderLimits', 'categories', 'menus'));
     }
 
     /**

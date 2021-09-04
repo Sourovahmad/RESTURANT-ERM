@@ -160,6 +160,9 @@
                             <input type="text" name="table_id" id="modal-hidden-table-id" hidden>
 
 
+
+                    @foreach ($menus as $menu)
+
                         <div class="row">
 
 
@@ -169,19 +172,19 @@
 
                                 <div class="input-group">
 
-                                    <span class="input-group-btn mr-2">
-                                        <button type="button" class="quantity-left-minus btn btn-outline-danger btn-number"  data-type="minus" data-field="">
+                                    <span class="input-group-btn m-2">
+                                        <button type="button" class="quantity-left-minus btn btn-outline-danger btn-number" data-item-id="{{ $menu->id }}">
                                           <span class="fas fa-minus"></span>
                                         </button>
                                     </span>
 
-                                   <span>
-                                       <b class="menu_quantity_total"></b> X  &nbsp;&nbsp;&nbsp;&nbsp;  Menu name Lorem ipsum dolor sit amet.
+                                   <span class="mt-3">
+                                       <b id="menu_quantity_total_{{ $menu->id }}"> 5</b> X  &nbsp;&nbsp;&nbsp;&nbsp; {{ $menu->name }}
                                    </span>
 
-                                <input type="text" id="quantity" name="quantity" class="form-control"  min="1" max="100" hidden>
-                                    <span class="input-group-btn ml-2">
-                                        <button type="button" class="quantity-right-plus btn btn-outline-success btn-number" data-type="plus" data-field="">
+                                <input type="text" id="quantity_{{ $menu->id }}" name="menu_id_{{ $menu->id }}" class="form-control"   min="1" max="100" hidden>
+                                    <span class="input-group-btn m-2">
+                                        <button type="button" class="quantity-right-plus btn btn-outline-success btn-number" data-item-id="{{ $menu->id }}">
                                             <span class="fas fa-plus"></span>
                                         </button>
                                     </span>
@@ -192,9 +195,9 @@
 
                         </div>
 
-                        
+                    @endforeach
 
-                        <div class="form-group">
+                        <div class="fariorm-group">
                             <button type="submit" id="table-active-submit-button"
                                 class="form-control btn btn-success mt-4">Submit</button>
                         </div>
@@ -416,6 +419,43 @@
         $(document).ready(function() {
 
             var tables = @json($tables);
+
+
+        $('.quantity-left-minus').click(function () {
+
+            $(this).addClass('cliecked_for_quantity');
+            var el = $(".cliecked_for_quantity");
+            var itemId = el.data('item-id');
+
+            currentValue = parseInt($('#menu_quantity_total_' + itemId).text()) ;
+
+            if(currentValue !== 0 || currentValue > 0){
+                var updatedValue = currentValue - 1;
+                $('#quantity_' + itemId).val(updatedValue);
+                $('#menu_quantity_total_' + itemId).html(updatedValue)
+            }
+
+            $('.cliecked_for_quantity').removeClass('cliecked_for_quantity');
+        });
+
+
+        $('.quantity-right-plus').click(function () {
+
+            $(this).addClass('cliecked_for_quantity');
+            var el = $(".cliecked_for_quantity");
+            var itemId = el.data('item-id');
+
+            currentValue = parseInt($('#menu_quantity_total_' + itemId).text()) ;
+
+            if(currentValue !== 0 || currentValue > 0){
+                var updatedValue = currentValue + 1;
+                $('#quantity_' + itemId).val(updatedValue);
+                $('#menu_quantity_total_' + itemId).html(updatedValue)
+            }
+
+            $('.cliecked_for_quantity').removeClass('cliecked_for_quantity');
+        });
+
 
 
             $(document).on('click', '.button_for_table_order_time_limit', function() {
