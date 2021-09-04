@@ -179,7 +179,7 @@
                                     </span>
 
                                    <span class="mt-3">
-                                       <b id="menu_quantity_total_{{ $menu->id }}"> 5</b> X  &nbsp;&nbsp;&nbsp;&nbsp; {{ $menu->name }}
+                                       <b id="menu_quantity_total_{{ $menu->id }}"> 0</b> X  &nbsp;&nbsp;&nbsp;&nbsp; {{ $menu->name }}
                                    </span>
 
                                 <input type="text" id="quantity_{{ $menu->id }}" name="menu_id_{{ $menu->id }}" class="form-control"   min="1" max="100" hidden>
@@ -447,11 +447,10 @@
 
             currentValue = parseInt($('#menu_quantity_total_' + itemId).text()) ;
 
-            if(currentValue !== 0 || currentValue > 0){
                 var updatedValue = currentValue + 1;
                 $('#quantity_' + itemId).val(updatedValue);
                 $('#menu_quantity_total_' + itemId).html(updatedValue)
-            }
+
 
             $('.cliecked_for_quantity').removeClass('cliecked_for_quantity');
         });
