@@ -63,6 +63,18 @@
     @endif
 
 
+        @if ($auth->role_id == 1 || $auth->role_id == 2)
+
+    <hr class="sidebar-divider m-1 p-0 ">
+
+    <li class="nav-item active ">
+        <a class="nav-link p-3 " href="{{ route('admin.menus.index') }}">
+            <i class="fas fa-table "></i>
+            <span>{{ __('Menu') }}</span></a>
+    </li>
+
+    @endif
+
 
     @if ($auth->role_id == 1 || $auth->role_id == 2)
 

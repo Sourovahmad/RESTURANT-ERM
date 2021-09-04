@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\employeeController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PrintersController;
 use App\Http\Controllers\ProductController;
@@ -37,6 +38,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
         Route::resource('ServicesProducts', ServiceProductController::class);
         Route::resource('categories', CategoryController::class);
         Route::resource('tables', TableController::class);
+        Route::resource('menus', MenuController::class);
 
     Route::post('tables/{id}',[TableController::class,'show'])->name('tableShow');
 
