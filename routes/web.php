@@ -28,6 +28,7 @@ use Mike42\Escpos\Printer;
 */
 
 
+
 Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::get('/', function () {

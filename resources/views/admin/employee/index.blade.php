@@ -55,45 +55,50 @@
 
                                         @if (!is_null($table->order_limit_time))
 
-                                        <div class="icon">
-                                            <button class="btn w-100 button_for_table_order_time_limit" data-item-id="{{ $table->id }}" id="table_icon_order"> <span class="font-weight-bold" > <i class="fas fa-ban"></i></span>
-                                            </button>
-                                        </div>
+                                            <div class="icon">
+                                                <button class="btn w-100 button_for_table_order_time_limit"
+                                                    data-item-id="{{ $table->id }}" id="table_icon_order"> <span
+                                                        class="font-weight-bold"> <i class="fas fa-ban"></i></span>
+                                                </button>
+                                            </div>
 
                                         @endif
-                                        <form action="{{ route('print-queue') }}" method="POST" id="printbillform-{{$table->id}}">
+                                        <form action="{{ route('print-queue') }}" method="POST"
+                                            id="printbillform-{{ $table->id }}">
                                             @csrf
                                             <input type="text" name="table_id" value="{{ $table->id }}" hidden>
-                                        <div class="icon">
-                                            <button type="submit" class="btn w-100" data-item-id={{ $table->id }} id="table_icon_bill-{{ $table->id}}"> <span
-                                                    class="iconify font-weight-bold"
-                                                    onclick="if(confirm('Are you sure Want To Print the bill ?')){
-            document.getElementById('printbillform-{{ $table->id }}').submit();
-           }
-           else{
-            event.preventDefault();
-           }
-           " data-icon="fa-solid:money-bill-wave"
-                                                    data-inline="false"></span> </button>
-                                        </div>
+                                            <div class="icon">
+                                                <button type="submit" class="btn w-100"
+                                                    data-item-id={{ $table->id }}
+                                                    id="table_icon_bill-{{ $table->id }}"> <span
+                                                        class="iconify font-weight-bold" onclick="if(confirm('Are you sure Want To Print the bill ?')){
+                document.getElementById('printbillform-{{ $table->id }}').submit();
+               }
+               else{
+                event.preventDefault();
+               }
+               " data-icon="fa-solid:money-bill-wave" data-inline="false"></span> </button>
+                                            </div>
                                         </form>
                                         <div class="icon  table-service-btn" data-item-id={{ $table->id }}>
-                                            <button class="btn text-dark w-100 table_icon_service" id="table_icon_service-{{ $table->id}}"> <span
+                                            <button class="btn text-dark w-100 table_icon_service"
+                                                id="table_icon_service-{{ $table->id }}"> <span
                                                     class="iconify font-weight-bold" data-icon="ion:fast-food"
                                                     data-inline="false"> </span> </button>
                                         </div>
 
                                     </div>
-                                    <div class="timer" >
-                                        <div class="hours " data-hour-id={{$table->id}}>00</div>
+                                    <div class="timer">
+                                        <div class="hours " data-hour-id={{ $table->id }}>00</div>
                                         <div class="colon "> : </div>
-                                        <div class="minutes " data-minute-id={{$table->id}}>00</div>
+                                        <div class="minutes " data-minute-id={{ $table->id }}>00</div>
                                         <div class="colon "> : </div>
-                                        <div class="second " data-second-id={{$table->id}}>00</div>
+                                        <div class="second " data-second-id={{ $table->id }}>00</div>
                                     </div>
                                 </div>
                                 <div class="edit-icon table_edit_icon" data-table-id="{{ $table->id }}"><span
-                                        class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span></div>
+                                        class="iconify" data-icon="clarity:edit-solid" data-inline="false"></span>
+                                </div>
                                 <div class="running-icon bg-danger button_for_close_table"
                                     data-table-id="{{ $table->id }}" role="button">close</div>
                             </div>
@@ -141,7 +146,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-center" id="exampleModalCenterTitle"> Customer Quantity</h5>
+                    <h5 class="modal-title text-center" id="exampleModalCenterTitle">Select Menu </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -151,40 +156,47 @@
                     <form id="formforCustomerQuantityInput" method="POST" action="{{ route('admin.tableupdate') }}">
                         @csrf
 
-                        <div class="row">
 
                             <input type="text" name="table_id" id="modal-hidden-table-id" hidden>
 
-                            <div class="col-sm-12 col-md-6">
 
-                                <label for="input-for-customer-quantity">Enter how Many Customer</label>
-                                <input type="number" class="form-control" name="customer_quantity" id="input-for-customer-quantity"
-                                    placeholder="Enter a number" required>
-
-                            </div>
+                        <div class="row">
 
 
-                            <div class="col-sm-12 col-md-6">
 
-                                <label for="category_select">Select Menu types</label>
+                            <div class="col-sm-12 col-md-12">
 
-                                <select name="category_id[]" id="category_select" class="selectpicker" multiple data-live-search="true" title="Choose one of the following.." required>
 
-                                    <option value="156000">All </option>
-                                    <div id="hider_div_for_selector">
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }} </option>
-                                    @endforeach
-                                    </div>
+                                <div class="input-group">
 
-                                </select>
+                                    <span class="input-group-btn mr-2">
+                                        <button type="button" class="quantity-left-minus btn btn-outline-danger btn-number"  data-type="minus" data-field="">
+                                          <span class="fas fa-minus"></span>
+                                        </button>
+                                    </span>
+
+                                   <span>
+                                       <b class="menu_quantity_total"></b> X  &nbsp;&nbsp;&nbsp;&nbsp;  Menu name Lorem ipsum dolor sit amet.
+                                   </span>
+
+                                <input type="text" id="quantity" name="quantity" class="form-control"  min="1" max="100" hidden>
+                                    <span class="input-group-btn ml-2">
+                                        <button type="button" class="quantity-right-plus btn btn-outline-success btn-number" data-type="plus" data-field="">
+                                            <span class="fas fa-plus"></span>
+                                        </button>
+                                    </span>
+                                </div>
+
 
                             </div>
 
                         </div>
 
+                        
+
                         <div class="form-group">
-                            <button type="submit" id="table-active-submit-button" class="form-control btn btn-success mt-4">Submit</button>
+                            <button type="submit" id="table-active-submit-button"
+                                class="form-control btn btn-success mt-4">Submit</button>
                         </div>
 
                     </form>
@@ -234,7 +246,8 @@
                                 <div class="form-group">
 
                                     <label for="edit_table_total_customer">Add extra Hour</label>
-                                    <input class="form-control" type="number" name="extra_hour" id="edit_table_extra_hour">
+                                    <input class="form-control" type="number" name="extra_hour"
+                                        id="edit_table_extra_hour">
 
                                 </div>
                             </div>
@@ -268,8 +281,8 @@
 
 
     <!-- Modal for taking times for table  -->
-    <div class="modal fade" id="table_order_time_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-        aria-hidden="true">
+    <div class="modal fade" id="table_order_time_modal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -279,13 +292,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>This Table Can order Again in <span id="again_order_for_table"> </span>  </p>
+                    <p>This Table Can order Again in <span id="again_order_for_table"> </span> </p>
                     <div class="button-group">
-                        <form action="{{ route('OrderTimeLimitupdateTwo') }}" method="POST" id="form_for_order_time_limit">
+                        <form action="{{ route('OrderTimeLimitupdateTwo') }}" method="POST"
+                            id="form_for_order_time_limit">
                             @csrf
-                        <input type="number" name="table_id" id="table_time_limit_hidden_table_id" hidden>
-                        <button type="submit"  class="btn btn-success"> Reset</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            <input type="number" name="table_id" id="table_time_limit_hidden_table_id" hidden>
+                            <button type="submit" class="btn btn-success"> Reset</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
 
                         </form>
 
@@ -339,13 +353,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                <table class="table table-striped">
+                    <table class="table table-striped">
 
-                    <tbody id="serviceModalForm">
+                        <tbody id="serviceModalForm">
 
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
 
                 </div>
 
@@ -354,7 +368,7 @@
     </div>
 
 
-        <!-- Modal for view service  -->
+    <!-- Modal for view service  -->
     <div class="modal fade" id="bill-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -366,13 +380,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                <table class="table table-striped">
+                    <table class="table table-striped">
 
-                    <tbody id="billmodalForm">
+                        <tbody id="billmodalForm">
 
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
 
                 </div>
 
@@ -404,7 +418,7 @@
             var tables = @json($tables);
 
 
-            $(document).on('click','.button_for_table_order_time_limit',function () {
+            $(document).on('click', '.button_for_table_order_time_limit', function() {
 
                 $(this).addClass('order-time-limit-button-clicked');
 
@@ -425,12 +439,12 @@
 
                 $('#table_time_limit_hidden_table_id').val(itemId);
 
-                $.each(tables , function(i,value){
+                $.each(tables, function(i, value) {
 
-                    if(tables[i].id == itemId){
+                    if (tables[i].id == itemId) {
 
-                    var end_Order_time = tables[i].order_limit_time
-                    var start = new Date(end_Order_time);
+                        var end_Order_time = tables[i].order_limit_time
+                        var start = new Date(end_Order_time);
 
                         setInterval(function() {
                             var total_seconds = (start - new Date) / 1000;
@@ -440,23 +454,23 @@
 
                             var seconds = Math.floor(total_seconds);
 
-                            if(minutes <= 00 && seconds <= 0){
+                            if (minutes <= 00 && seconds <= 0) {
 
-                            var data = $('#form_for_order_time_limit').serialize();
-                            var route = '{{ route('OrderTimeLimitupdate') }}'.trim();
+                                var data = $('#form_for_order_time_limit').serialize();
+                                var route = '{{ route('OrderTimeLimitupdate') }}'.trim();
 
-                            $.ajax({
-                                url: route,
-                                type: "post",
-                                data: data,
-                                success: function() {
-                                    console.log('Round Updated');
-                                    location.reload();
-                                },
-                                error: function(jqXHR, exception) {
-                                    console.log(jqXHR);
-                                }
-                            });
+                                $.ajax({
+                                    url: route,
+                                    type: "post",
+                                    data: data,
+                                    success: function() {
+                                        console.log('Round Updated');
+                                        location.reload();
+                                    },
+                                    error: function(jqXHR, exception) {
+                                        console.log(jqXHR);
+                                    }
+                                });
 
 
                             }
@@ -468,7 +482,7 @@
                                 seconds = '0' + seconds;
                             }
 
-                            var html =  minutes + ':' + seconds
+                            var html = minutes + ':' + seconds
                             $('#again_order_for_table').text(html)
                         }, 1000);
 
@@ -483,7 +497,7 @@
 
             $('#table_order_time_modal').on('hide.bs.modal', function() {
 
-                 $(".order-time-limit-button-clicked").removeClass('order-time-limit-button-clicked');
+                $(".order-time-limit-button-clicked").removeClass('order-time-limit-button-clicked');
 
             });
 
@@ -501,7 +515,7 @@
                     all_services = data;
                 },
                 error: function(data) {
-                console.log('error');
+                    console.log('error');
                 },
 
             });
@@ -518,8 +532,6 @@
 
                 $('#modal-hidden-table-id').val(itemId);
 
-                $(this).addClass(
-                    'edit-item-trigger-clicked-for-printer');
                 var options = {
                     'backdrop': 'static'
                 };
@@ -531,14 +543,14 @@
 
 
 
-            $('.table-service-btn').on('click',function(){
+            $('.table-service-btn').on('click', function() {
                 $(this).addClass('show-service-clicked');
                 var el = $(".show-service-clicked");
                 serviceTableId = el.data('item-id');
                 var options = {
                     'backdrop': 'static'
                 };
-                 $('#service-modal').modal(options)
+                $('#service-modal').modal(options)
 
             });
 
@@ -547,13 +559,14 @@
                 var services = all_services[parseInt(serviceTableId)];
                 var html = '';
                 var url = "{{ route('dashboard') }}" + "/remove-service/";
-                if(  Array.isArray(services) ){
-                    $.each(services,function(index,value){
+                if (Array.isArray(services)) {
+                    $.each(services, function(index, value) {
 
-                       html+=' <tr>  <td scope="row">'+value.service +'</td>';
-                       html+= '<td> <form method="POST" action="'+url +value.id +'">';
-                        html+= '    {{ csrf_field() }}';
-                        html+= ' <button type="submit" class="btn btn-danger rounded"><i class="fas fa-minus-circle"></i></button>';
+                        html += ' <tr>  <td scope="row">' + value.service + '</td>';
+                        html += '<td> <form method="POST" action="' + url + value.id + '">';
+                        html += '    {{ csrf_field() }}';
+                        html +=
+                            ' <button type="submit" class="btn btn-danger rounded"><i class="fas fa-minus-circle"></i></button>';
                         html += '</form>  </td> </tr>';
                     });
 
@@ -627,13 +640,13 @@
 
 
 
-            $.each(tables , function(i,value){
+            $.each(tables, function(i, value) {
 
                 var start = new Date(value.end_time);
 
 
                 setInterval(function() {
-                    var total_seconds = ( start - new Date  ) / 1000;
+                    var total_seconds = (start - new Date) / 1000;
 
                     var hours = Math.floor(total_seconds / 3600);
                     total_seconds = total_seconds % 3600;
@@ -643,17 +656,14 @@
 
                     var seconds = Math.floor(total_seconds);
 
-                    if(hours<10)
-                    {
-                        hours = '0'+hours;
+                    if (hours < 10) {
+                        hours = '0' + hours;
                     }
-                    if(minutes<10)
-                    {
-                        minutes = '0'+minutes;
+                    if (minutes < 10) {
+                        minutes = '0' + minutes;
                     }
-                    if(seconds<10)
-                    {
-                        seconds = '0'+seconds;
+                    if (seconds < 10) {
+                        seconds = '0' + seconds;
                     }
 
                     var selector_id = value.id;
@@ -675,13 +685,12 @@
                     success: function(data) {
 
                         all_services = data;
-                        $('.table-service-btn').each(function(index){
+                        $('.table-service-btn').each(function(index) {
                             var el = $(this);
                             var dataTableid = el.data('item-id');
-                            if(  Array.isArray(all_services[dataTableid]) ){
+                            if (Array.isArray(all_services[dataTableid])) {
                                 el.addClass('active');
-                            }
-                            else{
+                            } else {
                                 el.removeClass('active');
                             }
 
@@ -690,12 +699,12 @@
                     },
 
                     error: function(data) {
-                    console.log('error');
+                        console.log('error');
                     },
 
                 });
 
-        }, 10000);
+            }, 10000);
 
 
 

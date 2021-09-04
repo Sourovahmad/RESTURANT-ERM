@@ -206,6 +206,8 @@ class TableController extends Controller
 
     public function updateStatus(Request $request)
     {
+
+        return $request;
         $request->validate([
             'table_id' => 'required',
             'customer_quantity' => 'required',
