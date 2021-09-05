@@ -182,7 +182,7 @@
                                        <b id="menu_quantity_total_{{ $menu->id }}"> 0</b> X  &nbsp;&nbsp;&nbsp;&nbsp; {{ $menu->name }}
                                    </span>
 
-                                <input type="text" id="quantity_{{ $menu->id }}" name="menu_id_{{ $menu->id }}" class="form-control"   min="1" max="100" hidden>
+                                <input type="text" id="quantity_{{ $menu->id }}" name="{{ $menu->id }}" class="form-control"   min="1" max="100" hidden>
                                     <span class="input-group-btn m-2">
                                         <button type="button" class="quantity-right-plus btn btn-outline-success btn-number" data-item-id="{{ $menu->id }}">
                                             <span class="fas fa-plus"></span>
@@ -440,7 +440,6 @@
 
 
         $('.quantity-right-plus').click(function () {
-
             $(this).addClass('cliecked_for_quantity');
             var el = $(".cliecked_for_quantity");
             var itemId = el.data('item-id');

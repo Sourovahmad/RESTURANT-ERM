@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\menu;
 use App\Models\order;
 use App\Models\printers;
 use App\Models\printQueue;
 use App\Models\setting;
 use App\Models\table;
+use App\Models\tableHasMenu;
 use App\Models\tableHasOrder;
 use App\Models\tableHasProduct;
 use App\Models\tableHasRound;
@@ -76,8 +78,13 @@ class PrintQueueController extends Controller
                     $tablehasround->delete();
 
 
-                    $tablehascategoryAssined = DB::table('table_has_category_assigned')
-                    ->where('table_id',$table->id)->delete();
+                    $allMenu = tableHasMenu::where('table_id',$table->id)->get();
+                    foreach($allMenu as $menu){
+                        $menu->delete();
+                    }
+
+                    // $tablehascategoryAssined = DB::table('table_has_category_assigned')
+                    // ->where('table_id',$table->id)->delete();
 
                     // delete table order limit
 
@@ -141,8 +148,12 @@ class PrintQueueController extends Controller
             $tablehasround = tableHasRound::where('table_id', $request->table_id)->first();
             $tablehasround->delete();
 
-            $tablehascategoryAssined = DB::table('table_has_category_assigned')
-            ->where('table_id', $request->table_id)->delete();
+            $allMenu = tableHasMenu::where('table_id', $request->table_id)->get();
+            foreach ($allMenu as $menu) {
+                $menu->delete();
+            }
+            // $tablehascategoryAssined = DB::table('table_has_category_assigned')
+            // ->where('table_id', $request->table_id)->delete();
         }
 
 

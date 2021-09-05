@@ -7,6 +7,7 @@ use App\Models\order;
 use App\Models\printQueue;
 use App\Models\setting;
 use App\Models\table;
+use App\Models\tableHasMenu;
 use App\Models\tableHasOrder;
 use App\Models\tableHasRound;
 use App\Models\tableOrderLimit;
@@ -65,53 +66,59 @@ class ApiController extends Controller
             $orders = tableHasOrder::where('table_id', $printQueue[0]->table_id)->get();
 
 
+            if(!$orders->isEmpty()){
+                    $total_price = 0;
+                    $allOrders = array();
+                    $table = '';
+                    $allProducts = array();
+                    foreach ($orders as $order) {
 
-                $total_price = 0;
-                $allOrders = array();
-                $table = '';
-                $allProducts = array();
-                foreach ($orders as $order) {
+                        $products = $order->quantity . "x    " . $order->products->name;
+                        $total_price += $order->quantity * $order->products->price;
 
-                    $products = $order->quantity . "x    " . $order->products->name;
-                    $total_price += $order->quantity * $order->products->price;
+                        array_push($allProducts, array(
+                            "products" => $products,
 
-                    array_push($allProducts, array(
-                        "products" => $products,
+                        ));
+
+                        $order->delete();
+                    }
+
+                    array_push($allOrders, array(
+                        "products" => $allProducts,
+                        "Total Price" =>  $total_price,
 
                     ));
 
-                    $order->delete();
-                }
-
-                array_push($allOrders, array(
-                    "products" => $allProducts,
-                    "Total Price" =>  $total_price,
-
-                ));
-
-                $table = $order->table->name;
-                $apiMemo[$table] = $allOrders;
+                    $table = $orders[0]->table->name;
+                    $apiMemo[$table] = $allOrders;
 
 
 
 
-                $table = table::find($printQueue[0]->table_id);
+                    $table = table::find($printQueue[0]->table_id);
 
-                $adminOrder = new order;
-                $adminOrder->table_name = $table->name;
-                $adminOrder->total_amount = $total_price;
-                $adminOrder->save();
+                    $adminOrder = new order;
+                    $adminOrder->table_name = $table->name;
+                    $adminOrder->total_amount = $total_price;
+                    $adminOrder->save();
 
-                $tableOrderLimit = tableOrderLimit::where('table_id', $table->id)->first();
-                $tableOrderLimit->delete();
-
-
-                $tablehasround = tableHasRound::where('table_id', $table->id)->first();
-                $tablehasround->delete();
+                    $tableOrderLimit = tableOrderLimit::where('table_id', $table->id)->first();
+                    $tableOrderLimit->delete();
 
 
-                $tablehascategoryAssined = DB::table('table_has_category_assigned')
-                ->where('table_id', $table->id)->delete();
+                    $tablehasround = tableHasRound::where('table_id', $table->id)->first();
+                    $tablehasround->delete();
+
+
+                    $allMenu = tableHasMenu::where('table_id', $table->id)->get();
+                    foreach ($allMenu as $menu) {
+                        $menu->delete();
+                    }
+
+
+            }
+
 
 
 

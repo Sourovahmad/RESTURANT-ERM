@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\category;
+use App\Models\menu;
 use App\Models\order;
 use App\Models\printQueue;
 use App\Models\product;
 use App\Models\serviceProduct;
 use App\Models\table;
+use App\Models\tableHasMenu;
 use App\Models\tableHasOrder;
 use App\Models\tableHasProduct;
 use App\Models\tableHasRound;
@@ -172,25 +174,7 @@ class TableController extends Controller
             $current_round = $tablehasround->current_round;
             $products = product::where('active_status', 1)->get();
             $services = serviceProduct::all();
-            $tableAssignedCategories = DB::table('table_has_category_assigned')
-            ->where('table_id', $requestedTable->id)->get();
-
-            $Filterdcategories = [];
-            $allcategories = category::all();
-
-            if($tableAssignedCategories[0]->category_id != 156000 ){
-                for ($i=0; $i < count($tableAssignedCategories) ; $i++) {
-
-                    $currentCategoryId = $tableAssignedCategories[$i]->category_id;
-                    $resultCategory =  $allcategories->where('id', $currentCategoryId)->first();
-                    array_push($Filterdcategories, $resultCategory);
-                    $categories = $Filterdcategories;
-                }
-            }else{
-                array_push($Filterdcategories, $allcategories);
-                $categories = $Filterdcategories[0];
-            }
-
+            $categories = category::all();
 
 
             return view('products.index',compact('requestedTable','products','categories', 'tableOrderLimit', 'current_round', 'services'));
@@ -202,17 +186,57 @@ class TableController extends Controller
         }
 
 
+        // deleted category assing part
+
+        // $tableAssignedCategories = DB::table('table_has_category_assigned')
+        // ->where('table_id', $requestedTable->id)->get();
+
+        // $Filterdcategories = [];
+        // $allcategories = category::all();
+
+        // if ($tableAssignedCategories[0]->category_id != 156000) {
+        //     for ($i = 0; $i < count($tableAssignedCategories); $i++) {
+
+        //         $currentCategoryId = $tableAssignedCategories[$i]->category_id;
+        //         $resultCategory =  $allcategories->where('id', $currentCategoryId)->first();
+        //         array_push($Filterdcategories, $resultCategory);
+        //         $categories = $Filterdcategories;
+        //     }
+        // } else {
+        //     array_push($Filterdcategories, $allcategories);
+        //     $categories = $Filterdcategories[0];
+        // }
+
+
+
+
+
     }
 
     public function updateStatus(Request $request)
     {
 
-        return $request;
+
         $request->validate([
             'table_id' => 'required',
-            'customer_quantity' => 'required',
-            'category_id' => 'required',
         ]);
+
+        $data =  $request->except('_token');
+
+        $totalMenu = 0;
+        foreach($data as $key => $value){
+            if($key != 'table_id'){
+                if(!is_null($value)){
+                    $totalMenu += $value;
+
+                    $tableHasMenu = new tableHasMenu;
+                    $tableHasMenu->table_id = $request->table_id;
+                    $tableHasMenu->menu_id = $key;
+                    $tableHasMenu->quantity = $value;
+                    $tableHasMenu->save();
+                }
+            }
+        }
 
 
         $table = table::find($request->table_id);
@@ -223,8 +247,8 @@ class TableController extends Controller
 
         $tableOrderLimit = new tableOrderLimit;
         $tableOrderLimit->table_id = $table->id;
-        $tableOrderLimit->total_customer = $request->customer_quantity;
-        $tableOrderLimit->order_limit = $request->customer_quantity * 5;
+        $tableOrderLimit->total_customer = $totalMenu;
+        $tableOrderLimit->order_limit = $totalMenu * 5;
         $tableOrderLimit->total_orderd = 0;
 
         $tableOrderLimit->save();
@@ -236,26 +260,33 @@ class TableController extends Controller
         $tableRound->save();
 
 
-     $allRequestCategories =  $request->category_id;
-
-        if($allRequestCategories[0] != 156000){
-
-            for ($i=0; $i < count($allRequestCategories) ; $i++) {
-
-                DB::table('table_has_category_assigned')->insert([
-                    'table_id' => $table->id,
-                    'category_id' => $allRequestCategories[$i],
-                ]);
-            }
-        } else{
-            DB::table('table_has_category_assigned')->insert([
-                'table_id' => $table->id,
-                'category_id' => '156000',
-            ]);
-        }
 
 
-    return back()->withSuccess('table active and order limit set up success');
+        return back()->withSuccess('table active and order limit set up success');
+
+
+
+
+    //  $allRequestCategories =  $request->category_id;
+
+    //     if($allRequestCategories[0] != 156000){
+
+    //         for ($i=0; $i < count($allRequestCategories) ; $i++) {
+
+    //             DB::table('table_has_category_assigned')->insert([
+    //                 'table_id' => $table->id,
+    //                 'category_id' => $allRequestCategories[$i],
+    //             ]);
+    //         }
+    //     } else{
+    //         DB::table('table_has_category_assigned')->insert([
+    //             'table_id' => $table->id,
+    //             'category_id' => '156000',
+    //         ]);
+    //     }
+
+
+
 
     }
 
@@ -275,8 +306,12 @@ class TableController extends Controller
             $tablehasround = tableHasRound::where('table_id',$request->table_id)->first();
             $tablehasround->delete();
 
-            $tablehascategoryAssined = DB::table('table_has_category_assigned')
-                ->where('table_id', $request->table_id)->delete();
+            $allMenu = tableHasMenu::where('table_id', $request->table_id)->get();
+            foreach ($allMenu as $menu) {
+                $menu->delete();
+            }
+            // $tablehascategoryAssined = DB::table('table_has_category_assigned')
+            //     ->where('table_id', $request->table_id)->delete();
 
         }
 
