@@ -36,8 +36,8 @@ class ApiController extends Controller
 
                  ));
                 $table = $value->table->name;
-                // $value->printed = true;
-                // $value->save();
+                $value->printed = true;
+                $value->save();
             }
             $apiOrders[$table] = $temp;
         }
@@ -65,12 +65,14 @@ class ApiController extends Controller
 
             $orders = tableHasOrder::where('table_id', $printQueue[0]->table_id)->get();
 
-
             if(!$orders->isEmpty()){
+
                     $total_price = 0;
                     $allOrders = array();
                     $table = '';
                     $allProducts = array();
+
+
                     foreach ($orders as $order) {
 
                         $products = $order->quantity . "x    " . $order->products->name;
@@ -117,9 +119,26 @@ class ApiController extends Controller
                     }
 
 
+            } else{
+
+
+                    $table = table::find($printQueue[0]->table_id);
+
+                    $tableOrderLimit = tableOrderLimit::where('table_id', $table->id)->first();
+                    $tableOrderLimit->delete();
+
+
+                    $tablehasround = tableHasRound::where('table_id', $table->id)->first();
+                    $tablehasround->delete();
+
+
+                    $allMenu = tableHasMenu::where('table_id', $table->id)->get();
+                    foreach ($allMenu as $menu) {
+                        $menu->delete();
+                    }
+
+
             }
-
-
 
 
                 $printQueue[0]->delete();
