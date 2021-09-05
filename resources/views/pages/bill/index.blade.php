@@ -43,6 +43,33 @@
         <div class="billTitle text-center m-2">
             <h2 class="border-bottom border-dark p-2">Your Orders</h2>
         </div>
+
+
+     @foreach ($menus as $menu)
+
+       <div class="billTitle">
+                <h4> Menu </h4>
+
+        <div class="billItems">
+
+            <div class="item">
+                <div class="itemCount">
+                    <i>X{{ $menu->quantity }}</i>
+                </div>
+                <div class="itemName">
+                    <h5>{{ $menu->menu->name }}</h5>
+                </div>
+                <div class="totalCost">
+                    <b>${{ $menu->menu->price }}</b>
+                </div>
+            </div>
+
+
+        </div>
+        </div>
+
+     @endforeach
+
         @foreach ($orders as $order)
 
 

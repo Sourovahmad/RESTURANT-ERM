@@ -361,7 +361,6 @@ class TableController extends Controller
         if($requestedTable->active_status == 1){
 
         $orders = tableHasOrder::where('table_id',$request->table_id)->orderBy('round','asc')->get();
-        $requestedTable = table::find($request->table_id);
         $tableOrderLimit = tableOrderLimit::where('table_id',$request->table_id)->first();
         $services = serviceProduct::all();
         $totalPrice = 0;
@@ -372,7 +371,17 @@ class TableController extends Controller
             $totalPrice +=  $multiplyQuantity;
         }
 
-        return view('pages.bill.index',compact('orders', 'totalPrice', 'requestedTable', 'tableOrderLimit', 'services'));
+        $menus = tableHasMenu::where('table_id',$request->table_id)->get();
+
+        foreach($menus as $menu){
+                $multiplyMenuQuantity = $menu->quantity * $menu->menu->price;
+                $totalPrice +=  $multiplyMenuQuantity;
+        }
+
+
+
+
+        return view('pages.bill.index',compact('orders', 'totalPrice', 'requestedTable', 'tableOrderLimit', 'services', 'menus'));
         } else{
             return view('errors.tableNotActive');
         }

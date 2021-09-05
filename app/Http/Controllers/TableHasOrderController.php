@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\table;
 use App\Models\tableHasOrder;
 use App\Models\tableHasProduct;
+use App\Models\tableHasRound;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -58,6 +59,12 @@ class TableHasOrderController extends Controller
         $table = table::find($request->table_id);
         $table->order_limit_time = Carbon::now()->addMinutes(10);
         $table->save();
+
+        $tableHasRound = tableHasRound::where('table_id', $request->table_id)->first();
+        $tableHasRound->current_round = $tableHasRound->current_round + 1;
+        $tableHasRound->save();
+
+
         return redirect($table->table_url)->withSuccess('We Recived Your Order, Thank You');
 
     }

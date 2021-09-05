@@ -72,6 +72,11 @@
 
 
             @if ($tableData->count() != 0)
+
+
+            
+
+
                 @foreach ($tableData as $table)
 
 
@@ -86,7 +91,7 @@
                                 <h5 id="currentQuantity_{{ $table->id }}">{{ $table->quantity }}</h5>
                             </div>
                             <div class="plus">
-                                <button data-item-id="{{ $table->id }}"
+                                 <button data-item-id="{{ $table->id }}"
                                     data-item-price="{{ $table->products[0]->price }}"
                                     class="quantityPlusButton">+</button>
                             </div>
