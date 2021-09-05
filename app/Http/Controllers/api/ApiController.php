@@ -11,7 +11,6 @@ use App\Models\tableHasMenu;
 use App\Models\tableHasOrder;
 use App\Models\tableHasRound;
 use App\Models\tableOrderLimit;
-use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
@@ -64,14 +63,28 @@ class ApiController extends Controller
 
 
             $orders = tableHasOrder::where('table_id', $printQueue[0]->table_id)->get();
+            $allMenu = tableHasMenu::where('table_id', $printQueue[0]->table_id)->get();
+
+
+                $total_price = 0;
+                $allOrders = array();
+                $table = '';
+                $allProducts = array();
+
+                    foreach($allMenu as $menuItem){
+                        $menu = $menuItem->quantity . "x    " . $menuItem->menu->name;
+                        $total_price += $menuItem->quantity * $menuItem->menu->price;
+
+                        array_push($allProducts, array(
+                        "products" => $menu,
+
+                    ));
+
+                         $menuItem->delete();
+                    }
+
 
             if(!$orders->isEmpty()){
-
-                    $total_price = 0;
-                    $allOrders = array();
-                    $table = '';
-                    $allProducts = array();
-
 
                     foreach ($orders as $order) {
 
@@ -86,11 +99,15 @@ class ApiController extends Controller
                         $order->delete();
                     }
 
-                    array_push($allOrders, array(
-                        "products" => $allProducts,
-                        "Total Price" =>  $total_price,
 
-                    ));
+                }
+
+                array_push($allOrders, array(
+                    "products" => $allProducts,
+                    "Total Price" =>  $total_price,
+
+                ));
+
 
                     $table = $orders[0]->table->name;
                     $apiMemo[$table] = $allOrders;
@@ -112,33 +129,6 @@ class ApiController extends Controller
                     $tablehasround = tableHasRound::where('table_id', $table->id)->first();
                     $tablehasround->delete();
 
-
-                    $allMenu = tableHasMenu::where('table_id', $table->id)->get();
-                    foreach ($allMenu as $menu) {
-                        $menu->delete();
-                    }
-
-
-            } else{
-
-
-                    $table = table::find($printQueue[0]->table_id);
-
-                    $tableOrderLimit = tableOrderLimit::where('table_id', $table->id)->first();
-                    $tableOrderLimit->delete();
-
-
-                    $tablehasround = tableHasRound::where('table_id', $table->id)->first();
-                    $tablehasround->delete();
-
-
-                    $allMenu = tableHasMenu::where('table_id', $table->id)->get();
-                    foreach ($allMenu as $menu) {
-                        $menu->delete();
-                    }
-
-
-            }
 
 
                 $printQueue[0]->delete();
