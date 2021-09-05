@@ -76,7 +76,7 @@ class ApiController extends Controller
                         $total_price += $menuItem->quantity * $menuItem->menu->price;
 
                         array_push($allProducts, array(
-                        "products" => $menu,
+                        "menu" => $menu,
 
                     ));
 
