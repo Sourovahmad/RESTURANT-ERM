@@ -286,7 +286,7 @@
                         Quantity
                     </div>
                     <div class="totalPrice">
-                      <button class="ProductQuantityminusbutton btn mr-2"> <i class="fas fa-minus"></i> </button> <span class="totalProductQuantity "> 1 </span>    <button class="productaddQuanityPlus btn ml-2"><i class="fas fa-plus"></i></button>
+                      <button class="btn mr-2" onclick="quantityMinus()"> <i class="fas fa-minus p-2"></i> </button> <span class="totalProductQuantity "> 1 </span>    <button class="btn  ml-2" onclick="quantityPlus()"><i class="fas fa-plus p-2"></i></button>
                     </div>
                 </div>
 
@@ -505,29 +505,29 @@
 
         // product quantity function
 
-        var totalCurrentQuantity = parseInt($('.totalProductQuantity').text());
+        var totalCurrentQuantity = parseInt( document.querySelector('.totalProductQuantity').innerHTML);
 
         $('#cart_input_for_table_quantity').val(totalCurrentQuantity);
 
-        $('.ProductQuantityminusbutton').on('click',function () {
-            if(totalCurrentQuantity != 1){
+        function quantityMinus() {
+           if(totalCurrentQuantity != 1 ){
                 var updateProductQuantity = totalCurrentQuantity -= 1;
-               $('.totalProductQuantity').text(updateProductQuantity);
-               $('#cart_input_for_table_quantity').val(updateProductQuantity);
-            }
-        });
+                document.querySelector('.totalProductQuantity').innerHTML= updateProductQuantity;
+                document.getElementById("cart_input_for_table_quantity").value = updateProductQuantity;
 
+           }
+        }
 
-        $('.productaddQuanityPlus').on('click',function () {
-
+        function quantityPlus() {
             var limit = OrderderLimit - orderdItem;
             if(totalCurrentQuantity < limit){
                 var updateProductQuantity = totalCurrentQuantity += 1;
-               $('.totalProductQuantity').text(updateProductQuantity);
-                $('#cart_input_for_table_quantity').val(updateProductQuantity);
+               document.querySelector('.totalProductQuantity').innerHTML= updateProductQuantity;
+               document.getElementById("cart_input_for_table_quantity").value = updateProductQuantity;
             }
+        }
 
-        });
+
 
 
 
@@ -794,20 +794,7 @@
 
 
 
-        /* catagory slider here */
 
-        try {
-            var swiper = new Swiper(".catagory-slider-swiper-slider", {
-                slidesPerView: "auto",
-                spaceBetween: 10,
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
-            });
-        } catch (err) {
-            console.log(err);
-        }
 
         /* tab for catagory */
         try {
