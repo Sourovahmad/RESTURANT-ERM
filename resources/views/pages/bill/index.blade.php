@@ -66,13 +66,15 @@
 
 
         </div>
-        </div>
+    </div>
 
      @endforeach
 
         @foreach ($orders as $order)
 
+        @if ($order->products->price != 0 || $order->products->price != 00)
 
+    
                 @php
 
             $currentOrder = $orders[0];
@@ -98,6 +100,7 @@
 
 
 
+
         <div class="billItems">
 
             <div class="item">
@@ -114,7 +117,7 @@
 
 
         </div>
-
+        @endif
         @endforeach
 
 

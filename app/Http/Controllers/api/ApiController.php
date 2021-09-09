@@ -88,13 +88,15 @@ class ApiController extends Controller
 
                     foreach ($orders as $order) {
 
-                        $products = $order->quantity . "x    " . $order->products->name;
-                        $total_price += $order->quantity * $order->products->price;
+                        if($order->products->price !=0 || $order->products->price != 00){
+                            $products = $order->quantity . "x    " . $order->products->name;
+                            $total_price += $order->quantity * $order->products->price;
 
-                        array_push($allProducts, array(
-                            "products" => $products,
+                            array_push($allProducts, array(
+                                "products" => $products,
 
-                        ));
+                            ));
+                        }
 
                         $order->delete();
                     }
