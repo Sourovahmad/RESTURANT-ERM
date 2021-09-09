@@ -74,7 +74,7 @@
             @if ($tableData->count() != 0)
 
 
-            
+
 
 
                 @foreach ($tableData as $table)
@@ -83,17 +83,17 @@
                     <div class="trayItem">
                         <div class="quantity">
                             <div class="minus">
-                                <button data-item-id="{{ $table->id }}"
+                                {{-- <button data-item-id="{{ $table->id }}"
                                     data-item-price="{{ $table->products[0]->price }}"
-                                    class="quantityMinusButton">-</button>
+                                    class="quantityMinusButton">-</button> --}}
                             </div>
                             <div class="number">
                                 <h5 id="currentQuantity_{{ $table->id }}">{{ $table->quantity }}</h5>
                             </div>
                             <div class="plus">
-                                 <button data-item-id="{{ $table->id }}"
+                                 {{-- <button data-item-id="{{ $table->id }}"
                                     data-item-price="{{ $table->products[0]->price }}"
-                                    class="quantityPlusButton">+</button>
+                                    class="quantityPlusButton">+</button> --}}
                             </div>
                         </div>
 
