@@ -44,11 +44,13 @@
             <h2 class="border-bottom border-dark p-2">Your Orders</h2>
         </div>
 
+        <div class="billTitle">
+                <h4> Menu </h4>
+
+
 
      @foreach ($menus as $menu)
 
-       <div class="billTitle">
-                <h4> Menu </h4>
 
         <div class="billItems">
 
@@ -66,15 +68,16 @@
 
 
         </div>
-    </div>
+
 
      @endforeach
+         </div>
 
         @foreach ($orders as $order)
 
         @if ($order->products->price != 0 || $order->products->price != 00)
 
-    
+
                 @php
 
             $currentOrder = $orders[0];

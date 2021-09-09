@@ -227,13 +227,15 @@ class TableController extends Controller
         foreach($data as $key => $value){
             if($key != 'table_id'){
                 if(!is_null($value)){
-                    $totalMenu += $value;
+                    if($value != 0 || $value != 00){
+                        $totalMenu += $value;
+                        $tableHasMenu = new tableHasMenu;
+                        $tableHasMenu->table_id = $request->table_id;
+                        $tableHasMenu->menu_id = $key;
+                        $tableHasMenu->quantity = $value;
+                        $tableHasMenu->save();
+                    }
 
-                    $tableHasMenu = new tableHasMenu;
-                    $tableHasMenu->table_id = $request->table_id;
-                    $tableHasMenu->menu_id = $key;
-                    $tableHasMenu->quantity = $value;
-                    $tableHasMenu->save();
                 }
             }
         }
