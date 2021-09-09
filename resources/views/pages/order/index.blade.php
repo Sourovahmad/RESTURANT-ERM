@@ -88,7 +88,7 @@
                                     class="quantityMinusButton">-</button> --}}
                             </div>
                             <div class="number">
-                                <h5 id="currentQuantity_{{ $table->id }}">{{ $table->quantity }}</h5>
+                                <h5 id="currentQuantity_{{ $table->id }}">{{ $table->quantity }} X </h5>
                             </div>
                             <div class="plus">
                                  {{-- <button data-item-id="{{ $table->id }}"
