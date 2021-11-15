@@ -81,3 +81,6 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
     Route::view('printer-test', 'printerTest');
     Route::post('printerInput',[testController::class,'index'])->name('printerInput');
+
+
+    Route::view('qr-ruman', 'index');

@@ -209,8 +209,6 @@ class TableController extends Controller
 
 
 
-
-
     }
 
     public function updateStatus(Request $request)

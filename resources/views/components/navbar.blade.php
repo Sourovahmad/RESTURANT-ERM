@@ -10,7 +10,8 @@
 
             {{-- <img src="{{asset(  )}}" height="60px" alt="Logo"> --}}
 
-             <span class="h2 title d-none d-md-block text-dark " > <a class="text-dark" style="text-decoration:none;"  href="{{ route('admin.dashboard') }}">  <x-WebsiteNameComponent> </x-WebsiteNameComponent> </a> </span>
+             <span class="h2 title d-none d-md-block text-dark " > <a class="text-dark" style="text-decoration:none;"  href="{{ route('admin.dashboard') }}">
+             </a> </span>
 
 
             <!-- Topbar Navbar -->

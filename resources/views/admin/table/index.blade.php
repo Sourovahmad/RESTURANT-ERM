@@ -135,7 +135,7 @@
 
 
                                     @if ($table->active_status == 1)
-
+                                    
                                      <span class="font-weight-bold text-success"> Active</span>
 
                                     @else
