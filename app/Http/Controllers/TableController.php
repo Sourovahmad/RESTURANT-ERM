@@ -13,8 +13,10 @@ use App\Models\tableHasMenu;
 use App\Models\tableHasOrder;
 use App\Models\tableHasProduct;
 use App\Models\tableHasRound;
+use App\Models\tableHasService;
 use App\Models\tableOrderLimit;
 use Carbon\Carbon;
+use Database\Seeders\TableHasOrderSeeder;
 use finfo;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -293,6 +295,26 @@ class TableController extends Controller
 
     public function tableclose(Request $request)
     {
+        
+ 
+        $orders = tableHasOrder::where('table_id',$request->table_id)->orderBy('round','asc')->get();
+        $totalPrice = 0;
+
+        for ($i = 0; $i < $orders->count(); $i++) {
+
+            $multiplyQuantity = $orders[$i]->quantity * $orders[$i]->products->price;
+            $totalPrice +=  $multiplyQuantity;
+        }
+
+        $table = table::find($request->table_id);
+
+
+        $orders = new order;
+        $orders->table_name = $table->name;
+        $orders->total_amount = $totalPrice;
+        $orders->save();
+
+
         //this function is for if someone add to cart but did't orderd.
         $tableHasproducts = tableHasProduct::where('table_id',$request->table_id)->get();
 
@@ -300,20 +322,32 @@ class TableController extends Controller
             foreach ($tableHasproducts as $tableHasproduct) {
                $tableHasproduct->delete();
             }
-            $tableOrderLimit = tableOrderLimit::where('table_id',$request->table_id)->first();
-            $tableOrderLimit->delete();
-
-            $tablehasround = tableHasRound::where('table_id',$request->table_id)->first();
-            $tablehasround->delete();
-
-            $allMenu = tableHasMenu::where('table_id', $request->table_id)->get();
-            foreach ($allMenu as $menu) {
-                $menu->delete();
-            }
-            // $tablehascategoryAssined = DB::table('table_has_category_assigned')
-            //     ->where('table_id', $request->table_id)->delete();
-
         }
+
+        $allMenu = tableHasMenu::where('table_id', $request->table_id)->get();
+        foreach ($allMenu as $menu) {
+            $menu->delete();
+        }
+
+        $allOrders = tableHasOrder::where('table_id', $request->table_id)->get();
+        foreach ($allOrders as $orderr) {
+            $orderr->delete();
+        }
+
+        $tablehasround = tableHasRound::where('table_id',$request->table_id)->first();
+        $tablehasround->delete();
+
+
+        $allServices = tableHasService::where('table_id', $request->table_id)->get();
+        foreach ($allServices as $allService) {
+            $allService->delete();
+        }
+
+
+        $tableOrderLimit = tableOrderLimit::where('table_id',$request->table_id)->first();
+        $tableOrderLimit->delete();
+
+     
 
         $orderQueeCheck = printQueue::where('table_id', $request->table_id)->get();
         if ($orderQueeCheck->isEmpty()) {
@@ -322,7 +356,7 @@ class TableController extends Controller
             $printQueue->save();
         }
 
-        $table = table::find($request->table_id);
+        
         $table->active_status = 2;
         $table->end_time = null;
         if (!is_null($table->order_limit_time)) {
