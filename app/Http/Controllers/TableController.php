@@ -306,6 +306,14 @@ class TableController extends Controller
             $totalPrice +=  $multiplyQuantity;
         }
 
+        $menus = tableHasMenu::where('table_id',$request->table_id)->get();
+
+        foreach($menus as $menu){
+                $multiplyMenuQuantity = $menu->quantity * $menu->menu->price;
+                $totalPrice +=  $multiplyMenuQuantity;
+        }
+
+
         $table = table::find($request->table_id);
 
 
